@@ -1,0 +1,63 @@
+$main-path-font: '../assets/fonts/NotoSans/';
+$main-name-font: 'NotoSans';
+$main-fullname-font: 'NotoSans';
+
+@font-face {
+  font-family: $main-fullname-font;
+  src: url("#{$main-path-font+$main-name-font+ '-Bold.ttf'}") format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: $main-fullname-font;
+  src: url("#{$main-path-font+$main-name-font+ '-BoldItalic.ttf'}") format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: $main-fullname-font;
+  src: url("#{$main-path-font+$main-name-font+ '-Regular.ttf'}") format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: $main-fullname-font;
+  src: url("#{$main-path-font+$main-name-font+ '-Italic.ttf'}") format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+$alternative-path-font: '../assets/fonts/ranga/';
+$alternative-name-font: 'Ranga';
+$alternative-fullname-font: 'Ranga';
+
+
+@font-face {
+  font-family: $alternative-fullname-font;
+  src: url("#{$alternative-path-font+$alternative-name-font+ '-Bold.ttf'}") format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: $alternative-fullname-font;
+  src: url("#{$alternative-path-font+$alternative-name-font+ '-Regular.ttf'}") format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+$font-family-base: $main-name-font, arial, helvetica, sans-serif;
+$font-alternative: $alternative-name-font, $main-name-font, arial, helvetica, sans-serif;
+$font-weight-base: 500;
+
+$font-size-base: 12px;
+$font-md: $font-size-base;
+$font-xxs: .7em;
+$font-xs: .8em;
+$font-sm: .9em;
+$font-lg: 1.2em;
+$font-xl: 1.6em;
+$font-xxl: 2em;
