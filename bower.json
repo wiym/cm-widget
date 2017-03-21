@@ -1,0 +1,24 @@
+{
+  "name": "test-feedback",
+  "authors": [
+    "Erwan LUMBROSO <erwan.lumbroso@atinternet.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "at-feedback": "^0.0.4"
+  },
+  "dependencies": {
+    "at-feedback": "^0.0.12"
+  }
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="bower_components/indy/src/indy.css">
+
+</head>
+<body class="ats-body">
+  <div class="ats-ui">
+
+    <div class="ats-main-content">
+      <div>
+        <h1>fsfjsdf</h1>
+        <p>
+          fdslkjfsdkjh
+        </p>
+      </div>
+
+      <div>
+        <h2>
+          fkdsjfjksdhf
+        </h2>
+
+        <p>
+          fdslfkdshkjdsh
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" class="indy-button indy-button--primary indy-button--feedback">Have a feedback?</a>
+
+<div id="indy-w-container" class="indy-w-container">
+  <div class="indy-w-header">
+    Indiana
+  </div>
+
+  <div class="indy-form-group">
+    <div class="indy-label indy-label--light">
+      How do you feel ?
+    </div>
+    <div class="indy-w-sentiment">
+      
+    </div>
+  </div>
+
+  <div class="indy-form-group">
+    <div class="indy-label indy-label--light">
+      Your feedback
+    </div>
+    <div>
+      <textarea name="" id="" rows="3" class="indy-input">
+
+      </textarea>
+    </div>
+
+  </div>
+
+  <div class="indy-w-footer">
+    <a href="#" class="indy-button indy-button--primary indy-button--small">close</a>
+    <a href="#" class="indy-button indy-button--success indy-button--small">send the feedback</a>
+  </div>
+</div>
+
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+  <script src="bower_components/firebase/firebase.js"></script>
+  <script src="bower_components/html2canvas/build/html2canvas.js"></script>
+  <script src="bower_components/indy/src/indy.js"></script>
+
+  <script>
+
+  indy.init({
+        applicationName: 'Explorer',
+        tags : ['userinsight', 'explorer'],
+        version: ['alpha'],
+        email: 'erwan.lumbroso@atinternet.com',
+        notificationSlack: false,
+        userID: '123456',
+        channelSlack: 'as2',
+        divToCapture : '.ats-main-content',
+        divToAppend: '.ats-ui',
+    });
+  </script>
+</body>
+</html>
