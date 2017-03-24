@@ -204,7 +204,7 @@
                 data.capture = screenshot;
                 sendToAPI(data, function (err) {
                     if (!err) {
-                        showNotification('successFeedback');
+                        //showNotification('successFeedback');
                         actionClosePopup();
                     }
                     else {
@@ -395,7 +395,7 @@
                         $('[data-step-feedback="1"]').css('display', 'block');
                         $('[data-step-feedback="1"]').removeClass('is-hide');
                     }, 500);
-                }, 1500);
+                }, 2000);
 
 
                 actionSendPopup();
