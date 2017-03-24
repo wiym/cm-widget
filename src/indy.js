@@ -260,6 +260,7 @@
 
 
         data['applicationName'] = userConfig.applicationName;
+        console.log(data);
         $.post(apiUrl, data)
             .then(function () {
                 callback(null)
