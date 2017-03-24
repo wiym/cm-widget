@@ -3,7 +3,7 @@
 
     var userConfig;
     var tagToAdd, version, application;
-    var apiUrl = 'https://20pgh5r6fi.execute-api.eu-west-1.amazonaws.com/dev/feedbacks/456'
+    var apiUrl = 'https://20pgh5r6fi.execute-api.eu-west-1.amazonaws.com/dev/feedbacks/team'
 
     var options = {};
     options.panelTitle = 'Feedback';
