@@ -3,7 +3,7 @@
 
     var userConfig;
     var tagToAdd, version, application;
-    var apiUrl = 'https://20pgh5r6fi.execute-api.eu-west-1.amazonaws.com/dev/feedbacks/123'
+    var apiUrl = 'https://20pgh5r6fi.execute-api.eu-west-1.amazonaws.com/dev/feedbacks/456'
 
     var options = {};
     options.panelTitle = 'Feedback';
@@ -260,12 +260,55 @@
 
 
         data['applicationName'] = userConfig.applicationName;
-        console.log(data);
-        $.post(apiUrl, data)
-            .then(function () {
-                callback(null)
-            }).catch(callback);
 
+        /*
+         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+         xmlhttp.open("POST", apiUrl);
+         xmlhttp.setRequestHeader("Content-Type", "application/json");
+         xmlhttp.send(JSON.stringify(data));
+         */
+        console.log(data);
+        var mydata = {
+            noteGlobale: data.noteGlobale,
+            browser: data.browser,
+            email: data.email,
+            capture: data.capture,
+            description: data.description,
+            url: data.url,
+            applicationName: data.applicationName
+
+        };
+
+        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+        xmlhttp.open("POST", apiUrl);
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify(mydata));
+/*
+        $.ajax({
+            type: 'post',
+            url: apiUrl,
+            data: JSON.stringify(mydata),
+            contentType: "application/json",
+            xhrFields: {
+                withCredentials: false
+            },
+            headers: {},
+            dataType: 'json',
+            success: function (data) {
+                console.log('Success');
+                console.log(data);
+            },
+            error: function () {
+                console.log('We are sorry but our servers are having an issue right now');
+            }
+        });
+
+*/
+        /* $.post(apiUrl, data)
+         .then(function () {
+         callback(null)
+         }).catch(callback);
+         */
         /*
          var newFeedback = database.push(data,function() {
          $('[data-input="comment"]').val('');
