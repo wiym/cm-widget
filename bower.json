@@ -15,11 +15,7 @@
     "test",
     "tests"
   ],
-  "resolutions": {
-    "at-feedback": "^0.0.4"
-  },
   "dependencies": {
-    "at-feedback": "^0.0.12",
     "jquery": "^3.2.1",
     "html2canvas": "^0.4.1"
   }
