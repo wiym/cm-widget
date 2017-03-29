@@ -1,4 +1,4 @@
-(function ($) {
+(function () {
 
 
     var userConfig;
@@ -29,14 +29,14 @@
         '<div class="indy-w-header">' +
         'Indiana' +
         '</div>' +
-        '<div data-step-feedback="1">' +
+        '<div data-step-feedback="1" class="step-feedback-1">' +
         '<div class="indy-form-group">' +
         '<div class="indy-label indy-label--light">' +
         'How do you feel ?' +
         '</div>' +
         '<div class="indy-w-sentiment">' +
         '<div class="indy-btn-group">' +
-        '<a class="indy-btn-group-item  indy-btn-group-item--inactive" data-note="-2" data-input="note" title="' + options.trad1 + '">' +
+        '<a class="indy-btn-group-item  indy-btn-group-item--inactive indy-note indy-note--2" data-note="-2" data-input="note" title="' + options.trad1 + '">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'crying' +
@@ -51,7 +51,7 @@
         '</g>' +
         '</svg>' +
         '</a>' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive" data-input="note" data-note="-1" title="' + options.trad2 + '">' +
+        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note--1" data-input="note" data-note="-1" title="' + options.trad2 + '">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'crying-1' +
@@ -68,7 +68,7 @@
         '</g>' +
         '</svg>' +
         '</a>' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive" data-input="note" data-note="0" title="' + options.trad3 + '">' +
+        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-0" data-input="note" data-note="0" title="' + options.trad3 + '">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'neutral' +
@@ -84,7 +84,7 @@
         '</g>' +
         '</svg>' +
         '</a>' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive" data-input="note" data-note="1" title="' + options.trad4 + '">' +
+        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-1" data-input="note" data-note="1" title="' + options.trad4 + '">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'happy-1' +
@@ -101,7 +101,7 @@
         '</g>' +
         '</svg>' +
         '</a>' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive" data-input="note" data-note="2" title="' + options.trad5 + '">' +
+        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-2" data-input="note" data-note="2" title="' + options.trad5 + '">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'in-love' +
@@ -128,15 +128,15 @@
         'Your feedback' +
         '</div>' +
         '<div>' +
-        '<textarea name="" id="" rows="3" class="indy-input"></textarea>' +
+        '<textarea name="" id="" rows="3" class="indy-input indy-comment"></textarea>' +
         '</div>' +
         '</div>' +
         '<div class="indy-w-footer">' +
-        '<a href="#" class="indy-button indy-button--primary indy-button--small" data-action="closeFeedback">close</a>' +
-        '<a href="#" class="indy-button indy-button--success indy-button--small" data-action="sendFeedback">send the feedback</a>' +
+        '<a href="#" class="indy-button indy-button--primary indy-button--small indy-close-feedback"  data-action="closeFeedback">close</a>' +
+        '<a href="#" class="indy-button indy-button--success indy-button--small indy-send-feedback" data-action="sendFeedback">send the feedback</a>' +
         '</div>' +
         '</div>' +
-        '<div data-step-feedback="success" class="indy-center">' +
+        '<div data-step-feedback="success" class="indy-center indy-feedback-success">' +
         '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'Success' +
@@ -147,44 +147,91 @@
         '</div>' +
         '</div>';
 
+    var gec = function (id, array) {
+        id = id.replace('\.', '');
+        var e = document.getElementsByClassName(id);
+        if (array) {
+            return e
+        }
+        else {
+            return e[0] || {};
+        }
+    };
+    var addEvent = function (element, evtType, callback, capture) {
+        if (element.addEventListener instanceof Function) {
+            element.addEventListener(evtType, callback, capture);
+        }
+        else {
+            element.attachEvent('on' + evtType, callback);
+        }
+    };
+
+    var addElem = function (elemType, attrs, elemText, parent) {
+        parent = parent || document.body;
+        var b = document.createElement(elemType);
+        if (attrs) {
+            for (var a in attrs) {
+                b[a] = attrs[a];
+            }
+        }
+        if (elemText) {
+            b.innerHTML = elemText;
+        }
+        parent.appendChild(b);
+        return b;
+    };
+    var addClass = function (element, className) {
+        if (element.className && element.className.indexOf(className) == -1) {
+            element.className += ' ' + className;
+        }
+
+        return element;
+    };
+    var removeClass = function (element, className) {
+        if (element.className && element.className.indexOf(className) !== -1) {
+            element.className = element.className.replace(className, '');
+        }
+
+        return element;
+    };
+
     function addActionPopup() {
-        $('[data-action="openFeedback"]').on('click', function () {
-            actionOpenPopup();
-        })
+        addEvent(gec('indy-button--feedback'), 'click', actionOpenPopup)
     }
 
     function actionOpenPopup() {
-        //$('body').append(popupTpl);
 
-        $('[data-action="openFeedback"]').addClass('is-hide');
+        addClass(gec('indy-button--feedback'), 'is-hide');
+        addClass(gec('indy-w-container'), 'indy-w-container--open');
 
-        $('[data-popup="feedback"]').addClass('indy-w-container--open');
+        addClass(gec('indy-feedback-success'), 'is-hide');
 
-        $('[data-step-feedback="success"]').addClass('is-hide');
 
-        $('[data-input="email"]').focus();
+        //gec('indy-input-email').focus();
 
-        $('[data-input="note"]').on('click', function () {
-            $('[data-input="note"]').addClass('indy-btn-group-item--inactive');
-            $(this).removeClass('indy-btn-group-item--inactive');
-
-            note = Number($(this).attr('data-note'));
+        //TODO
+        var notes = gec('indy-note', true);
+        notes = Array.prototype.slice.call(notes);
+        notes.map(function (n) {
+            addEvent(n, 'click', function (e) {
+                note = Number(n.className.match(/indy-note-([\-\d]+)/)[1]);
+            })
         });
 
-        $('[data-action="closeFeedback"]').on('click', function () {
-            actionClosePopup();
-        });
 
+        addEvent(gec('indy-close-feedback'), 'click', actionClosePopup)
 
     }
 
     function actionClosePopup() {
-        $('[data-popup="feedback"]').removeClass('indy-w-container--open');
-        $('[data-action="openFeedback"]').removeClass('is-hide');
+        addClass(gec('indy-w-container'), 'is-hide');
+        removeClass(gec('indy-w-container'), 'indy-w-container--open');
+        removeClass(gec('indy-button--feedback'), 'is-hide');
+
     }
 
     function actionSendPopup() {
-        comment = $('[data-input="comment"]').val();
+        comment = gec('indy-comment').value;
 
         if (note === '' && comment === '') {
             console.log('Veuillez noter votre expérience et saisir votre feedback.')
@@ -219,16 +266,31 @@
     }
 
     function getScreenShot(callback) {
-        html2canvas($(userConfig.divToCapture), {
+        html2canvas(gec(userConfig.divToCapture), {
             onrendered: function (canvas) {
                 base64 = canvas.toDataURL();
                 callback(base64);
-
             }
         });
     }
 
-    function sendToAPI(data, callback) {
+    function getBrowser() {
+        var ua = navigator.userAgent, tem,
+            M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+        if (/trident/i.test(M[1])) {
+            tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+            return 'IE ' + (tem[1] || '');
+        }
+        if (M[1] === 'Chrome') {
+            tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+            if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+        }
+        M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
+        if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
+        return M.join(' ');
+    }
+
+    function sendToAPI(data) {
 
 
         data['timestamp'] = new Date().getTime();
@@ -236,21 +298,7 @@
 
         data['url'] = window.location.href;
 
-        data['browser'] = (function () {
-            var ua = navigator.userAgent, tem,
-                M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-            if (/trident/i.test(M[1])) {
-                tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
-                return 'IE ' + (tem[1] || '');
-            }
-            if (M[1] === 'Chrome') {
-                tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
-                if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
-            }
-            M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-            if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
-            return M.join(' ');
-        })();
+        data['browser'] = getBrowser();
 
         tagToAdd = 'test-tag';
         application = 'test-application';
@@ -261,13 +309,7 @@
 
         data['applicationName'] = userConfig.applicationName;
 
-        /*
-         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-         xmlhttp.open("POST", apiUrl);
-         xmlhttp.setRequestHeader("Content-Type", "application/json");
-         xmlhttp.send(JSON.stringify(data));
-         */
-        console.log(data);
+
         var mydata = {
             noteGlobale: data.noteGlobale,
             browser: data.browser,
@@ -276,54 +318,13 @@
             description: data.description,
             url: data.url,
             applicationName: data.applicationName
-
         };
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
         xmlhttp.open("POST", apiUrl);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
         xmlhttp.send(JSON.stringify(mydata));
-/*
-        $.ajax({
-            type: 'post',
-            url: apiUrl,
-            data: JSON.stringify(mydata),
-            contentType: "application/json",
-            xhrFields: {
-                withCredentials: false
-            },
-            headers: {},
-            dataType: 'json',
-            success: function (data) {
-                console.log('Success');
-                console.log(data);
-            },
-            error: function () {
-                console.log('We are sorry but our servers are having an issue right now');
-            }
-        });
 
-*/
-        /* $.post(apiUrl, data)
-         .then(function () {
-         callback(null)
-         }).catch(callback);
-         */
-        /*
-         var newFeedback = database.push(data,function() {
-         $('[data-input="comment"]').val('');
-         $('.indy-btn-group-item').addClass('indy-btn-group-item--inactive');
-         });
-
-         $.each(userConfig.tags, function(i,v) {
-         database.child(newFeedback.key).child('/tags').push({name: v});
-         })
-
-         $.each(userConfig.version, function(i,v) {
-         database.child(newFeedback.key).child('/tags').push({name: v});
-         })
-         */
-        // SEND TO SLACK
 
         return true;
 
@@ -342,13 +343,16 @@
     }
 
     function showNotification(type) {
-        $('[data-type-notification="' + type + '"]').addClass('fadeInUp is-shown');
-        setTimeout(function () {
-            $('[data-type-notification="' + type + '"]').addClass('fadeOutDown').removeClass('fadeInUp');
-        }, 5000);
-        setTimeout(function () {
-            $('[data-type-notification="' + type + '"]').removeClass('fadeOutDown is-shown').removeClass('fadeInUp');
-        }, 7000);
+        /*
+         TODO
+         $('[data-type-notification="' + type + '"]').addClass('fadeInUp is-shown');
+         setTimeout(function () {
+         $('[data-type-notification="' + type + '"]').addClass('fadeOutDown').removeClass('fadeInUp');
+         }, 5000);
+         setTimeout(function () {
+         $('[data-type-notification="' + type + '"]').removeClass('fadeOutDown is-shown').removeClass('fadeInUp');
+         }, 7000);
+         */
     }
 
     window.indy = {
@@ -362,38 +366,44 @@
              });
              */
             userConfig = config;
-            $('[data-action="closeNotification"]').on('click', function () {
-                $(this).addClass('fadeOutDown');
-                $(this).removeClass('fadeInUp');
+
+            addElem('span', {}, btnPopupTpl);
+            addElem('span', {}, popupTpl);
+            addEvent(gec('indy-close-feedback'), 'click', function () {
+                addClass(gec('indy-close-feedback'), 'fadeOutDown');
+                removeClass(gec('indy-close-feedback'), 'fadeInUp');
 
                 setTimeout(function () {
-                    $(this).removeClass('fadeOutDown is-shown');
-                    $(this).removeClass('fadeInUp');
+                    removeClass(gec('indy-close-feedback'), 'fadeOutDown');
+                    removeClass(gec('indy-close-feedback'), 'is-shown');
+                    removeClass(gec('indy-close-feedback'), 'fadeInUp');
+
                 }, 7000);
             });
-            $(document.body).append(btnPopupTpl);
-            $(document.body).append(popupTpl);
             addActionPopup();
-
-            $('[data-action="sendFeedback"]').on('click', function (event) {
+            addEvent(gec('indy-send-feedback'), 'click', function (event) {
                 event.stopPropagation();
                 event.preventDefault();
-                $('[data-step-feedback="1"]').addClass('is-hide');
+
+                addClass(gec('step-feedback-1'), 'is-hide');
+
 
                 setTimeout(function () {
-                    $('[data-step-feedback="1"]').css('display', 'none');
+                    gec('step-feedback-1').style.display = 'none';
                 }, 100);
 
                 setTimeout(function () {
-                    $('[data-step-feedback="success"]').removeClass('is-hide');
+                    removeClass(gec('indy-feedback-success', 'is-hide'));
                 }, 100);
 
                 setTimeout(function () {
                     actionClosePopup();
                     setTimeout(function () {
-                        $('[data-step-feedback="success"]').addClass('is-hide');
-                        $('[data-step-feedback="1"]').css('display', 'block');
-                        $('[data-step-feedback="1"]').removeClass('is-hide');
+                        addClass(gec('indy-feedback-success', 'is-hide'));
+
+                        gec('step-feedback-1').style.display = 'block';
+                        removeClass(gec('step-feedback-1', 'is-hide'));
+
                     }, 500);
                 }, 2000);
 
@@ -403,4 +413,4 @@
         }
     }
 
-}(window.jQuery));
+}());
