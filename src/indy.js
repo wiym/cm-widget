@@ -10,7 +10,7 @@
     options.labelBtnPopup = 'Have a feedback?';
     options.labelHeaderPopup = 'Send a feedback';
     options.labelDescPopup = 'How would you rate your experience on our tool?';
-    options.labelNotation = 'Note your experience - required';
+    options.labelNotation = 'How do you feel  - required';
     options.labelComment = 'Explain your feedback - required';
     options.labelEmail = 'Email';
     options.labelBtnSend = 'Send feedback';
@@ -32,7 +32,15 @@
         '<div data-step-feedback="1" class="step-feedback-1">' +
         '<div class="indy-form-group">' +
         '<div class="indy-label indy-label--light">' +
-        'How do you feel ?' +
+        options.labelEmail +
+        '<div>' +
+        '<input type="email" class="indy-input">'+
+        '</div>'+
+        '</div>' +
+        '</div>'+
+        '<div class="indy-form-group">' +
+        '<div class="indy-label indy-label--light">' +
+        options.labelNotation +
         '</div>' +
         '<div class="indy-w-sentiment">' +
         '<div class="indy-btn-group">' +
