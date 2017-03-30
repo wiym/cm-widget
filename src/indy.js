@@ -212,9 +212,13 @@
         //TODO
         var notes = gec('indy-note', true);
         notes = Array.prototype.slice.call(notes);
+
         notes.map(function (n) {
             addEvent(n, 'click', function (e) {
                 note = Number(n.className.match(/indy-note-([\-\d]+)/)[1]);
+                addClass(gec('indy-note'), 'indy-btn-group-item--inactive');
+                removeClass(n, 'indy-btn-group-item--inactive');
+                console.log(note);
             })
         });
 
