@@ -317,7 +317,8 @@
             capture: data.capture,
             description: data.description,
             url: data.url,
-            applicationName: data.applicationName
+            applicationName: data.applicationName,
+            source: 'widget'
         };
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
