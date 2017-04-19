@@ -278,7 +278,7 @@
     }
 
     function getScreenShot(callback) {
-        html2canvas(gec('.ats-body'), {
+        html2canvas(userConfig.divToCapture, {
             onrendered: function (canvas) {
                 base64 = canvas.toDataURL();
                 callback(base64);
