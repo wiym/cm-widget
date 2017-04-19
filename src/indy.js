@@ -278,7 +278,7 @@
     }
 
     function getScreenShot(callback) {
-        html2canvas(userConfig.divToCapture, {
+        html2canvas(document.body, {
             onrendered: function (canvas) {
                 base64 = canvas.toDataURL();
                 callback(base64);
