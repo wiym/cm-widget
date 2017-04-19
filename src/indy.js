@@ -24,8 +24,8 @@
 
     var note = '', email = '', comment = '', data = [], base64 = '';
 
-    var btnPopupTpl = '<a href="#" data-action="openFeedback" class="indy-button indy-button--primary indy-button--feedback">' + options.labelBtnPopup + '</a>';
-    var popupTpl = '<div data-popup="feedback" id="indy-w-container" class="indy-w-container">' +
+    var btnPopupTpl = '<a data-html2canvas-ignore href="#" data-action="openFeedback" class="indy-button indy-button--primary indy-button--feedback">' + options.labelBtnPopup + '</a>';
+    var popupTpl = '<div data-html2canvas-ignore data-popup="feedback" id="indy-w-container" class="indy-w-container">' +
         '<div class="indy-w-header">' +
         'Indiana' +
         '</div>' +
@@ -278,7 +278,7 @@
     }
 
     function getScreenShot(callback) {
-        html2canvas(gec(userConfig.divToCapture), {
+        html2canvas(gec('.ats-body'), {
             onrendered: function (canvas) {
                 base64 = canvas.toDataURL();
                 callback(base64);
