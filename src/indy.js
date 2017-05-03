@@ -34,7 +34,7 @@
         '<div class="indy-label indy-label--light">' +
         options.labelEmail +
         '<div>' +
-        '<input type="email" class="indy-input">'+
+        '<input type="email" class="indy-input indy-email" value="#userConfig.email#">'+
         '</div>'+
         '</div>' +
         '</div>'+
@@ -244,6 +244,10 @@
 
     function actionSendPopup() {
         comment = gec('indy-comment').value;
+        email = gec('indy-email').value;
+        if(email === '') {
+          email = userConfig.email;
+        }
 
         if (note === '' && comment === '') {
             console.log('Veuillez noter votre expérience et saisir votre feedback.')
@@ -255,7 +259,7 @@
 
             data['noteGlobale'] = note;
             data['description'] = comment;
-            data['email'] = userConfig.email;
+            data['email'] = email;
             data['userID'] = userConfig.userID;
 
 
@@ -379,6 +383,8 @@
              });
              */
             userConfig = config;
+
+            popupTpl = popupTpl.replace('#userConfig.email#', userConfig.email);
 
             addElem('span', {}, btnPopupTpl);
             addElem('span', {}, popupTpl);
