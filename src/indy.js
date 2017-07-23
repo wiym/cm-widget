@@ -27,7 +27,7 @@
     var btnPopupTpl = '<a data-html2canvas-ignore href="#" data-action="openFeedback" class="indy-button indy-button--primary indy-button--feedback">' + options.labelBtnPopup + '</a>';
     var popupTpl = '<div data-html2canvas-ignore data-popup="feedback" id="indy-w-container" class="indy-w-container">' +
         '<div class="indy-w-header">' +
-        'Indiana' +
+        'WIYM' +
         '</div>' +
         '<div data-step-feedback="1" class="step-feedback-1">' +
         '<div class="indy-form-group">' +
@@ -239,6 +239,7 @@
         addClass(gec('indy-w-container'), 'is-hide');
         removeClass(gec('indy-w-container'), 'indy-w-container--open');
         removeClass(gec('indy-button--feedback'), 'is-hide');
+        gec('indy-comment').value = '';
 
     }
 
@@ -316,32 +317,24 @@
 
         data['browser'] = getBrowser();
 
-        tagToAdd = 'test-tag';
-        application = 'test-application';
-        version = 'test-version';
-        channel = 'test-chanel';
-        applicationName = 'test-applicationName';
-
-
-        data['applicationName'] = userConfig.applicationName;
-
-
         var mydata = {
             noteGlobale: data.noteGlobale,
             browser: data.browser,
             email: data.email,
             capture: data.capture,
-            description: data.description,
+            ftext: data.description,
             url: data.url,
-            applicationName: data.applicationName,
-            source: 'widget'
+            fsource: 'widget',
+            ftimestamp: data.timestamp,
+            tags: userConfig.tags
         };
+
+        console.log(JSON.stringify(mydata))
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
         xmlhttp.open("POST", apiUrl);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
         xmlhttp.send(JSON.stringify(mydata));
-
 
         return true;
 
@@ -412,16 +405,16 @@
                 }, 100);
 
                 setTimeout(function () {
-                    removeClass(gec('indy-feedback-success', 'is-hide'));
+                  removeClass(gec('indy-feedback-success'), 'is-hide');
                 }, 100);
 
                 setTimeout(function () {
                     actionClosePopup();
                     setTimeout(function () {
-                        addClass(gec('indy-feedback-success', 'is-hide'));
+                        addClass(gec('indy-feedback-success'), 'is-hide');
 
                         gec('step-feedback-1').style.display = 'block';
-                        removeClass(gec('step-feedback-1', 'is-hide'));
+                        removeClass(gec('step-feedback-1'), 'is-hide');
 
                     }, 500);
                 }, 2000);
