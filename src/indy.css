@@ -401,6 +401,9 @@ category: Utilities
     font-weight: 700;
     font-family: "PT_Sans-Narrow-Web", "NotoSans", arial, helvetica, sans-serif;
     margin-bottom: 8px; }
+    #indy-w-container .indy-w-header-link {
+      color: #ffffff;
+      text-decoration: none; }
   #indy-w-container .indy-w-footer {
     display: flex;
     justify-content: space-between; }

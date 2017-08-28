@@ -28,6 +28,11 @@ $name-base: '.indy';
       font-weight: 700;
       font-family: $font-alternative;
       margin-bottom: spacing('md');
+
+      &-link {
+        color: color($color-light, 'primary');
+        text-decoration: none;
+      }
     }
 
     &-footer {

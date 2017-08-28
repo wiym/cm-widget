@@ -2,8 +2,7 @@
 
 
     var userConfig;
-    var tagToAdd, version, application;
-    var apiUrl = 'https://20pgh5r6fi.execute-api.eu-west-1.amazonaws.com/dev/feedbacks/team'
+    var tagToAdd, version, application, apiUrl;
 
     var options = {};
     options.panelTitle = 'Feedback';
@@ -27,7 +26,7 @@
     var btnPopupTpl = '<a data-html2canvas-ignore href="#" data-action="openFeedback" class="indy-button indy-button--primary indy-button--feedback">' + options.labelBtnPopup + '</a>';
     var popupTpl = '<div data-html2canvas-ignore data-popup="feedback" id="indy-w-container" class="indy-w-container">' +
         '<div class="indy-w-header">' +
-        'WIYM' +
+        '<a href="https://www.wiym.io" class="indy-w-header-link" target="_blank">WIYM</a>' +
         '</div>' +
         '<div data-step-feedback="1" class="step-feedback-1">' +
         '<div class="indy-form-group">' +
@@ -44,21 +43,6 @@
         '</div>' +
         '<div class="indy-w-sentiment">' +
         '<div class="indy-btn-group">' +
-        '<a class="indy-btn-group-item  indy-btn-group-item--inactive indy-note indy-note--2" data-note="-2" data-input="note" title="' + options.trad1 + '">' +
-        '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
-        '<title>' +
-        'crying' +
-        '</title>' +
-        '<g fill="none" fill-rule="evenodd">' +
-        '<path d="M15.354 22.597v-4.63c-.44-.312-.94-.534-1.47-.645-1.086-.227-2.22.024-3.097.648v5.193c.263.016.525.026.79.026 1.318 0 2.635-.21 3.777-.593z" fill="#FFCE00"/>' +
-        '<path d="M23.89 10.892c0-.996-.113-1.963-.337-2.89-.638-1.33-1.52-2.522-2.592-3.513-1.966-1.176-4.28-1.817-6.74-1.727C7.43 3.01 2.13 8.713 2.38 15.5c.035.993.19 1.954.446 2.87.554 1.055 1.25 2.015 2.088 2.848.504.326 1.042.617 1.57.868V11.594h-.528V10.19H11.402v1.404h-.615v4.758c1.054-.49 2.228-.648 3.384-.406.412.086.833.22 1.184.4v-4.752h-.615V10.19h5.445v1.404h-.527v8.566c2.635-2.254 4.23-5.57 4.23-9.268z" fill="#FFCE00"/>' +
-        '<path d="M23.56 8.002c.224.927.33 1.894.33 2.89 0 3.698-1.596 7.014-4.232 9.268v2.375C22.733 20.44 24.68 16.948 24.68 13c0-1.79-.393-3.484-1.12-4.998zM6.483 22.535v-.45c-.527-.25-1.08-.54-1.583-.867.487.484 1.056.925 1.583 1.317zM15.354 24.368v-1.77c-1.142.383-2.46.59-3.777.59-.265 0-.527-.01-.79-.025v1.205c.79.148 1.502.226 2.284.226.782 0 1.582-.078 2.284-.226z" fill="#FFB100"/>' +
-        '<path d="M14.22 2.763c2.46-.09 4.778.55 6.744 1.726-2.068-1.914-4.832-3.085-7.864-3.085C6.707 1.405 1.505 6.607 1.505 13c0 1.937.478 3.764 1.322 5.37-.257-.916-.41-1.877-.447-2.87C2.132 8.713 7.434 3.01 14.22 2.763z" fill="#FFE454"/>' +
-        '<path d="M9.38 11.594H7.89V23.37c.527.24.966.45 1.493.622V11.594zM18.253 11.594H16.76v12.398c.527-.173 1.054-.382 1.493-.623V11.593z" fill="#28E0FF"/>' +
-        '<path d="M13.1 0C5.932 0 .1 5.832.1 13s5.832 13 13 13 13-5.832 13-13-5.832-13-13-13zM7.888 23.37V11.593H9.38v12.398c-.526-.173-.965-.382-1.492-.623zm2.9-.207V17.97c.877-.624 2.01-.875 3.095-.648.532.11 1.032.333 1.47.645v6.4c-.7.15-1.5.227-2.282.227-.78 0-1.493-.078-2.283-.226v-1.205zm5.972.83v-12.4h1.493V23.37c-.44.24-.966.45-1.493.622zm2.898-1.458V11.594h.527V10.19H14.74v1.404h.614v4.75c-.35-.177-.772-.312-1.183-.398-1.155-.242-2.33-.083-3.383.406v-4.758h.615V10.19H5.956v1.404h.527v10.942c-.527-.393-1.082-.834-1.57-1.318-.836-.833-1.54-1.793-2.094-2.848C1.975 16.764 1.5 14.937 1.5 13c0-6.393 5.203-11.595 11.596-11.595 3.032 0 5.797 1.17 7.865 3.084 1.073.99 1.96 2.18 2.597 3.512.727 1.514 1.12 3.21 1.12 4.998 0 3.948-1.947 7.44-5.022 9.535z" fill="#000"/>' +
-        '</g>' +
-        '</svg>' +
-        '</a>' +
         '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note--1" data-input="note" data-note="-1" title="' + options.trad2 + '">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
@@ -92,24 +76,7 @@
         '</g>' +
         '</svg>' +
         '</a>' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-1" data-input="note" data-note="1" title="' + options.trad4 + '">' +
-        '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
-        '<title>' +
-        'happy-1' +
-        '</title>' +
-        '<g transform="translate(.7)" fill="none" fill-rule="evenodd">' +
-        '<path d="M23.804 10.892c0-.996-.12-1.963-.343-2.89-.638-1.33-1.523-2.522-2.596-3.513-1.967-1.176-4.283-1.817-6.743-1.727C7.335 3.01 2.033 8.713 2.28 15.5c.036.993.19 1.954.447 2.87.553 1.055 1.264 2.015 2.102 2.848 1.922 1.246 4.214 1.97 6.677 1.97 6.79 0 12.297-5.505 12.297-12.296zm-6.456-2.81c.776 0 1.405.628 1.405 1.404 0 .776-.63 1.406-1.405 1.406-.776 0-1.406-.63-1.406-1.406 0-.776.63-1.405 1.406-1.405zm-8.696 0c.776 0 1.405.628 1.405 1.404 0 .776-.63 1.406-1.405 1.406-.776 0-1.406-.63-1.406-1.406 0-.776.63-1.405 1.406-1.405zM5.095 13h15.81c0 4.366-3.54 7.905-7.905 7.905-4.366 0-7.905-3.54-7.905-7.905z" fill="#FFCE00"/>' +
-        '<path d="M23.46 8.002c.224.927.344 1.894.344 2.89 0 6.79-5.506 12.297-12.297 12.297-2.463 0-4.755-.726-6.678-1.972 2.097 2.085 4.985 3.376 8.17 3.376 6.393 0 11.594-5.2 11.594-11.594 0-1.79-.407-3.484-1.133-4.998z" fill="#FFB100"/>' +
-        '<path d="M14.12 2.763c2.46-.09 4.778.55 6.744 1.726C18.796 2.575 16.032 1.404 13 1.404 6.607 1.405 1.405 6.607 1.405 13c0 1.937.478 3.764 1.322 5.37-.257-.916-.41-1.877-.447-2.87C2.032 8.713 7.334 3.01 14.12 2.763z" fill="#FFE454"/>' +
-        '<path d="M13 0C5.832 0 0 5.832 0 13s5.832 13 13 13 13-5.832 13-13S20.168 0 13 0zm0 24.594c-3.185 0-6.074-1.29-8.17-3.376-.84-.833-1.55-1.793-2.103-2.848-.844-1.606-1.322-3.433-1.322-5.37C1.405 6.607 6.607 1.405 13 1.405c3.032 0 5.796 1.17 7.864 3.084 1.073.99 1.958 2.18 2.597 3.512.727 1.514 1.134 3.21 1.134 4.998 0 6.393-5.2 11.594-11.594 11.594z" fill="#000"/>' +
-        '<path d="M12.994 19.5c3.102 0 5.697-2.184 6.34-5.095H6.655c.643 2.91 3.24 5.095 6.34 5.095z" fill="#FFF"/>' +
-        '<path d="M20.905 13H5.095c0 4.366 3.54 7.905 7.905 7.905 4.366 0 7.905-3.54 7.905-7.905zm-1.58 1.405h.01c-.644 2.91-3.24 5.095-6.34 5.095-3.102 0-5.698-2.184-6.342-5.095h12.67z" fill="#000"/>' +
-        '<ellipse fill="#000" cx="8.652" cy="9.486" rx="1.405" ry="1.405"/>' +
-        '<circle fill="#000" cx="17.348" cy="9.486" r="1.405"/>' +
-        '</g>' +
-        '</svg>' +
-        '</a>' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-2" data-input="note" data-note="2" title="' + options.trad5 + '">' +
+        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-2" data-input="note" data-note="1" title="' + options.trad5 + '">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'in-love' +
@@ -376,6 +343,9 @@
              });
              */
             userConfig = config;
+
+            apiUrl = 'https://20pgh5r6fi.execute-api.eu-west-1.amazonaws.com/dev/feedbacks/'+userConfig.team;
+            console.log(apiUrl);
 
             popupTpl = popupTpl.replace('#userConfig.email#', userConfig.email);
 
