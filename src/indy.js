@@ -344,7 +344,8 @@
              */
             userConfig = config;
 
-            apiUrl = 'https://20pgh5r6fi.execute-api.eu-west-1.amazonaws.com/dev/feedbacks/'+userConfig.team;
+            //apiUrl = 'https://20pgh5r6fi.execute-api.eu-west-1.amazonaws.com/dev/feedbacks/'+userConfig.team;
+            apiUrl = 'https://widget.wiym.io/feedbacks/'+userConfig.team;
             console.log(apiUrl);
 
             popupTpl = popupTpl.replace('#userConfig.email#', userConfig.email);
