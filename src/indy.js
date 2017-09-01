@@ -193,7 +193,6 @@
                 note = Number(n.className.match(/indy-note-([\-\d]+)/)[1]);
                 addClass(gec('indy-note'), 'indy-btn-group-item--inactive');
                 removeClass(n, 'indy-btn-group-item--inactive');
-                console.log(note);
             })
         });
 
@@ -213,6 +212,8 @@
     function actionSendPopup() {
         comment = gec('indy-comment').value;
         email = gec('indy-email').value;
+
+
         if(email === '') {
           email = userConfig.email;
         }
@@ -250,7 +251,7 @@
     }
 
     function getScreenShot(callback) {
-        html2canvas(document.body, {
+        html2canvas(divToCapture, {
             onrendered: function (canvas) {
                 base64 = canvas.toDataURL();
                 callback(base64);
@@ -289,12 +290,13 @@
             browser: data.browser,
             email: data.email,
             capture: data.capture,
-            ftext: data.description,
             url: data.url,
-            fsource: 'widget',
             ftimestamp: data.timestamp,
             tags: userConfig.tags
         };
+
+        mydata['ftext'] = data.description;
+        mydata['fsource'] = 'widget'
 
         console.log(JSON.stringify(mydata))
 
@@ -344,14 +346,14 @@
              */
             userConfig = config;
 
-            //apiUrl = 'https://20pgh5r6fi.execute-api.eu-west-1.amazonaws.com/dev/feedbacks/'+userConfig.team;
+
             apiUrl = 'https://widget.wiym.io/feedbacks/'+userConfig.team;
-            console.log(apiUrl);
-
             popupTpl = popupTpl.replace('#userConfig.email#', userConfig.email);
-
-            addElem('span', {}, btnPopupTpl);
-            addElem('span', {}, popupTpl);
+            divToAppend = userConfig.divToAppend ? gec(userConfig.divToAppend) : document.body;
+            divToCapture = userConfig.divToCapture ? gec(userConfig.divToCapture) : document.body;
+            
+            addElem('div', {}, btnPopupTpl, divToAppend);
+            addElem('div', {}, popupTpl, divToAppend);
             addEvent(gec('indy-close-feedback'), 'click', function () {
                 addClass(gec('indy-close-feedback'), 'fadeOutDown');
                 removeClass(gec('indy-close-feedback'), 'fadeInUp');
