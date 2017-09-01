@@ -1,26 +1,6 @@
 (function () {
-
-
-    var userConfig;
-    var tagToAdd, version, application, apiUrl;
-
+    var userConfig,tagToAdd , apiUrl, language, tradEn, tradFr;
     var options = {};
-    options.panelTitle = 'Feedback';
-    options.labelBtnPopup = 'Have a feedback?';
-    options.labelHeaderPopup = 'Send a feedback';
-    options.labelDescPopup = 'How would you rate your experience on our tool?';
-    options.labelNotation = 'How do you feel  - required';
-    options.labelComment = 'Explain your feedback - required';
-    options.labelEmail = 'Email';
-    options.labelBtnSend = 'Send feedback';
-    options.feedbackSuccess = 'Your feedback was successfully sent.';
-    //options.labelShortcut = 'you can press your <span class="u-font--bold">F</span> touch to open this panel.'
-    options.trad1 = 'Pas du tout satisfaisante';
-    options.trad2 = 'Peu satisfaisante';
-    options.trad3 = 'Satisfaisante';
-    options.trad4 = 'Très satisfaisante';
-    options.trad5 = 'Extrèmement satisfaisante';
-
     var note = '', email = '', comment = '', data = [], base64 = '';
 
     var btnPopupTpl = '<a data-html2canvas-ignore href="#" data-action="openFeedback" class="indy-button indy-button--primary indy-button--feedback">' + options.labelBtnPopup + '</a>';
@@ -100,15 +80,15 @@
         '</div>' +
         '<div class="indy-form-group">' +
         '<div class="indy-label indy-label--light">' +
-        'Your feedback' +
+        options.labelComment +
         '</div>' +
         '<div>' +
         '<textarea name="" id="" rows="3" class="indy-input indy-comment"></textarea>' +
         '</div>' +
         '</div>' +
         '<div class="indy-w-footer">' +
-        '<a href="#" class="indy-button indy-button--primary indy-button--small indy-close-feedback"  data-action="closeFeedback">close</a>' +
-        '<a href="#" class="indy-button indy-button--success indy-button--small indy-send-feedback" data-action="sendFeedback">send the feedback</a>' +
+        '<a href="#" class="indy-button indy-button--primary indy-button--small indy-close-feedback"  data-action="closeFeedback">'+options.closeFeedback+'</a>' +
+        '<a href="#" class="indy-button indy-button--success indy-button--small indy-send-feedback" data-action="sendFeedback">'+options.labelBtnSend+'</a>' +
         '</div>' +
         '</div>' +
         '<div data-step-feedback="success" class="indy-center indy-feedback-success">' +
@@ -348,10 +328,35 @@
 
 
             apiUrl = 'https://widget.wiym.io/feedbacks/'+userConfig.team;
+
             popupTpl = popupTpl.replace('#userConfig.email#', userConfig.email);
+
             divToAppend = userConfig.divToAppend ? gec(userConfig.divToAppend) : document.body;
             divToCapture = userConfig.divToCapture ? gec(userConfig.divToCapture) : document.body;
-            
+
+            language = userConfig.language ? userConfig.language : 'en';
+
+            tradEn = ['Product feedback','How do you feel  - required', 'Explain your feedback - required','Email', 'Send feedback','Your feedback was successfully sent.'];
+            tradFr = ['Feedback produit','Comment ressentez-vous votre expérience sur notre produit ? - requis', 'Pouvez-vous décrire le feedback - requis','Email', 'Envoyer le feedback','Votre feedback a été envoyé avec succès.'];
+
+            switch (language) {
+              case 'fr':
+                options.labelBtnPopup = tradFr[0];
+                options.labelNotation = tradFr[1];
+                options.labelComment = tradFr[2];
+                options.labelEmail = tradFr[3];
+                options.labelBtnSend = tradFr[4];
+                options.feedbackSuccess = tradFr[5];
+                break;
+              default:
+                options.labelBtnPopup = tradEn[0];
+                options.labelNotation = tradEn[1];
+                options.labelComment = tradEn[2];
+                options.labelEmail = tradEn[3];
+                options.labelBtnSend = tradEn[4];
+                options.feedbackSuccess = tradEn[5];
+            }
+
             addElem('div', {}, btnPopupTpl, divToAppend);
             addElem('div', {}, popupTpl, divToAppend);
             addEvent(gec('indy-close-feedback'), 'click', function () {
