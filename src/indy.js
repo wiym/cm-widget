@@ -131,8 +131,8 @@
         '</div>' +
         '</div>' +
         '<div class="indy-w-footer">' +
-        '<a href="#" class="indy-button indy-button--primary indy-button--small indy-close-feedback"  data-action="closeFeedback">#trads:closeFeedback#</a>' +
-        '<a href="#" class="indy-button indy-button--success indy-button--small indy-send-feedback" data-action="sendFeedback">#trads:labelBtnSend#</a>' +
+        '<a href="#" class="indy-button indy-button--primary indy-button--small indy-close-feedback">#trads:closeFeedback#</a>' +
+        '<a href="#" class="indy-button indy-button--success indy-button--small indy-send-feedback">#trads:labelBtnSend#</a>' +
         '</div>' +
         '</div>' +
         '<div data-step-feedback="success" class="indy-center indy-feedback-success">' +
@@ -221,7 +221,6 @@
             })
         });
 
-
         addEvent(gec('indy-close-feedback'), 'click', actionClosePopup)
 
     }
@@ -235,21 +234,6 @@
     }
 
     function actionSendPopup() {
-        comment = gec('indy-comment').value;
-        email = gec('indy-email').value;
-
-
-        if (email === '') {
-            email = userConfig.email;
-        }
-
-        if (note === '' && comment === '') {
-            console.log('Veuillez noter votre expérience et saisir votre feedback.')
-        } else if (comment === '') {
-            console.log('Veuillez saisir votre feedback.')
-        } else if (note === '') {
-            console.log('Veuillez noter votre expérience.')
-        } else {
 
             data['noteGlobale'] = note;
             data['description'] = comment;
@@ -271,8 +255,6 @@
                 });
 
             });
-
-        }
     }
 
     function getScreenShot(callback) {
@@ -330,7 +312,6 @@
         xmlhttp.send(JSON.stringify(mydata));
 
         return true;
-
 
     }
 
@@ -413,8 +394,27 @@
                 event.stopPropagation();
                 event.preventDefault();
 
-                addClass(gec('step-feedback-1'), 'is-hide');
 
+              comment = gec('indy-comment').value;
+              email = gec('indy-email').value;
+
+              if (email === '') {
+                  email = userConfig.email;
+              }
+
+              if (note === '' && comment === '') {
+                  console.log('Veuillez noter votre expérience et saisir votre feedback.');
+                  addClass(gec('indy-comment'), 'indy-input--error');
+                  addClass(gec('indy-btn-group'), 'indy-btn-group--error');
+
+              } else if (comment === '') {
+                  console.log('Veuillez saisir votre feedback.')
+                  addClass(gec('indy-comment'), 'indy-input--error');
+              } else if (note === '') {
+                  console.log('Veuillez noter votre expérience.');
+                  addClass(gec('indy-btn-group'), 'indy-btn-group--error');
+              } else {
+                addClass(gec('step-feedback-1'), 'is-hide');
 
                 setTimeout(function () {
                     gec('step-feedback-1').style.display = 'none';
@@ -435,8 +435,11 @@
                     }, 500);
                 }, 2000);
 
+                removeClass(gec('indy-comment'), 'indy-input--error');
+                removeClass(gec('indy-btn-group'), 'indy-btn-group--error');
 
                 actionSendPopup();
+              }
             });
         }
     }

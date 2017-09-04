@@ -85,6 +85,11 @@ $name-base: '.indy';
     &:focus {
       @include input-focus();
     }
+
+    &--error {
+      background: #FFF1F2;
+      border-color: rgba(241, 64, 75, 1);
+    }
   }
 
   #{$name-base}-center {
@@ -176,6 +181,10 @@ $name-base: '.indy';
   background: #0A2C45;
   border: 1px solid #051927;
   border-radius: 2px;
+
+  &--error {
+    border-color: rgba(241, 64, 75, 1);
+  }
 
   &-item {
     flex: 1;

@@ -442,6 +442,9 @@ category: Utilities
       box-shadow: 0 0 0 3px rgba(34, 173, 245, 0.1);
       border-color: #22ADF5;
       transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; }
+    #indy-w-container .indy-input--error {
+      background: #FFF1F2;
+      border-color: #f1404b; }
   #indy-w-container .indy-center {
     display: flex;
     flex-direction: column;
@@ -511,6 +514,8 @@ category: Utilities
   background: #0A2C45;
   border: 1px solid #051927;
   border-radius: 2px; }
+  .indy-btn-group--error {
+    border-color: #f1404b; }
   .indy-btn-group-item {
     flex: 1;
     display: flex;
