@@ -5,7 +5,7 @@
     var trads = {
         en: {
             panelTitle: 'Feedback',
-            labelBtnPopup: 'Have a feedback?',
+            labelBtnPopup: 'Product feedback',
             labelHeaderPopup: 'Send a feedback',
             labelDescPopup: 'How would you rate your experience on our tool?',
             labelNotation: 'How do you feel  - required',
@@ -23,11 +23,11 @@
         },
         fr: {
             panelTitle: 'Feedback',
-            labelBtnPopup: 'Un feedback?',
+            labelBtnPopup: 'Feedback produit',
             labelHeaderPopup: 'Envoyer un feedback',
             labelDescPopup: 'Comment jugez-vous votre expérience avec notre outil ?',
-            labelNotation: 'Comment vous sentez-vous (requis)',
-            labelComment: 'Expliquez votre feedback (requis)',
+            labelNotation: 'Comment vous sentez-vous - requis',
+            labelComment: 'Expliquez votre feedback - requis',
             labelEmail: 'Email',
             labelBtnSend: 'Envoyer le feedback',
             feedbackSuccess: 'Votre feedback a bien été envoyé.',
