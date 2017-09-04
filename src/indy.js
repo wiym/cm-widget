@@ -1,29 +1,73 @@
 (function () {
-    var userConfig,tagToAdd , apiUrl, language, tradEn, tradFr;
-    var options = {};
+
+
+    var userConfig, apiUrl, application;
+    var trads = {
+        en: {
+            panelTitle: 'Feedback',
+            labelBtnPopup: 'Have a feedback?',
+            labelHeaderPopup: 'Send a feedback',
+            labelDescPopup: 'How would you rate your experience on our tool?',
+            labelNotation: 'How do you feel  - required',
+            labelComment: 'Explain your feedback - required',
+            labelEmail: 'Email',
+            labelBtnSend: 'Send feedback',
+            feedbackSuccess: 'Your feedback was successfully sent.',
+            closeFeedback: 'Close',
+
+            trad1: 'Pas du tout satisfaisante',
+            trad2: 'Peu satisfaisante',
+            trad3: 'Satisfaisante',
+            trad4: 'Très satisfaisante',
+            trad5: 'Extrèmement satisfaisante'
+        },
+        fr: {
+            panelTitle: 'Feedback',
+            labelBtnPopup: 'Un feedback?',
+            labelHeaderPopup: 'Envoyer un feedback',
+            labelDescPopup: 'Comment jugez-vous votre expérience avec notre outil ?',
+            labelNotation: 'Comment vous sentez-vous (requis)',
+            labelComment: 'Expliquez votre feedback (requis)',
+            labelEmail: 'Email',
+            labelBtnSend: 'Envoyer le feedback',
+            feedbackSuccess: 'Votre feedback a bien été envoyé.',
+            closeFeedback: 'Fermer',
+
+            trad1: 'Pas du tout satisfaisante',
+            trad2: 'Peu satisfaisante',
+            trad3: 'Satisfaisante',
+            trad4: 'Très satisfaisante',
+            trad5: 'Extrèmement satisfaisante'
+        }
+    };
+
+
+    //'#trads:labelShortcut = 'you can press your <span class="u-font--bold">F</span> touch to open this#' panel.'
+
     var note = '', email = '', comment = '', data = [], base64 = '';
 
-    var btnPopupTpl = '<a data-html2canvas-ignore href="#" data-action="openFeedback" class="indy-button indy-button--primary indy-button--feedback">' + options.labelBtnPopup + '</a>';
-    var popupTpl = '<div data-html2canvas-ignore data-popup="feedback" id="indy-w-container" class="indy-w-container">' +
+    var templates = {
+        btnPopup: '<a data-html2canvas-ignore href="#" data-action="openFeedback" class="indy-button indy-button--primary indy-button--feedback">#trads:labelBtnPopup#</a>',
+        popup: '<div data-html2canvas-ignore data-popup="feedback" id="indy-w-container" class="indy-w-container">' +
         '<div class="indy-w-header">' +
         '<a href="https://www.wiym.io" class="indy-w-header-link" target="_blank">WIYM</a>' +
         '</div>' +
         '<div data-step-feedback="1" class="step-feedback-1">' +
         '<div class="indy-form-group">' +
         '<div class="indy-label indy-label--light">' +
-        options.labelEmail +
+        '#trads:labelEmail#' +
         '<div>' +
-        '<input type="email" class="indy-input indy-email" value="#userConfig.email#">'+
-        '</div>'+
+        '<input type="email" class="indy-input indy-email" value="#userConfig.email#">' +
         '</div>' +
-        '</div>'+
+        '</div>' +
+        '</div>' +
         '<div class="indy-form-group">' +
         '<div class="indy-label indy-label--light">' +
-        options.labelNotation +
+        '#trads:labelNotation#' +
         '</div>' +
         '<div class="indy-w-sentiment">' +
         '<div class="indy-btn-group">' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note--1" data-input="note" data-note="-1" title="' + options.trad2 + '">' +
+        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note--1" data-input="note" data-note="-1" title="#trads:trad2#">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'crying-1' +
@@ -40,7 +84,7 @@
         '</g>' +
         '</svg>' +
         '</a>' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-0" data-input="note" data-note="0" title="' + options.trad3 + '">' +
+        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-0" data-input="note" data-note="0" title="#trads:trad3#">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'neutral' +
@@ -56,7 +100,7 @@
         '</g>' +
         '</svg>' +
         '</a>' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-2" data-input="note" data-note="1" title="' + options.trad5 + '">' +
+        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-2" data-input="note" data-note="1" title="#trads:trad5#">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'in-love' +
@@ -80,15 +124,15 @@
         '</div>' +
         '<div class="indy-form-group">' +
         '<div class="indy-label indy-label--light">' +
-        options.labelComment +
+        '#trads:labelComment#' +
         '</div>' +
         '<div>' +
         '<textarea name="" id="" rows="3" class="indy-input indy-comment"></textarea>' +
         '</div>' +
         '</div>' +
         '<div class="indy-w-footer">' +
-        '<a href="#" class="indy-button indy-button--primary indy-button--small indy-close-feedback"  data-action="closeFeedback">'+options.closeFeedback+'</a>' +
-        '<a href="#" class="indy-button indy-button--success indy-button--small indy-send-feedback" data-action="sendFeedback">'+options.labelBtnSend+'</a>' +
+        '<a href="#" class="indy-button indy-button--primary indy-button--small indy-close-feedback"  data-action="closeFeedback">#trads:closeFeedback#</a>' +
+        '<a href="#" class="indy-button indy-button--success indy-button--small indy-send-feedback" data-action="sendFeedback">#trads:labelBtnSend#</a>' +
         '</div>' +
         '</div>' +
         '<div data-step-feedback="success" class="indy-center indy-feedback-success">' +
@@ -98,9 +142,10 @@
         '</title>' +
         '<path d="M32 0C14.327 0 0 14.327 0 32c0 17.674 14.327 32 32 32 17.674 0 32-14.326 32-32C64 14.327 49.674 0 32 0zm.427 60.587c-15.528 0-28.16-12.682-28.16-28.192S16.9 4.267 32.427 4.267c15.527 0 28.16 12.618 28.16 28.128s-12.633 28.192-28.16 28.192zm12.79-40.365L26.403 39.434l-8.473-8.598c-.784-.794-2.053-.794-2.836 0-.783.794-.783 2.082 0 2.876l9.92 10.066c.783.794 2.05.794 2.835 0 .09-.09.167-.19.237-.294L48.054 23.1c.78-.795.78-2.083 0-2.878-.784-.794-2.053-.794-2.836 0z" fill-rule="nonzero" fill="#10CFBD"/>' +
         '</svg>' +
-        '<p>' + options.feedbackSuccess + '</p>' +
+        '<p>#trads:feedbackSuccess#</p>' +
         '</div>' +
-        '</div>';
+        '</div>'
+    };
 
     var gec = function (id, array) {
         id = id.replace('\.', '');
@@ -194,8 +239,8 @@
         email = gec('indy-email').value;
 
 
-        if(email === '') {
-          email = userConfig.email;
+        if (email === '') {
+            email = userConfig.email;
         }
 
         if (note === '' && comment === '') {
@@ -272,11 +317,10 @@
             capture: data.capture,
             url: data.url,
             ftimestamp: data.timestamp,
-            tags: userConfig.tags
+            tags: userConfig.tags,
+            description: data.description,
+            source: 'widget'
         };
-
-        mydata['ftext'] = data.description;
-        mydata['fsource'] = 'widget'
 
         console.log(JSON.stringify(mydata))
 
@@ -288,17 +332,6 @@
         return true;
 
 
-    }
-
-    function guid() {
-        function s4() {
-            return Math.floor((1 + Math.random()) * 0x10000)
-                .toString(16)
-                .substring(1);
-        }
-
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-            s4() + '-' + s4() + s4() + s4();
     }
 
     function showNotification(type) {
@@ -314,8 +347,29 @@
          */
     }
 
-    window.indy = {
-        init: function (config) {
+    var translateTemplate = function (source, lang) {
+        var matches = source.match(/#trads:([^#]*)#/gi);
+        var result = source;
+
+        for (var m = 0; m < matches.length; m++) {
+            var tradkey = matches[m].replace(/#/g, '').replace('trads:', ''),
+                trad = trads[lang][tradkey] || trads['en'][tradkey];
+            result = result.replace(new RegExp(matches[m], 'ig'), trad);
+        }
+        return result;
+
+    };
+    var translateTemplates = function (lang) {
+        var result = {}, keys = Object.keys(templates);
+        for (var i = 0; i < keys.length; i++) {
+            var lbl = keys[i];
+            result[lbl] = translateTemplate(templates[lbl], lang);
+        }
+        return result;
+    };
+
+    window['indy'] = {
+        'init': function (config) {
             /*
              shortcuts : 'F' mess with inputs
              $(document).keyup(function (e) {
@@ -324,41 +378,25 @@
              }
              });
              */
+            config = config || {};
+            if (!config.language || !trads[config.language]) {
+                config.language = 'en'
+            }
+            ;
+
             userConfig = config;
 
 
-            apiUrl = 'https://widget.wiym.io/feedbacks/'+userConfig.team;
+            apiUrl = 'https://widget.wiym.io/feedbacks/' + userConfig.team;
 
-            popupTpl = popupTpl.replace('#userConfig.email#', userConfig.email);
+            templates.popup = templates.popup.replace('#userConfig.email#', userConfig.email);
 
             divToAppend = userConfig.divToAppend ? gec(userConfig.divToAppend) : document.body;
             divToCapture = userConfig.divToCapture ? gec(userConfig.divToCapture) : document.body;
 
-            language = userConfig.language ? userConfig.language : 'en';
-
-            tradEn = ['Product feedback','How do you feel  - required', 'Explain your feedback - required','Email', 'Send feedback','Your feedback was successfully sent.'];
-            tradFr = ['Feedback produit','Comment ressentez-vous votre expérience sur notre produit ? - requis', 'Pouvez-vous décrire le feedback - requis','Email', 'Envoyer le feedback','Votre feedback a été envoyé avec succès.'];
-
-            switch (language) {
-              case 'fr':
-                options.labelBtnPopup = tradFr[0];
-                options.labelNotation = tradFr[1];
-                options.labelComment = tradFr[2];
-                options.labelEmail = tradFr[3];
-                options.labelBtnSend = tradFr[4];
-                options.feedbackSuccess = tradFr[5];
-                break;
-              default:
-                options.labelBtnPopup = tradEn[0];
-                options.labelNotation = tradEn[1];
-                options.labelComment = tradEn[2];
-                options.labelEmail = tradEn[3];
-                options.labelBtnSend = tradEn[4];
-                options.feedbackSuccess = tradEn[5];
-            }
-
-            addElem('div', {}, btnPopupTpl, divToAppend);
-            addElem('div', {}, popupTpl, divToAppend);
+            var translatedTemplates = translateTemplates(config.language);
+            addElem('span', {}, translatedTemplates.btnPopup, divToAppend);
+            addElem('span', {}, translatedTemplates.popup, divToAppend);
             addEvent(gec('indy-close-feedback'), 'click', function () {
                 addClass(gec('indy-close-feedback'), 'fadeOutDown');
                 removeClass(gec('indy-close-feedback'), 'fadeInUp');
@@ -383,7 +421,7 @@
                 }, 100);
 
                 setTimeout(function () {
-                  removeClass(gec('indy-feedback-success'), 'is-hide');
+                    removeClass(gec('indy-feedback-success'), 'is-hide');
                 }, 100);
 
                 setTimeout(function () {
