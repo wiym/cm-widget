@@ -1,8 +1,8 @@
 {
-  "version":"1.0.0",
-  "name": "test-feedback",
+  "version":"1.0.1",
+  "name": "wiym-widget",
   "authors": [
-    "Erwan LUMBROSO <erwan.lumbroso@atinternet.com>"
+    "Erwan LUMBROSO <wiym@2lj.fr>"
   ],
   "description": "",
   "main": "dist/indy-widget.min.js",
