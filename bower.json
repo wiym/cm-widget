@@ -4,10 +4,9 @@
     "Erwan LUMBROSO <erwan.lumbroso@atinternet.com>"
   ],
   "description": "",
-  "main": "",
+  "main": "dist/indy-widget.min.js",
   "license": "MIT",
-  "homepage": "",
-  "private": true,
+  "homepage": "https://www.wiym.io",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,7 +15,6 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^3.2.1",
     "html2canvas": "^0.4.1"
   }
 }
