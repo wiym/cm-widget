@@ -1,11 +1,11 @@
-$name-base: '.indy';
+$name-base: '.wid-indy';
 
 @import 'utils/mixins';
 @import 'themes/fonts';
 @import 'themes/variables';
 @import 'utils/utils';
 
-#indy-w-container {
+#wid-indy-w-container {
   font-family: $font-family-base;
   font-size: $font-md;
   background: color($color-dark, 'primary');
@@ -18,6 +18,10 @@ $name-base: '.indy';
 
   & * {
     box-sizing: border-box;
+  }
+  textarea {
+    min-height: 0 !important;
+    line-height: 1.8 !important;
   }
 
 
@@ -65,8 +69,8 @@ $name-base: '.indy';
   #{$name-base}-input {
     font-family: $font-family-base;
     display: block;
-    flex: 1;
-    min-height: 35px;
+    //flex: 1;
+    height: 35px;
     font-size: $font-md;
     padding: spacing('sm') spacing('md');
     width: 100%;

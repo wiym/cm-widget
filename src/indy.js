@@ -47,27 +47,27 @@
     var note = '', email = '', comment = '', data = [], base64 = '';
 
     var templates = {
-        btnPopup: '<a data-html2canvas-ignore href="#" data-action="openFeedback" class="indy-button indy-button--primary indy-button--feedback">#trads:labelBtnPopup#</a>',
-        popup: '<div data-html2canvas-ignore data-popup="feedback" id="indy-w-container" class="indy-w-container">' +
-        '<div class="indy-w-header">' +
-        '<a href="https://www.wiym.io" class="indy-w-header-link" target="_blank">WIYM</a>' +
+        btnPopup: '<span data-html2canvas-ignore data-action="openFeedback" class="wid-indy-button wid-indy-button--primary wid-indy-button--feedback">#trads:labelBtnPopup#</span>',
+        popup: '<div data-html2canvas-ignore data-popup="feedback" id="wid-indy-w-container" class="wid-indy-w-container">' +
+        '<div class="wid-indy-w-header">' +
+        '<a href="https://www.wiym.io" class="wid-indy-w-header-link" target="_blank">WIYM</a>' +
         '</div>' +
         '<div data-step-feedback="1" class="step-feedback-1">' +
-        '<div class="indy-form-group">' +
-        '<div class="indy-label indy-label--light">' +
+        '<div class="wid-indy-form-group">' +
+        '<div class="wid-indy-label wid-indy-label--light">' +
         '#trads:labelEmail#' +
         '<div>' +
-        '<input type="email" class="indy-input indy-email" value="#userConfig.email#">' +
+        '<input type="email" class="wid-indy-input wid-indy-email" value="#userConfig.email#">' +
         '</div>' +
         '</div>' +
         '</div>' +
-        '<div class="indy-form-group">' +
-        '<div class="indy-label indy-label--light">' +
+        '<div class="wid-indy-form-group">' +
+        '<div class="wid-indy-label wid-indy-label--light">' +
         '#trads:labelNotation#' +
         '</div>' +
-        '<div class="indy-w-sentiment">' +
-        '<div class="indy-btn-group">' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note--1" data-input="note" data-note="-1" title="#trads:trad2#">' +
+        '<div class="wid-indy-w-sentiment">' +
+        '<div class="wid-indy-btn-group">' +
+        '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note--1" data-input="note" data-note="-1" title="#trads:trad2#">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'crying-1' +
@@ -84,7 +84,7 @@
         '</g>' +
         '</svg>' +
         '</a>' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-0" data-input="note" data-note="0" title="#trads:trad3#">' +
+        '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-0" data-input="note" data-note="0" title="#trads:trad3#">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'neutral' +
@@ -100,7 +100,7 @@
         '</g>' +
         '</svg>' +
         '</a>' +
-        '<a class="indy-btn-group-item indy-btn-group-item--inactive indy-note indy-note-2" data-input="note" data-note="1" title="#trads:trad5#">' +
+        '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-2" data-input="note" data-note="1" title="#trads:trad5#">' +
         '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'in-love' +
@@ -122,20 +122,20 @@
         '</div>' +
         '</div>' +
         '</div>' +
-        '<div class="indy-form-group">' +
-        '<div class="indy-label indy-label--light">' +
+        '<div class="wid-indy-form-group">' +
+        '<div class="wid-indy-label wid-indy-label--light">' +
         '#trads:labelComment#' +
         '</div>' +
         '<div>' +
-        '<textarea name="" id="" rows="3" class="indy-input indy-comment"></textarea>' +
+        '<textarea name="" id="" rows="3" class="wid-indy-input wid-indy-comment"></textarea>' +
         '</div>' +
         '</div>' +
-        '<div class="indy-w-footer">' +
-        '<a href="#" class="indy-button indy-button--primary indy-button--small indy-close-feedback">#trads:closeFeedback#</a>' +
-        '<a href="#" class="indy-button indy-button--success indy-button--small indy-send-feedback">#trads:labelBtnSend#</a>' +
+        '<div class="wid-indy-w-footer">' +
+        '<span class="wid-indy-button wid-indy-button--primary wid-indy-button--small wid-indy-close-feedback">#trads:closeFeedback#</span>' +
+        '<span class="wid-indy-button wid-indy-button--success wid-indy-button--small wid-indy-send-feedback">#trads:labelBtnSend#</span>' +
         '</div>' +
         '</div>' +
-        '<div data-step-feedback="success" class="indy-center indy-feedback-success">' +
+        '<div data-step-feedback="success" class="wid-indy-center wid-indy-feedback-success">' +
         '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'Success' +
@@ -169,6 +169,7 @@
     var addElem = function (elemType, attrs, elemText, parent) {
         parent = parent || document.body;
         var b = document.createElement(elemType);
+
         if (attrs) {
             for (var a in attrs) {
                 b[a] = attrs[a];
@@ -196,40 +197,40 @@
     };
 
     function addActionPopup() {
-        addEvent(gec('indy-button--feedback'), 'click', actionOpenPopup)
+        addEvent(gec('wid-indy-button--feedback'), 'click', actionOpenPopup)
     }
 
     function actionOpenPopup() {
 
-        addClass(gec('indy-button--feedback'), 'is-hide');
-        addClass(gec('indy-w-container'), 'indy-w-container--open');
+        addClass(gec('wid-indy-button--feedback'), 'is-hide');
+        addClass(gec('wid-indy-w-container'), 'wid-indy-w-container--open');
+        removeClass(gec('wid-indy-w-container'), 'is-hide');
+        addClass(gec('wid-indy-feedback-success'), 'is-hide');
 
-        addClass(gec('indy-feedback-success'), 'is-hide');
 
-
-        //gec('indy-input-email').focus();
+        //gec('wid-indy-input-email').focus();
 
         //TODO
-        var notes = gec('indy-note', true);
+        var notes = gec('wid-indy-note', true);
         notes = Array.prototype.slice.call(notes);
 
         notes.map(function (n) {
             addEvent(n, 'click', function (e) {
-                note = Number(n.className.match(/indy-note-([\-\d]+)/)[1]);
-                addClass(gec('indy-note'), 'indy-btn-group-item--inactive');
-                removeClass(n, 'indy-btn-group-item--inactive');
+                note = Number(n.className.match(/wid-indy-note-([\-\d]+)/)[1]);
+                addClass(gec('wid-indy-note'), 'wid-indy-btn-group-item--inactive');
+                removeClass(n, 'wid-indy-btn-group-item--inactive');
             })
         });
 
-        addEvent(gec('indy-close-feedback'), 'click', actionClosePopup)
+        addEvent(gec('wid-indy-close-feedback'), 'click', actionClosePopup)
 
     }
 
     function actionClosePopup() {
-        addClass(gec('indy-w-container'), 'is-hide');
-        removeClass(gec('indy-w-container'), 'indy-w-container--open');
-        removeClass(gec('indy-button--feedback'), 'is-hide');
-        gec('indy-comment').value = '';
+        addClass(gec('wid-indy-w-container'), 'is-hide');
+        removeClass(gec('wid-indy-w-container'), 'wid-indy-w-container--open');
+        removeClass(gec('wid-indy-button--feedback'), 'is-hide');
+        gec('wid-indy-comment').value = '';
 
     }
 
@@ -359,6 +360,7 @@
              }
              });
              */
+
             config = config || {};
             if (!config.language || !trads[config.language]) {
                 config.language = 'en'
@@ -376,27 +378,28 @@
             divToCapture = userConfig.divToCapture ? gec(userConfig.divToCapture) : document.body;
 
             var translatedTemplates = translateTemplates(config.language);
+            console.log(divToAppend);
             addElem('span', {}, translatedTemplates.btnPopup, divToAppend);
             addElem('span', {}, translatedTemplates.popup, divToAppend);
-            addEvent(gec('indy-close-feedback'), 'click', function () {
-                addClass(gec('indy-close-feedback'), 'fadeOutDown');
-                removeClass(gec('indy-close-feedback'), 'fadeInUp');
+            addEvent(gec('wid-indy-close-feedback'), 'click', function () {
+                addClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
+                removeClass(gec('wid-indy-close-feedback'), 'fadeInUp');
 
                 setTimeout(function () {
-                    removeClass(gec('indy-close-feedback'), 'fadeOutDown');
-                    removeClass(gec('indy-close-feedback'), 'is-shown');
-                    removeClass(gec('indy-close-feedback'), 'fadeInUp');
+                    removeClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
+                    removeClass(gec('wid-indy-close-feedback'), 'is-shown');
+                    removeClass(gec('wid-indy-close-feedback'), 'fadeInUp');
 
                 }, 7000);
             });
             addActionPopup();
-            addEvent(gec('indy-send-feedback'), 'click', function (event) {
+            addEvent(gec('wid-indy-send-feedback'), 'click', function (event) {
                 event.stopPropagation();
                 event.preventDefault();
 
 
-              comment = gec('indy-comment').value;
-              email = gec('indy-email').value;
+              comment = gec('wid-indy-comment').value;
+              email = gec('wid-indy-email').value;
 
               if (email === '') {
                   email = userConfig.email;
@@ -404,15 +407,15 @@
 
               if (note === '' && comment === '') {
                   console.log('Veuillez noter votre expérience et saisir votre feedback.');
-                  addClass(gec('indy-comment'), 'indy-input--error');
-                  addClass(gec('indy-btn-group'), 'indy-btn-group--error');
+                  addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+                  addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
 
               } else if (comment === '') {
                   console.log('Veuillez saisir votre feedback.')
-                  addClass(gec('indy-comment'), 'indy-input--error');
+                  addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
               } else if (note === '') {
                   console.log('Veuillez noter votre expérience.');
-                  addClass(gec('indy-btn-group'), 'indy-btn-group--error');
+                  addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
               } else {
                 addClass(gec('step-feedback-1'), 'is-hide');
 
@@ -421,13 +424,13 @@
                 }, 100);
 
                 setTimeout(function () {
-                    removeClass(gec('indy-feedback-success'), 'is-hide');
+                    removeClass(gec('wid-indy-feedback-success'), 'is-hide');
                 }, 100);
 
                 setTimeout(function () {
                     actionClosePopup();
                     setTimeout(function () {
-                        addClass(gec('indy-feedback-success'), 'is-hide');
+                        addClass(gec('wid-indy-feedback-success'), 'is-hide');
 
                         gec('step-feedback-1').style.display = 'block';
                         removeClass(gec('step-feedback-1'), 'is-hide');
@@ -435,8 +438,8 @@
                     }, 500);
                 }, 2000);
 
-                removeClass(gec('indy-comment'), 'indy-input--error');
-                removeClass(gec('indy-btn-group'), 'indy-btn-group--error');
+                removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+                removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
 
                 actionSendPopup();
               }

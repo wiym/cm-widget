@@ -42,7 +42,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 src: ['.tmp/output.min.js', '.tmp/indy.css.js'],
-                dest: 'dist/indy-widget.min.js',
+                dest: 'dist/wiym-widget.min.js',
             }
         },
         clean: {
