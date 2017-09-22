@@ -236,10 +236,10 @@
 
     function actionSendPopup() {
 
-            data['noteGlobale'] = note;
-            data['description'] = comment;
-            data['email'] = email;
-            data['userID'] = userConfig.userID;
+        data['noteGlobale'] = note;
+        data['description'] = comment;
+        data['email'] = email;
+        data['userID'] = userConfig.userID;
 
 
             getScreenShot(function (screenshot) {
@@ -302,7 +302,8 @@
             ftimestamp: data.timestamp,
             tags: userConfig.tags,
             description: data.description,
-            source: 'widget'
+            source: 'widget',
+            customFields: userConfig.customFields
         };
 
         console.log(JSON.stringify(mydata))
@@ -446,5 +447,10 @@
             });
         }
     }
-
+    window.jcssReg = function (path, content) {
+        var s = document.createElement('style');
+        s.innerText=content;
+        document.body.appendChild(s);
+//        console.log(arguments)
+    }
 }());
