@@ -226,12 +226,18 @@
 
     }
 
+    var clearForm = function () {
+        gec('wid-indy-comment').value = '';
+        addClass(gec('wid-indy-note-' + note), 'wid-indy-btn-group-item--inactive');
+        note = undefined;
+
+    };
+
     function actionClosePopup() {
         addClass(gec('wid-indy-w-container'), 'is-hide');
         removeClass(gec('wid-indy-w-container'), 'wid-indy-w-container--open');
         removeClass(gec('wid-indy-button--feedback'), 'is-hide');
-        gec('wid-indy-comment').value = '';
-
+        clearForm();
     }
 
     function actionSendPopup() {
@@ -242,20 +248,20 @@
         data['userID'] = userConfig.userID;
 
 
-            getScreenShot(function (screenshot) {
-                data.capture = screenshot;
-                sendToAPI(data, function (err) {
-                    if (!err) {
-                        //showNotification('successFeedback');
-                        actionClosePopup();
-                    }
-                    else {
-                        console.error(err)
-                    }
-
-                });
+        getScreenShot(function (screenshot) {
+            data.capture = screenshot;
+            sendToAPI(data, function (err) {
+                if (!err) {
+                    //showNotification('successFeedback');
+                    actionClosePopup();
+                }
+                else {
+                    console.error(err)
+                }
 
             });
+
+        });
     }
 
     function getScreenShot(callback) {
@@ -306,12 +312,12 @@
             customFields: userConfig.customFields
         };
 
-        console.log(JSON.stringify(mydata))
 
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
         xmlhttp.open("POST", apiUrl);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
         xmlhttp.send(JSON.stringify(mydata));
+        clearForm();
 
         return true;
 
@@ -366,7 +372,7 @@
             if (!config.language || !trads[config.language]) {
                 config.language = 'en'
             }
-            ;
+
 
             userConfig = config;
 
@@ -399,57 +405,57 @@
                 event.preventDefault();
 
 
-              comment = gec('wid-indy-comment').value;
-              email = gec('wid-indy-email').value;
+                comment = gec('wid-indy-comment').value;
+                email = gec('wid-indy-email').value;
 
-              if (email === '') {
-                  email = userConfig.email;
-              }
+                if (email === '') {
+                    email = userConfig.email;
+                }
 
-              if (note === '' && comment === '') {
-                  console.log('Veuillez noter votre expérience et saisir votre feedback.');
-                  addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-                  addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+                if (note === '' && comment === '') {
+                    console.log('Veuillez noter votre expérience et saisir votre feedback.');
+                    addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+                    addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
 
-              } else if (comment === '') {
-                  console.log('Veuillez saisir votre feedback.')
-                  addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-              } else if (note === '') {
-                  console.log('Veuillez noter votre expérience.');
-                  addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
-              } else {
-                addClass(gec('step-feedback-1'), 'is-hide');
+                } else if (comment === '') {
+                    console.log('Veuillez saisir votre feedback.')
+                    addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+                } else if (note === '') {
+                    console.log('Veuillez noter votre expérience.');
+                    addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+                } else {
+                    addClass(gec('step-feedback-1'), 'is-hide');
 
-                setTimeout(function () {
-                    gec('step-feedback-1').style.display = 'none';
-                }, 100);
-
-                setTimeout(function () {
-                    removeClass(gec('wid-indy-feedback-success'), 'is-hide');
-                }, 100);
-
-                setTimeout(function () {
-                    actionClosePopup();
                     setTimeout(function () {
-                        addClass(gec('wid-indy-feedback-success'), 'is-hide');
+                        gec('step-feedback-1').style.display = 'none';
+                    }, 100);
 
-                        gec('step-feedback-1').style.display = 'block';
-                        removeClass(gec('step-feedback-1'), 'is-hide');
+                    setTimeout(function () {
+                        removeClass(gec('wid-indy-feedback-success'), 'is-hide');
+                    }, 100);
 
-                    }, 500);
-                }, 2000);
+                    setTimeout(function () {
+                        actionClosePopup();
+                        setTimeout(function () {
+                            addClass(gec('wid-indy-feedback-success'), 'is-hide');
 
-                removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-                removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+                            gec('step-feedback-1').style.display = 'block';
+                            removeClass(gec('step-feedback-1'), 'is-hide');
 
-                actionSendPopup();
-              }
+                        }, 500);
+                    }, 2000);
+
+                    removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+                    removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+
+                    actionSendPopup();
+                }
             });
         }
     }
     window.jcssReg = function (path, content) {
         var s = document.createElement('style');
-        s.innerText=content;
+        s.innerText = content;
         document.body.appendChild(s);
 //        console.log(arguments)
     }
