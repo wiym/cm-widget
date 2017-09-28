@@ -1,7 +1,7 @@
 (function () {
 
 
-    var userConfig, apiUrl, application;
+    var userConfig, apiUrl, application, containers = {}, translatedTemplates;
     var trads = {
         en: {
             panelTitle: 'Feedback',
@@ -357,7 +357,28 @@
         return result;
     };
 
+    var _configure = function (config) {
+        config = config || {};
+        if (!config.language || !trads[config.language]) {
+            config.language = 'en'
+        }
+        userConfig = userConfig || {};
+        var k = Object.keys(config);
+        for (var i = 0; i < k.length; i++) {
+            userConfig[k[i]] = config[k[i]];
+        }
+        translatedTemplates = translateTemplates(config.language);
+
+        apiUrl = 'https://widget.wiym.io/feedbacks/' + userConfig.team;
+        translatedTemplates.popup = translatedTemplates.popup.replace('#userConfig.email#', userConfig.email);
+
+    };
+
     window['indy'] = {
+        'conf': function () {
+            return userConfig
+        },
+        'configure': _configure,
         'init': function (config) {
             /*
              shortcuts : 'F' mess with inputs
@@ -367,27 +388,25 @@
              }
              });
              */
+            _configure(config);
 
-            config = config || {};
-            if (!config.language || !trads[config.language]) {
-                config.language = 'en'
-            }
-
-
-            userConfig = config;
-
-
-            apiUrl = 'https://widget.wiym.io/feedbacks/' + userConfig.team;
-
-            templates.popup = templates.popup.replace('#userConfig.email#', userConfig.email);
 
             divToAppend = userConfig.divToAppend ? gec(userConfig.divToAppend) : document.body;
             divToCapture = userConfig.divToCapture ? gec(userConfig.divToCapture) : document.body;
 
-            var translatedTemplates = translateTemplates(config.language);
-            console.log(divToAppend);
-            addElem('span', {}, translatedTemplates.btnPopup, divToAppend);
-            addElem('span', {}, translatedTemplates.popup, divToAppend);
+            if (containers.button) {
+                containers.button.innerHTML = translatedTemplates.btnPopup;
+            }
+            else {
+                containers.button = addElem('span', {}, translatedTemplates.btnPopup, divToAppend);
+            }
+            if (containers.popup) {
+                containers.popup.innerHTML = translatedTemplates.popup
+            }
+            else {
+                containers.popup = addElem('span', {}, translatedTemplates.popup, divToAppend);
+            }
+
             addEvent(gec('wid-indy-close-feedback'), 'click', function () {
                 addClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
                 removeClass(gec('wid-indy-close-feedback'), 'fadeInUp');
