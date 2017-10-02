@@ -305,6 +305,7 @@
             email: data.email,
             capture: data.capture,
             url: data.url,
+            userID: data.userID,
             ftimestamp: data.timestamp,
             tags: userConfig.tags,
             description: data.description,
@@ -374,7 +375,7 @@
 
     };
 
-    window['indy'] = {
+    window['wiym'] = {
         'conf': function () {
             return userConfig
         },

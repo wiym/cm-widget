@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-
 </head>
 <body class="ats-body">
 <div class="ats-ui">
@@ -28,21 +27,16 @@
     </div>
 </div>
 
+<script type="text/javascript" src="bower_components/html2canvas/build/html2canvas.min.js"></script>
 <script src="dist/wiym-widget.min.js"></script>
 
 <script>
 
-    indy.init({
+    wiym.init({
         tags: ['userinsight', 'explorer'],
         email: 'erwan.lumbroso@atinternet.com',
         userID: '123456',
-        team: 'wiym',
-        language: 'en',
-        customFields: {
-
-        }
-        //divToCapture : 'document.body',
-        //divToAppend: 'document.body'
+        team: 'wiym'
     });
 </script>
 </body>
