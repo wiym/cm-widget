@@ -375,7 +375,7 @@
 
     };
 
-    window['wiym'] = {
+    window['wiymWidget'] = {
         'conf': function () {
             return userConfig
         },
