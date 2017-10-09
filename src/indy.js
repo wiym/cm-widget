@@ -181,7 +181,17 @@
         parent.appendChild(b);
         return b;
     };
-    var addClass = function (element, className) {
+    var isArray = function (what) {
+        return (typeof(what) === 'object' && what.length !== undefined)
+    };
+
+    var addClass = function (elements, className) {
+        elements = isArray(elements) ? elements : [elements];
+        for (var i = 0; i < elements.length ; i++) {
+            addElementClass(elements[i], className);
+        }
+    };
+    var addElementClass = function (element, className) {
         if (element.className && element.className.indexOf(className) == -1) {
             element.className += ' ' + className;
         }
@@ -201,7 +211,6 @@
     }
 
     function actionOpenPopup() {
-
         addClass(gec('wid-indy-button--feedback'), 'is-hide');
         addClass(gec('wid-indy-w-container'), 'wid-indy-w-container--open');
         removeClass(gec('wid-indy-w-container'), 'is-hide');
@@ -217,7 +226,7 @@
         notes.map(function (n) {
             addEvent(n, 'click', function (e) {
                 note = Number(n.className.match(/wid-indy-note-([\-\d]+)/)[1]);
-                addClass(gec('wid-indy-note'), 'wid-indy-btn-group-item--inactive');
+                addClass(gec('wid-indy-note', true), 'wid-indy-btn-group-item--inactive');
                 removeClass(n, 'wid-indy-btn-group-item--inactive');
             })
         });
@@ -391,7 +400,6 @@
              */
             _configure(config);
 
-
             divToAppend = userConfig.divToAppend ? gec(userConfig.divToAppend) : document.body;
             divToCapture = userConfig.divToCapture ? gec(userConfig.divToCapture) : document.body;
 
@@ -472,7 +480,7 @@
                 }
             });
         }
-    }
+    };
     window.jcssReg = function (path, content) {
         var s = document.createElement('style');
         s.innerText = content;
