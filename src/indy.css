@@ -396,7 +396,7 @@ category: Utilities
   #wid-indy-w-container * {
     box-sizing: border-box; }
   #wid-indy-w-container textarea {
-    min-height: 0 !important;
+    min-height: 70px !important;
     line-height: 1.8 !important; }
   #wid-indy-w-container .wid-indy-w-header {
     font-size: 1.2em;
