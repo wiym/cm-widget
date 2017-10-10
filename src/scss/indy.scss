@@ -13,7 +13,7 @@ $name-base: '.wid-indy';
   color: color($color-light, 'primary');
   border-radius: 2px;
   width: 390px;
-  height: 260px;
+  min-height: 260px;
   box-shadow: 0 0 5px 0 fade-out(color($color-dark, 'primary'),.6);
 
   & * {
@@ -110,6 +110,7 @@ $name-base: '.wid-indy';
     visibility: hidden;
     opacity: 0;
     transition: all .3s ease;
+    display: none;
   }
 }
 
@@ -142,6 +143,7 @@ $name-base: '.wid-indy';
   padding: spacing('md') spacing('lg');
   font-weight: 700;
   border: none;
+  z-index: 999;
   transition: background .2s ease-in-out;
   text-decoration: none;
 
