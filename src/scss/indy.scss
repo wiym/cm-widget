@@ -14,6 +14,8 @@ $name-base: '.wid-indy';
   border-radius: 2px;
   width: 390px;
   min-height: 260px;
+  z-index: 9999;
+
   box-shadow: 0 0 5px 0 fade-out(color($color-dark, 'primary'),.6);
 
   & * {

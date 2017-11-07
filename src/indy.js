@@ -135,7 +135,7 @@
         '<span class="wid-indy-button wid-indy-button--success wid-indy-button--small wid-indy-send-feedback">#trads:labelBtnSend#</span>' +
         '</div>' +
         '</div>' +
-        '<div data-step-feedback="success" class="wid-indy-center wid-indy-feedback-success">' +
+        '<div data-step-feedback="success" class="wid-indy-center wid-indy-feedback-success is-hide">' +
         '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">' +
         '<title>' +
         'Success' +
