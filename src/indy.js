@@ -274,11 +274,10 @@
     }
 
     function getScreenShot(callback) {
-        html2canvas(divToCapture, {
-            onrendered: function (canvas) {
-                base64 = canvas.toDataURL();
-                callback(base64);
-            }
+
+        html2canvas(divToCapture).then(function(canvas) {
+          base64 = canvas.toDataURL();
+          callback(base64);
         });
     }
 
