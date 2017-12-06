@@ -1,6 +1,5 @@
 (function () {
 
-
     var userConfig, apiUrl, application, containers = {}, translatedTemplates;
     var trads = {
         en: {

@@ -481,14 +481,14 @@ category: Utilities
 .wid-indy-button {
   background: none;
   font-family: "NotoSans", arial, helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 0.9em;
   color: #ffffff;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   border-radius: 2px;
   text-transform: uppercase;
-  padding: 8px 16px;
+  padding: 8px 8px;
   font-weight: 700;
   border: none;
   z-index: 999;

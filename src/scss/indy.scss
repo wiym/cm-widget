@@ -135,14 +135,14 @@ $name-base: '.wid-indy';
 #{$name-base}-button {
   background: none;
   font-family: $font-family-base;
-  font-size: $font-md;
+  font-size: $font-sm;
   color: color($color-light, 'primary');
   display: inline-flex;
   justify-content: center;
   align-items: center;
   border-radius: 2px;
   text-transform: uppercase;
-  padding: spacing('md') spacing('lg');
+  padding: spacing('md') spacing('md');
   font-weight: 700;
   border: none;
   z-index: 999;
