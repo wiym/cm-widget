@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         'closure-compiler': {
             dist: {
                 files: {
-                    '.tmp/output.min.js': ['src/bower_components/html2canvas/build/html2canvas.js', 'src/indy.js']
+                    '.tmp/output.min.js': ['bower_components/html2canvas/dist/html2canvas.js', 'src/indy.js']
                 },
                 options: {
                     compilation_level: 'SIMPLE_OPTIMIZATIONS',

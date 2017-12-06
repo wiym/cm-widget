@@ -392,6 +392,7 @@ category: Utilities
   border-radius: 2px;
   width: 390px;
   min-height: 260px;
+  z-index: 9999;
   box-shadow: 0 0 5px 0 rgba(7, 34, 54, 0.4); }
   #wid-indy-w-container * {
     box-sizing: border-box; }
@@ -480,14 +481,14 @@ category: Utilities
 .wid-indy-button {
   background: none;
   font-family: "NotoSans", arial, helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 0.9em;
   color: #ffffff;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   border-radius: 2px;
   text-transform: uppercase;
-  padding: 8px 16px;
+  padding: 8px 8px;
   font-weight: 700;
   border: none;
   z-index: 999;
