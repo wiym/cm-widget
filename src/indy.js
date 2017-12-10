@@ -382,101 +382,106 @@
 
     };
 
+  function _init(config) {
+      /*
+       shortcuts : 'F' mess with inputs
+       $(document).keyup(function (e) {
+       if (e.keyCode == 27) {
+       actionClosePopup();
+       }
+       });
+       */
+    _configure(config);
+
+    divToAppend = userConfig.divToAppend ? gec(userConfig.divToAppend) : document.body;
+    divToCapture = userConfig.divToCapture ? gec(userConfig.divToCapture) : document.body;
+
+    if (containers.button) {
+      containers.button.innerHTML = translatedTemplates.btnPopup;
+    }
+    else {
+      containers.button = addElem('span', {}, translatedTemplates.btnPopup, divToAppend);
+    }
+    if (containers.popup) {
+      containers.popup.innerHTML = translatedTemplates.popup
+    }
+    else {
+      containers.popup = addElem('span', {}, translatedTemplates.popup, divToAppend);
+    }
+
+    addEvent(gec('wid-indy-close-feedback'), 'click', function () {
+      addClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
+      removeClass(gec('wid-indy-close-feedback'), 'fadeInUp');
+
+      setTimeout(function () {
+        removeClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
+        removeClass(gec('wid-indy-close-feedback'), 'is-shown');
+        removeClass(gec('wid-indy-close-feedback'), 'fadeInUp');
+
+      }, 7000);
+    });
+    addActionPopup();
+    addEvent(gec('wid-indy-send-feedback'), 'click', function (event) {
+      event.stopPropagation();
+      event.preventDefault();
+
+
+      comment = gec('wid-indy-comment').value;
+      email = gec('wid-indy-email').value;
+
+      if (email === '') {
+        email = userConfig.email;
+      }
+
+      if (note === '' && comment === '') {
+        console.log('Veuillez noter votre expérience et saisir votre feedback.');
+        addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+        addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+
+      } else if (comment === '') {
+        console.log('Veuillez saisir votre feedback.')
+        addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+      } else if (note === '') {
+        console.log('Veuillez noter votre expérience.');
+        addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+      } else {
+        addClass(gec('step-feedback-1'), 'is-hide');
+
+        setTimeout(function () {
+          gec('step-feedback-1').style.display = 'none';
+        }, 100);
+
+        setTimeout(function () {
+          removeClass(gec('wid-indy-feedback-success'), 'is-hide');
+        }, 100);
+
+        setTimeout(function () {
+          actionClosePopup();
+          setTimeout(function () {
+            addClass(gec('wid-indy-feedback-success'), 'is-hide');
+
+            gec('step-feedback-1').style.display = 'block';
+            removeClass(gec('step-feedback-1'), 'is-hide');
+
+          }, 500);
+        }, 2000);
+
+        removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+        removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+
+        actionSendPopup();
+      }
+    });
+  }
     window['wiymWidget'] = {
         'conf': function () {
             return userConfig
         },
         'configure': _configure,
-        'init': function (config) {
-            /*
-             shortcuts : 'F' mess with inputs
-             $(document).keyup(function (e) {
-             if (e.keyCode == 27) {
-             actionClosePopup();
-             }
-             });
-             */
-            _configure(config);
-
-            divToAppend = userConfig.divToAppend ? gec(userConfig.divToAppend) : document.body;
-            divToCapture = userConfig.divToCapture ? gec(userConfig.divToCapture) : document.body;
-
-            if (containers.button) {
-                containers.button.innerHTML = translatedTemplates.btnPopup;
-            }
-            else {
-                containers.button = addElem('span', {}, translatedTemplates.btnPopup, divToAppend);
-            }
-            if (containers.popup) {
-                containers.popup.innerHTML = translatedTemplates.popup
-            }
-            else {
-                containers.popup = addElem('span', {}, translatedTemplates.popup, divToAppend);
-            }
-
-            addEvent(gec('wid-indy-close-feedback'), 'click', function () {
-                addClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
-                removeClass(gec('wid-indy-close-feedback'), 'fadeInUp');
-
-                setTimeout(function () {
-                    removeClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
-                    removeClass(gec('wid-indy-close-feedback'), 'is-shown');
-                    removeClass(gec('wid-indy-close-feedback'), 'fadeInUp');
-
-                }, 7000);
-            });
-            addActionPopup();
-            addEvent(gec('wid-indy-send-feedback'), 'click', function (event) {
-                event.stopPropagation();
-                event.preventDefault();
-
-
-                comment = gec('wid-indy-comment').value;
-                email = gec('wid-indy-email').value;
-
-                if (email === '') {
-                    email = userConfig.email;
-                }
-
-                if (note === '' && comment === '') {
-                    console.log('Veuillez noter votre expérience et saisir votre feedback.');
-                    addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-                    addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
-
-                } else if (comment === '') {
-                    console.log('Veuillez saisir votre feedback.')
-                    addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-                } else if (note === '') {
-                    console.log('Veuillez noter votre expérience.');
-                    addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
-                } else {
-                    addClass(gec('step-feedback-1'), 'is-hide');
-
-                    setTimeout(function () {
-                        gec('step-feedback-1').style.display = 'none';
-                    }, 100);
-
-                    setTimeout(function () {
-                        removeClass(gec('wid-indy-feedback-success'), 'is-hide');
-                    }, 100);
-
-                    setTimeout(function () {
-                        actionClosePopup();
-                        setTimeout(function () {
-                            addClass(gec('wid-indy-feedback-success'), 'is-hide');
-
-                            gec('step-feedback-1').style.display = 'block';
-                            removeClass(gec('step-feedback-1'), 'is-hide');
-
-                        }, 500);
-                    }, 2000);
-
-                    removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-                    removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
-
-                    actionSendPopup();
-                }
-            });
+        'init': function(){
+          document.addEventListener("DOMContentLoaded", function(event) {
+            _init();
+          });
         }
     };
     window.jcssReg = function (path, content) {
