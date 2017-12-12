@@ -324,6 +324,7 @@
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
         xmlhttp.open("POST", apiUrl);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
+        console.log(mydata)
         xmlhttp.send(JSON.stringify(mydata));
         clearForm();
 
@@ -378,6 +379,7 @@
         translatedTemplates = translateTemplates(config.language);
 
         apiUrl = 'https://widget.wiym.io/feedbacks/' + userConfig.team;
+        console
         translatedTemplates.popup = translatedTemplates.popup.replace('#userConfig.email#', userConfig.email);
 
     };
@@ -478,16 +480,16 @@
             return userConfig
         },
         'configure': _configure,
-        'init': function(){
+        'init': function(conf){
           document.addEventListener("DOMContentLoaded", function(event) {
-            _init();
+            _init(conf);
           });
         }
     };
     window.jcssReg = function (path, content) {
         var s = document.createElement('style');
         s.innerText = content;
-        document.body.appendChild(s);
+        document.getElementsByTagName('head')[0].appendChild(s);
 //        console.log(arguments)
     }
 }());
