@@ -481,9 +481,14 @@
         },
         'configure': _configure,
         'init': function(conf){
-          document.addEventListener("DOMContentLoaded", function(event) {
+          if(document.readyState === "complete") {
             _init(conf);
-          });
+          }
+          else {
+            document.addEventListener("DOMContentLoaded", function(event) {
+              _init(conf);
+            });
+          }
         }
     };
     window.jcssReg = function (path, content) {
