@@ -485,7 +485,7 @@
             _init(conf);
           }
           else {
-            document.addEventListener("DOMContentLoaded", function(event) {
+            document.addEventListener("readystatechange", function(event) {
               _init(conf);
             });
           }
