@@ -379,7 +379,6 @@
         translatedTemplates = translateTemplates(config.language);
 
         apiUrl = 'https://widget.wiym.io/feedbacks/' + userConfig.team;
-        console
         translatedTemplates.popup = translatedTemplates.popup.replace('#userConfig.email#', userConfig.email);
 
     };
