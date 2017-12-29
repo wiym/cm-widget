@@ -383,6 +383,11 @@
 
     };
 
+  function validateEmail(email) {
+    var re = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
+    return re.test(email.toLowerCase());
+  }
+
   function _init(config) {
       /*
        shortcuts : 'F' mess with inputs
@@ -393,6 +398,11 @@
        });
        */
     _configure(config);
+    console.log(typeof userConfig.email);
+
+    if(typeof userConfig.email === 'undefined') {
+      userConfig.email = '';
+    }
 
     divToAppend = userConfig.divToAppend ? gec(userConfig.divToAppend) : document.body;
     divToCapture = userConfig.divToCapture ? gec(userConfig.divToCapture) : document.body;
@@ -430,47 +440,49 @@
       comment = gec('wid-indy-comment').value;
       email = gec('wid-indy-email').value;
 
-      if (email === '') {
-        email = userConfig.email;
-      }
-
-      if (note === '' && comment === '') {
-        console.log('Veuillez noter votre expérience et saisir votre feedback.');
+      if(note === '' && comment === '' && email === '') {
         addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
         addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
-
-      } else if (comment === '') {
-        console.log('Veuillez saisir votre feedback.')
-        addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-      } else if (note === '') {
-        console.log('Veuillez noter votre expérience.');
+        addClass(gec('wid-indy-email'), 'wid-indy-input--error');
+      } else if(note === '') {
         addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+      } else if(comment === '') {
+        addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+      } else if (email === ''){
+        addClass(gec('wid-indy-email'), 'wid-indy-input--error');
       } else {
-        addClass(gec('step-feedback-1'), 'is-hide');
+        if(!validateEmail(email)) {
+          addClass(gec('wid-indy-email'), 'wid-indy-input--error');
+          removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+          removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+        } else {
+          addClass(gec('step-feedback-1'), 'is-hide');
 
-        setTimeout(function () {
-          gec('step-feedback-1').style.display = 'none';
-        }, 100);
-
-        setTimeout(function () {
-          removeClass(gec('wid-indy-feedback-success'), 'is-hide');
-        }, 100);
-
-        setTimeout(function () {
-          actionClosePopup();
           setTimeout(function () {
-            addClass(gec('wid-indy-feedback-success'), 'is-hide');
+            gec('step-feedback-1').style.display = 'none';
+          }, 100);
 
-            gec('step-feedback-1').style.display = 'block';
-            removeClass(gec('step-feedback-1'), 'is-hide');
+          setTimeout(function () {
+            removeClass(gec('wid-indy-feedback-success'), 'is-hide');
+          }, 100);
 
-          }, 500);
-        }, 2000);
+          setTimeout(function () {
+            actionClosePopup();
+            setTimeout(function () {
+              addClass(gec('wid-indy-feedback-success'), 'is-hide');
 
-        removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-        removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+              gec('step-feedback-1').style.display = 'block';
+              removeClass(gec('step-feedback-1'), 'is-hide');
 
-        actionSendPopup();
+            }, 500);
+          }, 2000);
+
+          removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+          removeClass(gec('wid-indy-email'), 'wid-indy-input--error');
+          removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+
+          actionSendPopup();
+        }
       }
     });
   }
