@@ -367,19 +367,6 @@
         removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
     }
 
-    function showNotification(type) {
-        /*
-         TODO
-         $('[data-type-notification="' + type + '"]').addClass('fadeInUp is-shown');
-         setTimeout(function () {
-         $('[data-type-notification="' + type + '"]').addClass('fadeOutDown').removeClass('fadeInUp');
-         }, 5000);
-         setTimeout(function () {
-         $('[data-type-notification="' + type + '"]').removeClass('fadeOutDown is-shown').removeClass('fadeInUp');
-         }, 7000);
-         */
-    }
-
     var translateTemplate = function (source, lang) {
         var matches = source.match(/#trads:([^#]*)#/gi);
         var result = source;
