@@ -324,12 +324,48 @@
         var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
         xmlhttp.open("POST", apiUrl);
         xmlhttp.setRequestHeader("Content-Type", "application/json");
-        console.log(mydata)
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+              var success = '{"result":"success"}';
+                if(xmlhttp.responseText === success) {
+                  sendSuccess();
+                }
+           }
+        };
         xmlhttp.send(JSON.stringify(mydata));
-        clearForm();
+
 
         return true;
+    }
 
+    function sendSuccess() {
+      gec('wid-indy-close-feedback').classList.remove("sending");
+      gec('wid-indy-send-feedback').classList.remove("sending");
+      clearForm();
+      addClass(gec('step-feedback-1'), 'is-hide');
+
+        setTimeout(function () {
+          gec('step-feedback-1').style.display = 'none';
+        }, 100);
+
+        setTimeout(function () {
+          removeClass(gec('wid-indy-feedback-success'), 'is-hide');
+        }, 100);
+
+        setTimeout(function () {
+          actionClosePopup();
+          setTimeout(function () {
+            addClass(gec('wid-indy-feedback-success'), 'is-hide');
+
+            gec('step-feedback-1').style.display = 'block';
+            removeClass(gec('step-feedback-1'), 'is-hide');
+
+          }, 500);
+        }, 2000);
+
+        removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+        removeClass(gec('wid-indy-email'), 'wid-indy-input--error');
+        removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
     }
 
     function showNotification(type) {
@@ -398,7 +434,6 @@
        });
        */
     _configure(config);
-    console.log(typeof userConfig.email);
 
     if(typeof userConfig.email === 'undefined') {
       userConfig.email = '';
@@ -433,6 +468,7 @@
     });
     addActionPopup();
     addEvent(gec('wid-indy-send-feedback'), 'click', function (event) {
+
       event.stopPropagation();
       event.preventDefault();
 
@@ -456,31 +492,8 @@
           removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
           removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
         } else {
-          addClass(gec('step-feedback-1'), 'is-hide');
-
-          setTimeout(function () {
-            gec('step-feedback-1').style.display = 'none';
-          }, 100);
-
-          setTimeout(function () {
-            removeClass(gec('wid-indy-feedback-success'), 'is-hide');
-          }, 100);
-
-          setTimeout(function () {
-            actionClosePopup();
-            setTimeout(function () {
-              addClass(gec('wid-indy-feedback-success'), 'is-hide');
-
-              gec('step-feedback-1').style.display = 'block';
-              removeClass(gec('step-feedback-1'), 'is-hide');
-
-            }, 500);
-          }, 2000);
-
-          removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-          removeClass(gec('wid-indy-email'), 'wid-indy-input--error');
-          removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
-
+          gec('wid-indy-close-feedback').classList.add("sending");
+          gec('wid-indy-send-feedback').classList.add("sending");
           actionSendPopup();
         }
       }
