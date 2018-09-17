@@ -47,15 +47,12 @@
     var templates = {
         btnPopup: '<span data-html2canvas-ignore data-action="openFeedback" class="wid-indy-button wid-indy-button--primary wid-indy-button--feedback">#trads:labelBtnPopup#</span>',
         popup: '<div data-html2canvas-ignore data-popup="feedback" id="wid-indy-w-container" class="wid-indy-w-container">' +
-        '<div class="wid-indy-w-header">' +
-        '<a href="https://www.wiym.io" class="wid-indy-w-header-link" target="_blank">WIYM</a>' +
-        '</div>' +
         '<div data-step-feedback="1" class="step-feedback-1">' +
         '<div class="wid-indy-form-group">' +
-        '<div class="wid-indy-label wid-indy-label--light">' +
-        '#trads:labelEmail#' +
+        '<div class="">' +
+        '<label for="email" class="wid-indy-label wid-indy-label--light">#trads:labelEmail#</label>' +
         '<div>' +
-        '<input type="email" class="wid-indy-input wid-indy-email" value="#userConfig.email#">' +
+        '<input type="email" id="email" class="wid-indy-input wid-indy-email" value="#userConfig.email#">' +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -121,11 +118,11 @@
         '</div>' +
         '</div>' +
         '<div class="wid-indy-form-group">' +
-        '<div class="wid-indy-label wid-indy-label--light">' +
+        '<label for="comment" class="wid-indy-label wid-indy-label--light">' +
         '#trads:labelComment#' +
-        '</div>' +
+        '</label>' +
         '<div>' +
-        '<textarea name="" id="" rows="3" class="wid-indy-input wid-indy-comment"></textarea>' +
+        '<textarea name="" id="comment" rows="3" class="wid-indy-input wid-indy-comment"></textarea>' +
         '</div>' +
         '</div>' +
         '<div class="wid-indy-w-footer">' +
@@ -142,7 +139,20 @@
         '</svg>' +
         '<p>#trads:feedbackSuccess#</p>' +
         '</div>' +
+        '<div class="wid-indy-w-header">' +
+        '<a href="https://www.crowdmap.io" class="wid-indy-w-header-link" title="Powered by Crowdmap" target="_blank">'+
+'<svg style="width: 12px; height: 12px; margin-right: 4px;" id="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">'+
+  '<defs><style>.cls-4{fill:#011627}.cls-3{fill:#26938c}</style></defs>'+
+  '<title>Powered by Crowdmap</title>'+
+  '<circle cx="80" cy="80" r="80" fill="#31e6ce"/>'+
+  '<path d="M86.46 93.63c-4.86 1.94-4.86 7.77-18.46 8.74a21.37 21.37 0 0 1 0-42.74c13.6 1 13.6 6.8 18.46 8.74 3.65 1.46 9.65 1.88 13.6 1.94a34 34 0 1 0 0 21.37c-3.96.09-9.95.49-13.6 1.95z" fill-rule="evenodd" fill="#011627"/>'+
+  '<path class="cls-3" d="M122.4 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38zM136.97 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38z"/>'+
+  '<path class="cls-4" d="M100.06 70.31h7.77v21.37h-7.77zM114.63 70.31h7.77v21.37h-7.77z"/>'+
+'</svg>'+
+  'Powered by Crowdmap</a>' +
+        '</div>'+
         '</div>'
+
     };
 
     var gec = function (id, array) {

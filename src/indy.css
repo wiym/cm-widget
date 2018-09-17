@@ -45,33 +45,28 @@ Le helper when-inside permet de définir un style pour élément lorsqu'il se tr
 
 */
 @font-face {
-  font-family: "NotoSans";
-  src: url("../assets/fonts/NotoSans/NotoSans-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal; }
-@font-face {
-  font-family: "NotoSans";
-  src: url("../assets/fonts/NotoSans/NotoSans-BoldItalic.ttf") format("truetype");
-  font-weight: 700;
-  font-style: italic; }
-@font-face {
-  font-family: "NotoSans";
-  src: url("../assets/fonts/NotoSans/NotoSans-Regular.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal; }
-@font-face {
-  font-family: "NotoSans";
-  src: url("../assets/fonts/NotoSans/NotoSans-Italic.ttf") format("truetype");
+  font-family: "ABeeZee";
+  src: url("../assets/fonts/ABeeZee/ABeeZee-Italic.ttf") format("truetype");
   font-weight: 500;
   font-style: italic; }
 @font-face {
-  font-family: "PT Sans";
-  src: url("../assets/fonts/ptsansnarrow/PT_Sans-Narrow-Web-Bold.ttf") format("truetype");
+  font-family: "ABeeZee";
+  src: url("../assets/fonts/ABeeZee/ABeeZee-Regular.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal; }
+@font-face {
+  font-family: "OpenSans";
+  src: url("../assets/fonts/OpenSans/OpenSans-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal; }
 @font-face {
-  font-family: "PT Sans";
-  src: url("../assets/fonts/ptsansnarrow/PT_Sans-Narrow-Web-Regular.ttf") format("truetype");
+  font-family: "OpenSans";
+  src: url("../assets/fonts/OpenSans/OpenSans-Regular.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal; }
+@font-face {
+  font-family: "JosefinSans";
+  src: url("../assets/fonts/Josefin_Sans/JosefinSans-Regular.ttf") format("truetype");
   font-weight: 500;
   font-style: normal; }
 /*doc
@@ -384,7 +379,7 @@ category: Utilities
   text-align: center !important; }
 
 #wid-indy-w-container {
-  font-family: "NotoSans", arial, helvetica, sans-serif;
+  font-family: "ABeeZee", arial, helvetica, sans-serif;
   font-size: 12px;
   background: #072236;
   padding: 16px;
@@ -400,14 +395,19 @@ category: Utilities
     min-height: 70px !important;
     line-height: 1.8 !important; }
   #wid-indy-w-container .wid-indy-w-header {
-    font-size: 14px;
-    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    font-size: 10.8px;
+    text-transform: capitalize;
     font-weight: 700;
-    font-family: "PT_Sans-Narrow-Web", "NotoSans", arial, helvetica, sans-serif;
-    margin-bottom: 8px; }
+    font-family: "OpenSans", "ABeeZee", arial, helvetica, sans-serif;
+    margin-top: 8px; }
     #wid-indy-w-container .wid-indy-w-header-link {
       color: #ffffff;
-      text-decoration: none; }
+      text-decoration: none;
+      font-family: "JosefinSans", "ABeeZee", arial, helvetica, sans-serif;
+      display: flex;
+      align-items: center; }
   #wid-indy-w-container .wid-indy-w-footer {
     display: flex;
     justify-content: space-between; }
@@ -423,7 +423,7 @@ category: Utilities
     #wid-indy-w-container .wid-indy-label--success {
       color: #10CFBD; }
   #wid-indy-w-container .wid-indy-input {
-    font-family: "NotoSans", arial, helvetica, sans-serif;
+    font-family: "ABeeZee", arial, helvetica, sans-serif;
     display: block;
     height: 35px;
     font-size: 12px;
@@ -432,7 +432,7 @@ category: Utilities
     background-color: #fff;
     background-image: none;
     border: 1px solid #d6d6d6;
-    border-radius: 2px;
+    border-radius: 2px !important;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s; }
     #wid-indy-w-container .wid-indy-input:hover {
@@ -480,19 +480,20 @@ category: Utilities
 
 .wid-indy-button {
   background: none;
-  font-family: "NotoSans", arial, helvetica, sans-serif;
+  font-family: "ABeeZee", arial, helvetica, sans-serif;
   font-size: 10.8px;
   color: #ffffff;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border-radius: 2px;
+  border-radius: 100px;
   text-transform: uppercase;
   padding: 8px 8px;
   font-weight: 700;
   border: none;
   z-index: 999;
   transition: background .2s ease-in-out;
+  box-shadow: 0 0 6px 0 rgba(57, 81, 255, 0.3);
   text-decoration: none; }
   .wid-indy-button:hover {
     cursor: pointer;
@@ -505,13 +506,14 @@ category: Utilities
     .wid-indy-button--primary:hover {
       background: #283f6a; }
   .wid-indy-button--success {
-    background: #10CFBD; }
+    background: #FF4A95; }
     .wid-indy-button--success:hover {
-      background: #0fc1b0; }
+      background: #ff3b8c; }
   .wid-indy-button--feedback {
     position: fixed;
     bottom: 10px;
     right: 10px;
+    border-radius: 2px;
     box-shadow: 0 0 5px 0 rgba(7, 34, 54, 0.4); }
 
 .wid-indy-btn-group {
@@ -529,7 +531,9 @@ category: Utilities
     padding: 4px;
     opacity: 1;
     transform: scale(1.1);
-    transition: opacity .2s ease-in-out, transform .2s ease-in-out; }
+    transition: opacity .2s ease-in-out, transform .2s ease-in-out;
+    background: #31e6ce;
+    border-radius: 2px; }
     .wid-indy-btn-group-item:not(:last-child) {
       border-right: 1px solid #051927; }
     .wid-indy-btn-group-item:hover {
@@ -540,7 +544,8 @@ category: Utilities
     .wid-indy-btn-group-item--inactive {
       opacity: .8;
       transform: scale(0.9);
+      background: transparent;
       transition: opacity .2s ease-in-out, transform .2s ease-in-out; }
 
 .sending {
-  opacity: .3; }
+  opacity: .5; }
