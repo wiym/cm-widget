@@ -18,7 +18,7 @@
       labelBtnSend: 'Send my feedback',
       feedbackSuccess: 'Your feedback was successfully sent.',
       closeFeedback: 'Close',
-
+      labelCapture: 'Send a screenshot',
       tradNegative: 'unsatisfying',
       tradNeutral: 'neutral',
       tradPositive: 'satisfying'
@@ -36,7 +36,7 @@
       labelBtnSend: 'Envoyer mon feedback',
       feedbackSuccess: 'Votre feedback a bien été envoyé.',
       closeFeedback: 'Fermer',
-
+      labelCapture: 'Envoyer une capture d\'écran',
       tradNegative: 'insatisfaisante',
       tradNeutral: 'neutre',
       tradPositive: 'satisfaisante'
@@ -53,7 +53,82 @@
 
   var templates = {
     btnPopup: '<span data-html2canvas-ignore data-action="openFeedback" class="wid-indy-button wid-indy-button--primary wid-indy-button--feedback">#trads:labelBtnPopup#</span>',
-    popup: '<div data-html2canvas-ignore data-popup="feedback" id="wid-indy-w-container" class="wid-indy-w-container">' + '<div data-step-feedback="1" class="step-feedback-1">' + '<div class="wid-indy-form-group">' + '<div class="wid-indy-label wid-indy-label--light">' + '#trads:labelNotation#' + '</div>' + '<div class="wid-indy-w-sentiment">' + '<div class="wid-indy-btn-group">' + '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-1" data-input="note" data-note="1" title="#trads:trad5#">' + '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle class="emo-background" cx="12.375" cy="12.375" r="12.375"/><path fill="#5A5A5A" fill-rule="nonzero" d="M20.444 20.444a11.334 11.334 0 0 1-8.068 3.342 11.334 11.334 0 0 1-8.068-3.342 11.334 11.334 0 0 1-3.341-8.068c0-3.048 1.186-5.912 3.341-8.068A11.334 11.334 0 0 1 12.376.967c3.048 0 5.913 1.186 8.068 3.341a11.334 11.334 0 0 1 3.341 8.068c0 3.048-1.186 5.913-3.341 8.068m.683-16.819A12.294 12.294 0 0 0 12.377 0a12.294 12.294 0 0 0-8.752 3.625A12.294 12.294 0 0 0 0 12.376c0 3.306 1.287 6.414 3.625 8.751a12.294 12.294 0 0 0 8.751 3.625c3.306 0 6.414-1.286 8.751-3.625a12.294 12.294 0 0 0 3.625-8.75c0-3.306-1.286-6.414-3.625-8.752m-2.829 9.57H6.454a.484.484 0 0 0-.484.484 6.413 6.413 0 0 0 6.406 6.405 6.413 6.413 0 0 0 6.406-6.405.484.484 0 0 0-.484-.484m-9.866-1.764c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.854 0-1.55.695-1.55 1.55 0 .854.696 1.55 1.55 1.55m7.926 0c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.855 0-1.55.695-1.55 1.55 0 .854.695 1.55 1.55 1.55"/></g></svg>' + '<span class="wid-indy-btn-group-item-legend">#trads:tradPositive#</span>' + '</a>' + '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-0" data-input="note" data-note="0" title="#trads:trad3#">' + '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle cx="12.375" cy="12.375" r="12.375" class="emo-background"/><path fill="#011627" fill-rule="nonzero" d="M20.648 20.648a11.447 11.447 0 0 1-8.148 3.375 11.447 11.447 0 0 1-8.149-3.375A11.447 11.447 0 0 1 .976 12.5c0-3.078 1.199-5.972 3.375-8.149A11.447 11.447 0 0 1 12.5.977c3.078 0 5.972 1.198 8.148 3.374a11.447 11.447 0 0 1 3.375 8.149c0 3.078-1.198 5.972-3.375 8.148m.69-16.987A12.417 12.417 0 0 0 12.5 0C9.161 0 6.022 1.3 3.661 3.661A12.417 12.417 0 0 0 0 12.5c0 3.339 1.3 6.477 3.661 8.839A12.417 12.417 0 0 0 12.5 25c3.339 0 6.477-1.3 8.839-3.661A12.417 12.417 0 0 0 25 12.5c0-3.339-1.3-6.478-3.661-8.839m-4.06 11.972H7.76a.488.488 0 0 0 0 .977h9.52a.488.488 0 1 0 0-.977m-6.59-5.964a.488.488 0 0 0-.977 0c0 .665-.541 1.206-1.205 1.206A1.207 1.207 0 0 1 7.3 9.67a.488.488 0 0 0-.977 0c0 1.204.979 2.183 2.183 2.183a2.184 2.184 0 0 0 2.182-2.183m7.499-.488a.488.488 0 0 0-.489.488c0 .665-.54 1.206-1.206 1.206a1.207 1.207 0 0 1-1.205-1.206.488.488 0 0 0-.976 0c0 1.204.978 2.183 2.181 2.183a2.184 2.184 0 0 0 2.183-2.183.488.488 0 0 0-.488-.488"/></g></svg>' + '<span class="wid-indy-btn-group-item-legend">#trads:tradNeutral#</span>' + '</a>' + '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note--1" data-input="note" data-note="-1" title="#trads:trad2#">' + '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle cx="12.375" cy="12.375" r="12.375" class="emo-background"/><path fill="#011627" fill-rule="nonzero" d="M12.5 0C5.603 0 0 5.603 0 12.5S5.603 25 12.5 25 25 19.397 25 12.5 19.397 0 12.5 0zm.05 1C18.936 1 24.1 6.164 24.1 12.55c0 6.386-5.164 11.55-11.55 11.55A11.541 11.541 0 0 1 1 12.55C1 6.164 6.164 1 12.55 1zM7.778 7.222a1.667 1.667 0 1 0 0 3.334 1.667 1.667 0 0 0 0-3.334zm9.444 0a1.667 1.667 0 1 0 .001 3.334 1.667 1.667 0 0 0 0-3.334zM12.5 14.167c-2.724 0-5.13 1.419-6.571 3.576a.555.555 0 1 0 .92.616c1.251-1.87 3.314-3.081 5.651-3.081 2.337 0 4.4 1.21 5.651 3.081a.558.558 0 0 0 .794.191.555.555 0 0 0 .126-.807c-1.442-2.157-3.847-3.576-6.57-3.576H12.5z"/></g></svg>' + '<span class="wid-indy-btn-group-item-legend">#trads:tradNegative#</span>' + '</a>' + '</div>' + '</div>' + '</div>' + '<div class="wid-indy-form-group">' + '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note-1 wid-indy-label--light is-shown">' + '#trads:labelCommentPositif#' + '</label>' + '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note-0 wid-indy-label--light">' + '#trads:labelCommentNeutral#' + '</label>' + '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note--1 wid-indy-label--light">' + '#trads:labelCommentNegative#' + '</label>' + '<div>' + '<textarea name="" id="comment" rows="3" class="wid-indy-input wid-indy-comment"></textarea>' + '</div>' + '</div>' + '<div class="wid-indy-form-group">' + '<div class="">' + '<label for="email" class="wid-indy-label wid-indy-label--light">#trads:labelEmail#</label>' + '<div>' + '<input type="email" id="email" class="wid-indy-input wid-indy-email" value="#userConfig.email#">' + '</div>' + '</div>' + '</div>' + '<div class="wid-indy-w-footer">' + '<span class="wid-indy-button wid-indy-button--primary wid-indy-button--small wid-indy-close-feedback">#trads:closeFeedback#</span>' + '<span class="wid-indy-button wid-indy-button--success wid-indy-button--small wid-indy-send-feedback">#trads:labelBtnSend#</span>' + '</div>' + '<div class="wid-indy-w-powered">' + '<a href="https://www.crowdmap.io" class="wid-indy-w-powered-link" title="Powered by Crowdmap" target="_blank">' + 'Powered by' + '<svg style="width: 12px; height: 12px; margin-left: 4px;" id="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">' + '<defs><style>.cls-4{fill:#011627}.cls-3{fill:#26938c}</style></defs>' + '<title>Powered by Crowdmap</title>' + '<circle cx="80" cy="80" r="80" fill="#31e6ce"/>' + '<path d="M86.46 93.63c-4.86 1.94-4.86 7.77-18.46 8.74a21.37 21.37 0 0 1 0-42.74c13.6 1 13.6 6.8 18.46 8.74 3.65 1.46 9.65 1.88 13.6 1.94a34 34 0 1 0 0 21.37c-3.96.09-9.95.49-13.6 1.95z" fill-rule="evenodd" fill="#011627"/>' + '<path class="cls-3" d="M122.4 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38zM136.97 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38z"/>' + '<path class="cls-4" d="M100.06 70.31h7.77v21.37h-7.77zM114.63 70.31h7.77v21.37h-7.77z"/>' + '</svg>' + '</a>' + '</div>' + '</div>' + '<div data-step-feedback="success" class="wid-indy-center wid-indy-feedback-success is-hide">' + '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">' + '<title>' + 'Success' + '</title>' + '<path d="M32 0C14.327 0 0 14.327 0 32c0 17.674 14.327 32 32 32 17.674 0 32-14.326 32-32C64 14.327 49.674 0 32 0zm.427 60.587c-15.528 0-28.16-12.682-28.16-28.192S16.9 4.267 32.427 4.267c15.527 0 28.16 12.618 28.16 28.128s-12.633 28.192-28.16 28.192zm12.79-40.365L26.403 39.434l-8.473-8.598c-.784-.794-2.053-.794-2.836 0-.783.794-.783 2.082 0 2.876l9.92 10.066c.783.794 2.05.794 2.835 0 .09-.09.167-.19.237-.294L48.054 23.1c.78-.795.78-2.083 0-2.878-.784-.794-2.053-.794-2.836 0z" fill-rule="nonzero" fill="#10CFBD"/>' + '</svg>' + '<p>#trads:feedbackSuccess#</p>' + '</div>' + '</div>'
+    popup: '<div data-html2canvas-ignore data-popup="feedback" id="wid-indy-w-container" class="wid-indy-w-container">' +
+    '<div data-step-feedback="1" class="step-feedback-1">' +
+    '<div class="wid-indy-form-group">' +
+      '<div class="wid-indy-label wid-indy-label--light">' +
+        '#trads:labelNotation#' +
+      '</div>' +
+      '<div class="wid-indy-w-sentiment">' +
+        '<div class="wid-indy-btn-group">' +
+          '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-1" data-input="note" data-note="1" title="#trads:trad5#">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle class="emo-background" cx="12.375" cy="12.375" r="12.375"/><path fill="#5A5A5A" fill-rule="nonzero" d="M20.444 20.444a11.334 11.334 0 0 1-8.068 3.342 11.334 11.334 0 0 1-8.068-3.342 11.334 11.334 0 0 1-3.341-8.068c0-3.048 1.186-5.912 3.341-8.068A11.334 11.334 0 0 1 12.376.967c3.048 0 5.913 1.186 8.068 3.341a11.334 11.334 0 0 1 3.341 8.068c0 3.048-1.186 5.913-3.341 8.068m.683-16.819A12.294 12.294 0 0 0 12.377 0a12.294 12.294 0 0 0-8.752 3.625A12.294 12.294 0 0 0 0 12.376c0 3.306 1.287 6.414 3.625 8.751a12.294 12.294 0 0 0 8.751 3.625c3.306 0 6.414-1.286 8.751-3.625a12.294 12.294 0 0 0 3.625-8.75c0-3.306-1.286-6.414-3.625-8.752m-2.829 9.57H6.454a.484.484 0 0 0-.484.484 6.413 6.413 0 0 0 6.406 6.405 6.413 6.413 0 0 0 6.406-6.405.484.484 0 0 0-.484-.484m-9.866-1.764c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.854 0-1.55.695-1.55 1.55 0 .854.696 1.55 1.55 1.55m7.926 0c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.855 0-1.55.695-1.55 1.55 0 .854.695 1.55 1.55 1.55"/></g></svg>' +
+            '<span class="wid-indy-btn-group-item-legend">#trads:tradPositive#</span>' +
+          '</a>' +
+          '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-0" data-input="note" data-note="0" title="#trads:trad3#">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle cx="12.375" cy="12.375" r="12.375" class="emo-background"/><path fill="#011627" fill-rule="nonzero" d="M20.648 20.648a11.447 11.447 0 0 1-8.148 3.375 11.447 11.447 0 0 1-8.149-3.375A11.447 11.447 0 0 1 .976 12.5c0-3.078 1.199-5.972 3.375-8.149A11.447 11.447 0 0 1 12.5.977c3.078 0 5.972 1.198 8.148 3.374a11.447 11.447 0 0 1 3.375 8.149c0 3.078-1.198 5.972-3.375 8.148m.69-16.987A12.417 12.417 0 0 0 12.5 0C9.161 0 6.022 1.3 3.661 3.661A12.417 12.417 0 0 0 0 12.5c0 3.339 1.3 6.477 3.661 8.839A12.417 12.417 0 0 0 12.5 25c3.339 0 6.477-1.3 8.839-3.661A12.417 12.417 0 0 0 25 12.5c0-3.339-1.3-6.478-3.661-8.839m-4.06 11.972H7.76a.488.488 0 0 0 0 .977h9.52a.488.488 0 1 0 0-.977m-6.59-5.964a.488.488 0 0 0-.977 0c0 .665-.541 1.206-1.205 1.206A1.207 1.207 0 0 1 7.3 9.67a.488.488 0 0 0-.977 0c0 1.204.979 2.183 2.183 2.183a2.184 2.184 0 0 0 2.182-2.183m7.499-.488a.488.488 0 0 0-.489.488c0 .665-.54 1.206-1.206 1.206a1.207 1.207 0 0 1-1.205-1.206.488.488 0 0 0-.976 0c0 1.204.978 2.183 2.181 2.183a2.184 2.184 0 0 0 2.183-2.183.488.488 0 0 0-.488-.488"/></g></svg>' +
+            '<span class="wid-indy-btn-group-item-legend">#trads:tradNeutral#</span>' +
+          '</a>' +
+          '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note--1" data-input="note" data-note="-1" title="#trads:trad2#">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle cx="12.375" cy="12.375" r="12.375" class="emo-background"/><path fill="#011627" fill-rule="nonzero" d="M12.5 0C5.603 0 0 5.603 0 12.5S5.603 25 12.5 25 25 19.397 25 12.5 19.397 0 12.5 0zm.05 1C18.936 1 24.1 6.164 24.1 12.55c0 6.386-5.164 11.55-11.55 11.55A11.541 11.541 0 0 1 1 12.55C1 6.164 6.164 1 12.55 1zM7.778 7.222a1.667 1.667 0 1 0 0 3.334 1.667 1.667 0 0 0 0-3.334zm9.444 0a1.667 1.667 0 1 0 .001 3.334 1.667 1.667 0 0 0 0-3.334zM12.5 14.167c-2.724 0-5.13 1.419-6.571 3.576a.555.555 0 1 0 .92.616c1.251-1.87 3.314-3.081 5.651-3.081 2.337 0 4.4 1.21 5.651 3.081a.558.558 0 0 0 .794.191.555.555 0 0 0 .126-.807c-1.442-2.157-3.847-3.576-6.57-3.576H12.5z"/></g></svg>' +
+            '<span class="wid-indy-btn-group-item-legend">#trads:tradNegative#</span>' +
+          '</a>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="wid-indy-form-group">' +
+      '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note-1 wid-indy-label--light is-shown">' +
+        '#trads:labelCommentPositif#' +
+      '</label>' +
+      '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note-0 wid-indy-label--light">' +
+      '#trads:labelCommentNeutral#' +
+      '</label>' +
+      '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note--1 wid-indy-label--light">' +
+      '#trads:labelCommentNegative#' +
+      '</label>' +
+      '<div>' +
+        '<textarea name="" id="comment" rows="3" class="wid-indy-input wid-indy-comment"></textarea>' +
+      '</div>' +
+    '</div>' +
+    '<div class="wid-indy-form-group">' +
+      '<div class="">' +
+        '<input type="checkbox" class="wid-indy-capture" name="capture" value="true" checked id="capture"><label for="capture"> #trads:labelCapture#</label><br>' +
+      '</div>' +
+    '</div>' +
+    '<div class="wid-indy-form-group">' +
+      '<div class="">' +
+        '<label for="email" class="wid-indy-label wid-indy-label--light">#trads:labelEmail#</label>' +
+        '<div>' +
+        '<input type="email" id="email" class="wid-indy-input wid-indy-email" value="#userConfig.email#">' +
+        '</div>' +
+    '</div>' +
+  '</div>' +
+  '<div class="wid-indy-w-footer">' +
+    '<span class="wid-indy-button wid-indy-button--primary wid-indy-button--small wid-indy-close-feedback">#trads:closeFeedback#</span>' +
+    '<span class="wid-indy-button wid-indy-button--success wid-indy-button--small wid-indy-send-feedback">#trads:labelBtnSend#</span>' +
+  '</div>' +
+  '<div class="wid-indy-w-powered">' +
+    '<a href="https://www.crowdmap.io" class="wid-indy-w-powered-link" title="Powered by Crowdmap" target="_blank">' +
+      'Powered by' +
+      '<svg style="width: 12px; height: 12px; margin-left: 4px;" id="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">' +
+      '<defs><style>.cls-4{fill:#011627}.cls-3{fill:#26938c}</style></defs>' +
+      '<title>Powered by Crowdmap</title>' +
+      '<circle cx="80" cy="80" r="80" fill="#31e6ce"/>' +
+      '<path d="M86.46 93.63c-4.86 1.94-4.86 7.77-18.46 8.74a21.37 21.37 0 0 1 0-42.74c13.6 1 13.6 6.8 18.46 8.74 3.65 1.46 9.65 1.88 13.6 1.94a34 34 0 1 0 0 21.37c-3.96.09-9.95.49-13.6 1.95z" fill-rule="evenodd" fill="#011627"/>' +
+      '<path class="cls-3" d="M122.4 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38zM136.97 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38z"/>' +
+      '<path class="cls-4" d="M100.06 70.31h7.77v21.37h-7.77zM114.63 70.31h7.77v21.37h-7.77z"/>' +
+      '</svg>' +
+    '</a>' +
+  '</div>' +
+'</div>' +
+'<div data-step-feedback="success" class="wid-indy-center wid-indy-feedback-success is-hide">' +
+  '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">' +
+  '<title>' + 'Success' + '</title>' +
+  '<path d="M32 0C14.327 0 0 14.327 0 32c0 17.674 14.327 32 32 32 17.674 0 32-14.326 32-32C64 14.327 49.674 0 32 0zm.427 60.587c-15.528 0-28.16-12.682-28.16-28.192S16.9 4.267 32.427 4.267c15.527 0 28.16 12.618 28.16 28.128s-12.633 28.192-28.16 28.192zm12.79-40.365L26.403 39.434l-8.473-8.598c-.784-.794-2.053-.794-2.836 0-.783.794-.783 2.082 0 2.876l9.92 10.066c.783.794 2.05.794 2.835 0 .09-.09.167-.19.237-.294L48.054 23.1c.78-.795.78-2.083 0-2.878-.784-.794-2.053-.794-2.836 0z" fill-rule="nonzero" fill="#10CFBD"/>' +
+  '</svg>' +
+  '<p>#trads:feedbackSuccess#</p>' +
+  '</div>' +
+'</div>'
 
   };
 
@@ -179,8 +254,24 @@
     data['email'] = email;
     data['userID'] = userConfig.userID;
 
-    getScreenShot(function(screenshot) {
-      data.capture = screenshot;
+    var canCapture = document.querySelector('.wid-indy-capture').checked;
+    if(canCapture) {
+      console.log('hello capture')
+      getScreenShot(function(screenshot) {
+        data.capture = screenshot;
+        sendToAPI(data, function(err) {
+          if (!err) {
+            //showNotification('successFeedback');
+            actionClosePopup();
+          } else {
+            console.error(err)
+          }
+
+        });
+      });
+    } else {
+      console.log('not hello capture');
+      data.capture = '';
       sendToAPI(data, function(err) {
         if (!err) {
           //showNotification('successFeedback');
@@ -190,8 +281,8 @@
         }
 
       });
+    }
 
-    });
   }
 
   function getScreenShot(callback) {
