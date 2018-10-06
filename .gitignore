@@ -93,3 +93,5 @@ CHANGELOG.md
 sass-cache
 app/css
 css
+index.html
+index.dist.html

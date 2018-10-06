@@ -1,419 +1,339 @@
-(function () {
-    var userConfig, apiUrl, application, containers = {}, translatedTemplates;
-    var trads = {
-        en: {
-            panelTitle: 'Feedback',
-            labelBtnPopup: 'Product feedback',
-            labelHeaderPopup: 'Send a feedback',
-            labelDescPopup: 'How would you rate your experience on our tool?',
-            labelNotation: 'How do you feel  - required',
-            labelComment: 'Explain your feedback - required',
-            labelEmail: 'Email',
-            labelBtnSend: 'Send feedback',
-            feedbackSuccess: 'Your feedback was successfully sent.',
-            closeFeedback: 'Close',
+(function() {
+  var userConfig,
+    apiUrl,
+    application,
+    containers = {},
+    translatedTemplates;
+  var trads = {
+    en: {
+      panelTitle: 'Feedback',
+      labelBtnPopup: 'Product feedback',
+      labelHeaderPopup: 'Send a feedback',
+      labelDescPopup: 'How would you rate your experience on our tool ?',
+      labelNotation: 'How was your experience today?',
+      labelCommentNegative: 'What was the issue  ?',
+      labelCommentNeutral: 'What can we do to make you happy ?',
+      labelCommentPositif: 'What did you like ?',
+      labelEmail: 'Your e-mail',
+      labelBtnSend: 'Send my feedback',
+      feedbackSuccess: 'Your feedback was successfully sent.',
+      closeFeedback: 'Close',
 
-            trad1: 'Pas du tout satisfaisante',
-            trad2: 'Peu satisfaisante',
-            trad3: 'Satisfaisante',
-            trad4: 'Très satisfaisante',
-            trad5: 'Extrèmement satisfaisante'
-        },
-        fr: {
-            panelTitle: 'Feedback',
-            labelBtnPopup: 'Feedback produit',
-            labelHeaderPopup: 'Envoyer un feedback',
-            labelDescPopup: 'Comment jugez-vous votre expérience avec notre outil ?',
-            labelNotation: 'Comment vous sentez-vous - requis',
-            labelComment: 'Expliquez votre feedback - requis',
-            labelEmail: 'Email',
-            labelBtnSend: 'Envoyer le feedback',
-            feedbackSuccess: 'Votre feedback a bien été envoyé.',
-            closeFeedback: 'Fermer',
+      tradNegative: 'unsatisfying',
+      tradNeutral: 'neutral',
+      tradPositive: 'satisfying'
+    },
+    fr: {
+      panelTitle: 'Feedback',
+      labelBtnPopup: 'Feedback produit',
+      labelHeaderPopup: 'Envoyer un feedback',
+      labelDescPopup: 'Comment jugez-vous votre expérience avec notre outil ?',
+      labelNotation: 'Comment jugeriez-vous votre expérience ?',
+      labelCommentNegative: 'Quel a été le problème ?',
+      labelCommentNeutral: 'Que pouvons-nous faire pour vous rendre plus heureux ?',
+      labelCommentPositif: 'Qu\'avez-vous aimé ?',
+      labelEmail: 'Votre e-mail',
+      labelBtnSend: 'Envoyer mon feedback',
+      feedbackSuccess: 'Votre feedback a bien été envoyé.',
+      closeFeedback: 'Fermer',
 
-            trad1: 'Pas du tout satisfaisante',
-            trad2: 'Peu satisfaisante',
-            trad3: 'Satisfaisante',
-            trad4: 'Très satisfaisante',
-            trad5: 'Extrèmement satisfaisante'
-        }
-    };
+      tradNegative: 'insatisfaisante',
+      tradNeutral: 'neutre',
+      tradPositive: 'satisfaisante'
+    }
+  };
 
+  //'#trads:labelShortcut = 'you can press your <span class="u-font--bold">F</span> touch to open this#' panel.'
 
-    //'#trads:labelShortcut = 'you can press your <span class="u-font--bold">F</span> touch to open this#' panel.'
+  var note = '',
+    email = '',
+    comment = '',
+    data = [],
+    base64 = '';
 
-    var note = '', email = '', comment = '', data = [], base64 = '';
+  var templates = {
+    btnPopup: '<span data-html2canvas-ignore data-action="openFeedback" class="wid-indy-button wid-indy-button--primary wid-indy-button--feedback">#trads:labelBtnPopup#</span>',
+    popup: '<div data-html2canvas-ignore data-popup="feedback" id="wid-indy-w-container" class="wid-indy-w-container">' + '<div data-step-feedback="1" class="step-feedback-1">' + '<div class="wid-indy-form-group">' + '<div class="wid-indy-label wid-indy-label--light">' + '#trads:labelNotation#' + '</div>' + '<div class="wid-indy-w-sentiment">' + '<div class="wid-indy-btn-group">' + '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-1" data-input="note" data-note="1" title="#trads:trad5#">' + '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle class="emo-background" cx="12.375" cy="12.375" r="12.375"/><path fill="#5A5A5A" fill-rule="nonzero" d="M20.444 20.444a11.334 11.334 0 0 1-8.068 3.342 11.334 11.334 0 0 1-8.068-3.342 11.334 11.334 0 0 1-3.341-8.068c0-3.048 1.186-5.912 3.341-8.068A11.334 11.334 0 0 1 12.376.967c3.048 0 5.913 1.186 8.068 3.341a11.334 11.334 0 0 1 3.341 8.068c0 3.048-1.186 5.913-3.341 8.068m.683-16.819A12.294 12.294 0 0 0 12.377 0a12.294 12.294 0 0 0-8.752 3.625A12.294 12.294 0 0 0 0 12.376c0 3.306 1.287 6.414 3.625 8.751a12.294 12.294 0 0 0 8.751 3.625c3.306 0 6.414-1.286 8.751-3.625a12.294 12.294 0 0 0 3.625-8.75c0-3.306-1.286-6.414-3.625-8.752m-2.829 9.57H6.454a.484.484 0 0 0-.484.484 6.413 6.413 0 0 0 6.406 6.405 6.413 6.413 0 0 0 6.406-6.405.484.484 0 0 0-.484-.484m-9.866-1.764c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.854 0-1.55.695-1.55 1.55 0 .854.696 1.55 1.55 1.55m7.926 0c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.855 0-1.55.695-1.55 1.55 0 .854.695 1.55 1.55 1.55"/></g></svg>' + '<span class="wid-indy-btn-group-item-legend">#trads:tradPositive#</span>' + '</a>' + '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-0" data-input="note" data-note="0" title="#trads:trad3#">' + '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle cx="12.375" cy="12.375" r="12.375" class="emo-background"/><path fill="#011627" fill-rule="nonzero" d="M20.648 20.648a11.447 11.447 0 0 1-8.148 3.375 11.447 11.447 0 0 1-8.149-3.375A11.447 11.447 0 0 1 .976 12.5c0-3.078 1.199-5.972 3.375-8.149A11.447 11.447 0 0 1 12.5.977c3.078 0 5.972 1.198 8.148 3.374a11.447 11.447 0 0 1 3.375 8.149c0 3.078-1.198 5.972-3.375 8.148m.69-16.987A12.417 12.417 0 0 0 12.5 0C9.161 0 6.022 1.3 3.661 3.661A12.417 12.417 0 0 0 0 12.5c0 3.339 1.3 6.477 3.661 8.839A12.417 12.417 0 0 0 12.5 25c3.339 0 6.477-1.3 8.839-3.661A12.417 12.417 0 0 0 25 12.5c0-3.339-1.3-6.478-3.661-8.839m-4.06 11.972H7.76a.488.488 0 0 0 0 .977h9.52a.488.488 0 1 0 0-.977m-6.59-5.964a.488.488 0 0 0-.977 0c0 .665-.541 1.206-1.205 1.206A1.207 1.207 0 0 1 7.3 9.67a.488.488 0 0 0-.977 0c0 1.204.979 2.183 2.183 2.183a2.184 2.184 0 0 0 2.182-2.183m7.499-.488a.488.488 0 0 0-.489.488c0 .665-.54 1.206-1.206 1.206a1.207 1.207 0 0 1-1.205-1.206.488.488 0 0 0-.976 0c0 1.204.978 2.183 2.181 2.183a2.184 2.184 0 0 0 2.183-2.183.488.488 0 0 0-.488-.488"/></g></svg>' + '<span class="wid-indy-btn-group-item-legend">#trads:tradNeutral#</span>' + '</a>' + '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note--1" data-input="note" data-note="-1" title="#trads:trad2#">' + '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle cx="12.375" cy="12.375" r="12.375" class="emo-background"/><path fill="#011627" fill-rule="nonzero" d="M12.5 0C5.603 0 0 5.603 0 12.5S5.603 25 12.5 25 25 19.397 25 12.5 19.397 0 12.5 0zm.05 1C18.936 1 24.1 6.164 24.1 12.55c0 6.386-5.164 11.55-11.55 11.55A11.541 11.541 0 0 1 1 12.55C1 6.164 6.164 1 12.55 1zM7.778 7.222a1.667 1.667 0 1 0 0 3.334 1.667 1.667 0 0 0 0-3.334zm9.444 0a1.667 1.667 0 1 0 .001 3.334 1.667 1.667 0 0 0 0-3.334zM12.5 14.167c-2.724 0-5.13 1.419-6.571 3.576a.555.555 0 1 0 .92.616c1.251-1.87 3.314-3.081 5.651-3.081 2.337 0 4.4 1.21 5.651 3.081a.558.558 0 0 0 .794.191.555.555 0 0 0 .126-.807c-1.442-2.157-3.847-3.576-6.57-3.576H12.5z"/></g></svg>' + '<span class="wid-indy-btn-group-item-legend">#trads:tradNegative#</span>' + '</a>' + '</div>' + '</div>' + '</div>' + '<div class="wid-indy-form-group">' + '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note-1 wid-indy-label--light is-shown">' + '#trads:labelCommentPositif#' + '</label>' + '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note-0 wid-indy-label--light">' + '#trads:labelCommentNeutral#' + '</label>' + '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note--1 wid-indy-label--light">' + '#trads:labelCommentNegative#' + '</label>' + '<div>' + '<textarea name="" id="comment" rows="3" class="wid-indy-input wid-indy-comment"></textarea>' + '</div>' + '</div>' + '<div class="wid-indy-form-group">' + '<div class="">' + '<label for="email" class="wid-indy-label wid-indy-label--light">#trads:labelEmail#</label>' + '<div>' + '<input type="email" id="email" class="wid-indy-input wid-indy-email" value="#userConfig.email#">' + '</div>' + '</div>' + '</div>' + '<div class="wid-indy-w-footer">' + '<span class="wid-indy-button wid-indy-button--primary wid-indy-button--small wid-indy-close-feedback">#trads:closeFeedback#</span>' + '<span class="wid-indy-button wid-indy-button--success wid-indy-button--small wid-indy-send-feedback">#trads:labelBtnSend#</span>' + '</div>' + '<div class="wid-indy-w-powered">' + '<a href="https://www.crowdmap.io" class="wid-indy-w-powered-link" title="Powered by Crowdmap" target="_blank">' + 'Powered by' + '<svg style="width: 12px; height: 12px; margin-left: 4px;" id="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">' + '<defs><style>.cls-4{fill:#011627}.cls-3{fill:#26938c}</style></defs>' + '<title>Powered by Crowdmap</title>' + '<circle cx="80" cy="80" r="80" fill="#31e6ce"/>' + '<path d="M86.46 93.63c-4.86 1.94-4.86 7.77-18.46 8.74a21.37 21.37 0 0 1 0-42.74c13.6 1 13.6 6.8 18.46 8.74 3.65 1.46 9.65 1.88 13.6 1.94a34 34 0 1 0 0 21.37c-3.96.09-9.95.49-13.6 1.95z" fill-rule="evenodd" fill="#011627"/>' + '<path class="cls-3" d="M122.4 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38zM136.97 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38z"/>' + '<path class="cls-4" d="M100.06 70.31h7.77v21.37h-7.77zM114.63 70.31h7.77v21.37h-7.77z"/>' + '</svg>' + '</a>' + '</div>' + '</div>' + '<div data-step-feedback="success" class="wid-indy-center wid-indy-feedback-success is-hide">' + '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">' + '<title>' + 'Success' + '</title>' + '<path d="M32 0C14.327 0 0 14.327 0 32c0 17.674 14.327 32 32 32 17.674 0 32-14.326 32-32C64 14.327 49.674 0 32 0zm.427 60.587c-15.528 0-28.16-12.682-28.16-28.192S16.9 4.267 32.427 4.267c15.527 0 28.16 12.618 28.16 28.128s-12.633 28.192-28.16 28.192zm12.79-40.365L26.403 39.434l-8.473-8.598c-.784-.794-2.053-.794-2.836 0-.783.794-.783 2.082 0 2.876l9.92 10.066c.783.794 2.05.794 2.835 0 .09-.09.167-.19.237-.294L48.054 23.1c.78-.795.78-2.083 0-2.878-.784-.794-2.053-.794-2.836 0z" fill-rule="nonzero" fill="#10CFBD"/>' + '</svg>' + '<p>#trads:feedbackSuccess#</p>' + '</div>' + '</div>'
 
-    var templates = {
-        btnPopup: '<span data-html2canvas-ignore data-action="openFeedback" class="wid-indy-button wid-indy-button--primary wid-indy-button--feedback">#trads:labelBtnPopup#</span>',
-        popup: '<div data-html2canvas-ignore data-popup="feedback" id="wid-indy-w-container" class="wid-indy-w-container">' +
-        '<div data-step-feedback="1" class="step-feedback-1">' +
-        '<div class="wid-indy-form-group">' +
-        '<div class="">' +
-        '<label for="email" class="wid-indy-label wid-indy-label--light">#trads:labelEmail#</label>' +
-        '<div>' +
-        '<input type="email" id="email" class="wid-indy-input wid-indy-email" value="#userConfig.email#">' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '<div class="wid-indy-form-group">' +
-        '<div class="wid-indy-label wid-indy-label--light">' +
-        '#trads:labelNotation#' +
-        '</div>' +
-        '<div class="wid-indy-w-sentiment">' +
-        '<div class="wid-indy-btn-group">' +
-        '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note--1" data-input="note" data-note="-1" title="#trads:trad2#">' +
-        '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
-        '<title>' +
-        'crying-1' +
-        '</title>' +
-        '<g transform="translate(.4)" fill="none" fill-rule="evenodd">' +
-        '<path d="M24 10.964c0-.974-.122-1.92-.35-2.828-.653-1.303-1.558-2.468-2.653-3.44-2.01-1.15-4.377-1.776-6.89-1.688-6.935.242-12.35 5.824-12.1 12.467.038.97.196 1.912.458 2.81.566 1.03 1.292 1.97 2.148 2.786C6.578 22.29 8.92 23 11.436 23 18.376 23 24 17.61 24 10.964zm-6.596-2.15c.793 0 1.436.617 1.436 1.376 0 .76-.643 1.376-1.436 1.376-.793 0-1.436-.616-1.436-1.376 0-.76.643-1.375 1.436-1.375zm-8.885 0c.792 0 1.435.617 1.435 1.376 0 .76-.643 1.376-1.436 1.376-.794 0-1.437-.616-1.437-1.376 0-.76.643-1.375 1.436-1.375zm0 12.802c-2.018 0-3.66-1.572-3.66-3.504 0-.82.535-1.843 1.633-3.13.755-.887 1.5-1.566 1.532-1.594l.494-.45.493.45c.03.028.777.708 1.532 1.593.387.455.703.876.95 1.267 1.034-.182 2.108-.177 3.164.034 1.907.383 3.62 1.41 4.823 2.892l-1.133.845c-.995-1.225-2.41-2.074-3.985-2.39-.754-.15-1.52-.173-2.266-.08.05.2.077.387.077.565 0 1.932-1.64 3.504-3.658 3.504z" fill="#FFCE00"/>' +
-        '<path d="M23.853 8c.226.95.347 1.94.347 2.96 0 6.96-5.57 12.6-12.443 12.6-2.492 0-4.81-.742-6.757-2.02C7.122 23.678 10.046 25 13.268 25 19.738 25 25 19.67 25 13.12c0-1.832-.412-3.57-1.147-5.12z" fill="#FFB100"/>' +
-        '<path d="M13.416 2.36c2.402-.09 4.664.552 6.584 1.73C17.98 2.173 15.282 1 12.32 1 6.08 1 1 6.212 1 12.62c0 1.94.467 3.77 1.29 5.38-.25-.918-.4-1.88-.436-2.876C1.612 8.324 6.79 2.608 13.416 2.36z" fill="#FFE454"/>' +
-        '<path d="M13 0C5.832 0 0 5.832 0 13s5.832 13 13 13 13-5.832 13-13S20.168 0 13 0zm0 24.595c-3.185 0-6.073-1.29-8.17-3.377-.84-.833-1.55-1.793-2.103-2.848-.844-1.606-1.322-3.433-1.322-5.37C1.405 6.607 6.607 1.405 13 1.405c3.032 0 5.796 1.17 7.864 3.084 1.073.99 1.958 2.18 2.597 3.512.727 1.514 1.135 3.21 1.135 4.998 0 6.393-5.202 11.595-11.595 11.595z" fill="#000"/>' +
-        '<circle fill="#000" cx="8.5" cy="10.5" r="1.5"/>' +
-        '<ellipse fill="#000" cx="17.5" cy="10.5" rx="1.5" ry="1.5"/>' +
-        '<path d="M8 15c-.942.972-2 2.33-2 3.023C6 19.113 6.897 20 8 20s2-.887 2-1.977c0-.695-1.058-2.052-2-3.023z" fill="#28E0FF"/>' +
-        '<path d="M11.93 17.78c.714-.097 1.447-.074 2.17.083 1.508.327 2.863 1.207 3.815 2.478L19 19.466c-1.152-1.537-2.792-2.602-4.62-3-1.01-.218-2.038-.223-3.027-.034-.238-.405-.54-.84-.91-1.312-.724-.92-1.438-1.623-1.468-1.653L8.502 13l-.472.465c-.03.03-.744.734-1.467 1.653C5.51 16.453 5 17.516 5 18.365 5 20.37 6.57 22 8.502 22c1.93 0 3.503-1.63 3.503-3.635 0-.184-.026-.38-.075-.585zm-3.428 2.793c-1.173 0-2.127-.99-2.127-2.208 0-.773 1.126-2.29 2.128-3.375 1 1.085 2.127 2.6 2.127 3.375 0 1.218-.955 2.208-2.128 2.208z" fill="#000"/>' +
-        '</g>' +
-        '</svg>' +
-        '</a>' +
-        '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-0" data-input="note" data-note="0" title="#trads:trad3#">' +
-        '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
-        '<title>' +
-        'neutral' +
-        '</title>' +
-        '<g transform="translate(.5)" fill="none" fill-rule="evenodd">' +
-        '<path d="M23.804 10.892c0-.996-.12-1.963-.343-2.89-.638-1.33-1.523-2.522-2.596-3.513-1.967-1.176-4.283-1.817-6.743-1.727C7.335 3.01 2.033 8.713 2.28 15.5c.036.993.19 1.954.447 2.87.553 1.055 1.264 2.015 2.102 2.848 1.922 1.246 4.214 1.97 6.677 1.97 6.79 0 12.297-5.505 12.297-12.296zM17.45 8.696c.777 0 1.406.63 1.406 1.405 0 .777-.63 1.407-1.406 1.407-.776 0-1.405-.63-1.405-1.406 0-.775.63-1.404 1.405-1.404zm-8.696 0c.777 0 1.406.63 1.406 1.405 0 .777-.63 1.407-1.406 1.407-.776 0-1.405-.63-1.405-1.406 0-.775.628-1.404 1.404-1.404z" fill="#FFCE00"/>' +
-        '<path d="M23.46 8.002c.224.927.344 1.894.344 2.89 0 6.79-5.506 12.297-12.297 12.297-2.463 0-4.755-.726-6.678-1.972 2.097 2.085 4.985 3.376 8.17 3.376 6.393 0 11.594-5.2 11.594-11.594 0-1.79-.407-3.484-1.133-4.998z" fill="#FFB100"/>' +
-        '<path d="M14.12 2.763c2.46-.09 4.778.55 6.744 1.726C18.796 2.575 16.032 1.404 13 1.404 6.607 1.405 1.405 6.607 1.405 13c0 1.937.478 3.764 1.322 5.37-.257-.916-.41-1.877-.447-2.87C2.032 8.713 7.334 3.01 14.12 2.763z" fill="#FFE454"/>' +
-        '<path d="M13 0C5.832 0 0 5.832 0 13s5.832 13 13 13 13-5.832 13-13S20.168 0 13 0zm0 24.594c-3.185 0-6.074-1.29-8.17-3.376-.84-.833-1.55-1.793-2.103-2.848-.844-1.606-1.322-3.433-1.322-5.37C1.405 6.607 6.607 1.405 13 1.405c3.032 0 5.796 1.17 7.864 3.084 1.073.99 1.958 2.18 2.597 3.512.727 1.514 1.134 3.21 1.134 4.998 0 6.393-5.2 11.594-11.594 11.594z" fill="#000"/>' +
-        '<path fill="#000" d="M8.535 16.6h8.784v1.406H8.534z"/>' +
-        '<ellipse fill="#000" cx="8.754" cy="10.101" rx="1.405" ry="1.405"/>' +
-        '<ellipse fill="#000" cx="17.45" cy="10.101" rx="1.405" ry="1.405"/>' +
-        '</g>' +
-        '</svg>' +
-        '</a>' +
-        '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-2" data-input="note" data-note="1" title="#trads:trad5#">' +
-        '<svg width="27" height="26" viewBox="0 0 27 26" xmlns="http://www.w3.org/2000/svg">' +
-        '<title>' +
-        'in-love' +
-        '</title>' +
-        '<g fill="none" fill-rule="evenodd">' +
-        '<path d="M24.704 10.892c0-.996-.12-1.963-.343-2.89-.638-1.33-1.523-2.522-2.596-3.513-1.967-1.176-4.283-1.817-6.743-1.727C8.235 3.01 2.933 8.713 3.18 15.5c.036.993.19 1.954.447 2.87.553 1.055 1.264 2.015 2.102 2.848 1.922 1.246 4.214 1.97 6.677 1.97 6.79 0 12.297-5.505 12.297-12.296zm-8.545-2.99c.402-.39.937-.607 1.506-.607.51 0 1.023.184 1.416.543.393-.36.906-.543 1.416-.543.57 0 1.104.216 1.507.608.31.3.68.843.68 1.715 0 1.674-2.653 3.727-3.184 4.122l-.418.31-.42-.31c-.53-.395-3.18-2.448-3.18-4.122 0-.872.368-1.414.677-1.715zM5.38 9.62c0-.872.368-1.414.678-1.715.403-.392.938-.608 1.507-.608.51 0 1.023.184 1.416.543.394-.36.907-.543 1.417-.543.57 0 1.104.216 1.507.608.31.3.678.843.678 1.715 0 1.674-2.65 3.727-3.182 4.122l-.42.31-.418-.31c-.53-.395-3.183-2.448-3.183-4.122zm2.89 6.368h11.61c0 3.202-2.6 5.805-5.805 5.805-3.205 0-5.804-2.602-5.804-5.804z" fill="#FFCE00"/>' +
-        '<path d="M24.36 8.002c.224.927.344 1.894.344 2.89 0 6.79-5.506 12.297-12.297 12.297-2.463 0-4.755-.726-6.678-1.972 2.097 2.085 4.985 3.376 8.17 3.376 6.393 0 11.594-5.2 11.594-11.594 0-1.79-.407-3.484-1.133-4.998z" fill="#FFB100"/>' +
-        '<path d="M15.02 2.763c2.46-.09 4.778.55 6.744 1.726-2.068-1.914-4.832-3.085-7.864-3.085C7.507 1.405 2.305 6.607 2.305 13c0 1.937.478 3.764 1.322 5.37-.257-.916-.41-1.877-.447-2.87C2.932 8.713 8.234 3.01 15.02 2.763z" fill="#FFE454"/>' +
-        '<path d="M13.9 0C6.732 0 .9 5.832.9 13s5.832 13 13 13 13-5.832 13-13-5.832-13-13-13zm0 24.594c-3.185 0-6.074-1.29-8.17-3.376-.84-.833-1.55-1.793-2.103-2.848-.844-1.606-1.322-3.433-1.322-5.37 0-6.393 5.202-11.595 11.595-11.595 3.032 0 5.796 1.17 7.864 3.084 1.073.99 1.958 2.18 2.597 3.512.727 1.514 1.134 3.21 1.134 4.998 0 6.393-5.2 11.594-11.594 11.594z" fill="#000"/>' +
-        '<path d="M7.565 8.7c-.36 0-.78.24-.78.918 0 .46.866 1.593 2.196 2.668 1.33-1.075 2.197-2.208 2.197-2.668 0-.677-.42-.917-.78-.917-.168 0-.713.064-.713.874H8.278c0-.81-.546-.873-.713-.873z" fill="#E36600"/>' +
-        '<path d="M8.98 14.05l.42-.31c.53-.395 3.182-2.448 3.182-4.122 0-.872-.37-1.414-.678-1.715-.403-.392-.938-.608-1.507-.608-.51 0-1.023.184-1.416.543-.393-.36-.905-.543-1.415-.543-.57 0-1.104.216-1.507.608-.31.3-.68.843-.68 1.715 0 1.674 2.653 3.727 3.184 4.122l.42.31zm.704-4.476c0-.81.545-.873.713-.873.36 0 .78.24.78.918 0 .46-.866 1.593-2.196 2.668-1.33-1.075-2.195-2.208-2.195-2.668 0-.677.42-.917.78-.917.167 0 .713.064.713.874h1.406z" fill="#000"/>' +
-        '<path d="M17.666 8.7c-.36 0-.78.24-.78.918 0 .46.866 1.593 2.196 2.668 1.33-1.075 2.196-2.208 2.196-2.668 0-.677-.42-.917-.78-.917-.167 0-.713.064-.713.874H18.38c0-.81-.546-.873-.714-.873z" fill="#E36600"/>' +
-        '<path d="M18.663 13.74l.42.31.418-.31c.533-.395 3.184-2.448 3.184-4.122 0-.872-.37-1.414-.68-1.715-.4-.392-.937-.608-1.506-.608-.51 0-1.022.184-1.416.543-.393-.36-.906-.543-1.415-.543-.57 0-1.105.216-1.508.608-.31.3-.68.843-.68 1.715 0 1.674 2.652 3.727 3.183 4.122zm1.122-4.166c0-.81.546-.873.713-.873.36 0 .78.24.78.918 0 .46-.866 1.593-2.196 2.668-1.33-1.075-2.196-2.208-2.196-2.668 0-.677.42-.917.78-.917.168 0 .713.064.713.874h1.405z" fill="#000"/>' +
-        '<path d="M14.065 20.385c1.935 0 3.57-1.255 4.16-2.993h-8.32c.59 1.738 2.226 2.993 4.16 2.993z" fill="#FFF"/>' +
-        '<path d="M19.88 15.986H8.27c0 3.202 2.6 5.805 5.805 5.805 3.206 0 5.805-2.602 5.805-5.804zm-1.676 1.406h.02c-.588 1.738-2.224 2.993-4.16 2.993-1.933 0-3.57-1.255-4.158-2.993h8.298z" fill="#000"/>' +
-        '</g>' +
-        '</svg>' +
-        '</a>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '<div class="wid-indy-form-group">' +
-        '<label for="comment" class="wid-indy-label wid-indy-label--light">' +
-        '#trads:labelComment#' +
-        '</label>' +
-        '<div>' +
-        '<textarea name="" id="comment" rows="3" class="wid-indy-input wid-indy-comment"></textarea>' +
-        '</div>' +
-        '</div>' +
-        '<div class="wid-indy-w-footer">' +
-        '<span class="wid-indy-button wid-indy-button--primary wid-indy-button--small wid-indy-close-feedback">#trads:closeFeedback#</span>' +
-        '<span class="wid-indy-button wid-indy-button--success wid-indy-button--small wid-indy-send-feedback">#trads:labelBtnSend#</span>' +
-        '</div>' +
-        '</div>' +
-        '<div data-step-feedback="success" class="wid-indy-center wid-indy-feedback-success is-hide">' +
-        '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">' +
-        '<title>' +
-        'Success' +
-        '</title>' +
-        '<path d="M32 0C14.327 0 0 14.327 0 32c0 17.674 14.327 32 32 32 17.674 0 32-14.326 32-32C64 14.327 49.674 0 32 0zm.427 60.587c-15.528 0-28.16-12.682-28.16-28.192S16.9 4.267 32.427 4.267c15.527 0 28.16 12.618 28.16 28.128s-12.633 28.192-28.16 28.192zm12.79-40.365L26.403 39.434l-8.473-8.598c-.784-.794-2.053-.794-2.836 0-.783.794-.783 2.082 0 2.876l9.92 10.066c.783.794 2.05.794 2.835 0 .09-.09.167-.19.237-.294L48.054 23.1c.78-.795.78-2.083 0-2.878-.784-.794-2.053-.794-2.836 0z" fill-rule="nonzero" fill="#10CFBD"/>' +
-        '</svg>' +
-        '<p>#trads:feedbackSuccess#</p>' +
-        '</div>' +
-        '<div class="wid-indy-w-header">' +
-        '<a href="https://www.crowdmap.io" class="wid-indy-w-header-link" title="Powered by Crowdmap" target="_blank">'+
-'<svg style="width: 12px; height: 12px; margin-right: 4px;" id="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">'+
-  '<defs><style>.cls-4{fill:#011627}.cls-3{fill:#26938c}</style></defs>'+
-  '<title>Powered by Crowdmap</title>'+
-  '<circle cx="80" cy="80" r="80" fill="#31e6ce"/>'+
-  '<path d="M86.46 93.63c-4.86 1.94-4.86 7.77-18.46 8.74a21.37 21.37 0 0 1 0-42.74c13.6 1 13.6 6.8 18.46 8.74 3.65 1.46 9.65 1.88 13.6 1.94a34 34 0 1 0 0 21.37c-3.96.09-9.95.49-13.6 1.95z" fill-rule="evenodd" fill="#011627"/>'+
-  '<path class="cls-3" d="M122.4 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38zM136.97 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38z"/>'+
-  '<path class="cls-4" d="M100.06 70.31h7.77v21.37h-7.77zM114.63 70.31h7.77v21.37h-7.77z"/>'+
-'</svg>'+
-  'Powered by Crowdmap</a>' +
-        '</div>'+
-        '</div>'
+  };
 
-    };
+  var gec = function(id, array) {
+    id = id.replace('\.', '');
+    var e = document.getElementsByClassName(id);
+    if (array) {
+      return e
+    } else {
+      return e[0] || {};
+    }
+  };
+  var addEvent = function(element, evtType, callback, capture) {
+    if (element.addEventListener instanceof Function) {
+      element.addEventListener(evtType, callback, capture);
+    } else {
+      element.attachEvent('on' + evtType, callback);
+    }
+  };
 
-    var gec = function (id, array) {
-        id = id.replace('\.', '');
-        var e = document.getElementsByClassName(id);
-        if (array) {
-            return e
-        }
-        else {
-            return e[0] || {};
-        }
-    };
-    var addEvent = function (element, evtType, callback, capture) {
-        if (element.addEventListener instanceof Function) {
-            element.addEventListener(evtType, callback, capture);
-        }
-        else {
-            element.attachEvent('on' + evtType, callback);
-        }
-    };
+  var addElem = function(elemType, attrs, elemText, parent) {
+    parent = parent || document.body;
+    var b = document.createElement(elemType);
 
-    var addElem = function (elemType, attrs, elemText, parent) {
-        parent = parent || document.body;
-        var b = document.createElement(elemType);
+    if (attrs) {
+      for (var a in attrs) {
+        b[a] = attrs[a];
+      }
+    }
+    if (elemText) {
+      b.innerHTML = elemText;
+    }
+    parent.appendChild(b);
+    return b;
+  };
+  var isArray = function(what) {
+    return (typeof(what) === 'object' && what.length !== undefined)
+  };
 
-        if (attrs) {
-            for (var a in attrs) {
-                b[a] = attrs[a];
-            }
-        }
-        if (elemText) {
-            b.innerHTML = elemText;
-        }
-        parent.appendChild(b);
-        return b;
-    };
-    var isArray = function (what) {
-        return (typeof(what) === 'object' && what.length !== undefined)
-    };
+  var addClass = function(elements, className) {
+    elements = isArray(elements)
+      ? elements
+      : [elements];
+    for (var i = 0; i < elements.length; i++) {
+      addElementClass(elements[i], className);
+    }
+  };
 
-    var addClass = function (elements, className) {
-        elements = isArray(elements) ? elements : [elements];
-        for (var i = 0; i < elements.length ; i++) {
-            addElementClass(elements[i], className);
-        }
-    };
-    var addElementClass = function (element, className) {
-        if (element.className && element.className.indexOf(className) == -1) {
-            element.className += ' ' + className;
-        }
+  var removeAllClass = function(elements, className) {
 
-        return element;
-    };
-    var removeClass = function (element, className) {
-        if (element.className && element.className.indexOf(className) !== -1) {
-            element.className = element.className.replace(className, '');
-        }
+    elements = isArray(elements)
+      ? elements
+      : [elements];
+    for (var i = 0; i < elements.length; i++) {
+      removeClass(elements[i], className);
+    }
+  };
 
-        return element;
-    };
-
-    function addActionPopup() {
-        addEvent(gec('wid-indy-button--feedback'), 'click', actionOpenPopup)
+  var addElementClass = function(element, className) {
+    if (element.className && element.className.indexOf(className) == -1) {
+      element.className += ' ' + className;
     }
 
-    function actionOpenPopup() {
-        addClass(gec('wid-indy-button--feedback'), 'is-hide');
-        addClass(gec('wid-indy-w-container'), 'wid-indy-w-container--open');
-        removeClass(gec('wid-indy-w-container'), 'is-hide');
+    return element;
+  };
+  var removeClass = function(element, className) {
+
+    if (element.className && element.className.indexOf(className) !== -1) {
+      element.className = element.className.replace(className, '');
+    }
+
+    return element;
+  };
+
+  function addActionPopup() {
+    addEvent(gec('wid-indy-button--feedback'), 'click', actionOpenPopup)
+  }
+
+  function actionOpenPopup() {
+    addClass(gec('wid-indy-button--feedback'), 'is-hide');
+    addClass(gec('wid-indy-w-container'), 'wid-indy-w-container--open');
+    removeClass(gec('wid-indy-w-container'), 'is-hide');
+    addClass(gec('wid-indy-feedback-success'), 'is-hide');
+
+    //gec('wid-indy-input-email').focus();
+
+    //TODO
+    var notes = gec('wid-indy-note', true);
+    notes = Array.prototype.slice.call(notes);
+
+    notes.map(function(n) {
+      addEvent(n, 'click', function(e) {
+        note = Number(n.className.match(/wid-indy-note-([\-\d]+)/)[1]);
+        removeAllClass(gec('wid-indy-label-note', true), 'is-shown');
+        addClass(gec('wid-indy-label-note-' + note), 'is-shown');
+        addClass(gec('wid-indy-note', true), 'wid-indy-btn-group-item--inactive');
+        removeClass(n, 'wid-indy-btn-group-item--inactive');
+      })
+    });
+
+    addEvent(gec('wid-indy-close-feedback'), 'click', actionClosePopup)
+
+  }
+
+  var clearForm = function() {
+    gec('wid-indy-comment').value = '';
+    addClass(gec('wid-indy-note-' + note), 'wid-indy-btn-group-item--inactive');
+    note = undefined;
+
+  };
+
+  function actionClosePopup() {
+    addClass(gec('wid-indy-w-container'), 'is-hide');
+    removeClass(gec('wid-indy-w-container'), 'wid-indy-w-container--open');
+    removeClass(gec('wid-indy-button--feedback'), 'is-hide');
+    clearForm();
+  }
+
+  function actionSendPopup() {
+
+    data['noteGlobale'] = note;
+    data['description'] = comment;
+    data['email'] = email;
+    data['userID'] = userConfig.userID;
+
+    getScreenShot(function(screenshot) {
+      data.capture = screenshot;
+      sendToAPI(data, function(err) {
+        if (!err) {
+          //showNotification('successFeedback');
+          actionClosePopup();
+        } else {
+          console.error(err)
+        }
+
+      });
+
+    });
+  }
+
+  function getScreenShot(callback) {
+
+    html2canvas(divToCapture).then(function(canvas) {
+      base64 = canvas.toDataURL();
+      callback(base64);
+    });
+  }
+
+  function getBrowser() {
+    var ua = navigator.userAgent,
+      tem,
+      M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if (/trident/i.test(M[1])) {
+      tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+      return 'IE ' + (
+      tem[1] || '');
+    }
+    if (M[1] === 'Chrome') {
+      tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+      if (tem != null)
+        return tem.slice(1).join(' ').replace('OPR', 'Opera');
+      }
+    M = M[2]
+      ? [
+        M[1], M[2]
+      ]
+      : [navigator.appName, navigator.appVersion, '-?'];
+    if ((tem = ua.match(/version\/(\d+)/i)) != null)
+      M.splice(1, 1, tem[1]);
+    return M.join(' ');
+  }
+
+  function sendToAPI(data) {
+
+    data['timestamp'] = new Date().getTime();
+    data['isArchive'] = false;
+
+    data['url'] = window.location.href;
+
+    data['browser'] = getBrowser();
+
+    var mydata = {
+      noteGlobale: data.noteGlobale,
+      browser: data.browser,
+      email: data.email,
+      capture: data.capture,
+      url: data.url,
+      userID: data.userID,
+      ftimestamp: data.timestamp,
+      tags: userConfig.tags,
+      description: data.description,
+      source: 'widget',
+      customFields: userConfig.customFields
+    };
+
+    var xmlhttp = new XMLHttpRequest(); // new HttpRequest instance
+    xmlhttp.open("POST", apiUrl);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var success = '{"result":"success"}';
+
+        if (xmlhttp.responseText === success) {
+          sendSuccess();
+        }
+      }
+    };
+    xmlhttp.send(JSON.stringify(mydata));
+
+    return true;
+  }
+
+  function sendSuccess() {
+    gec('wid-indy-close-feedback').classList.remove("sending");
+    gec('wid-indy-send-feedback').classList.remove("sending");
+    clearForm();
+    addClass(gec('step-feedback-1'), 'is-hide');
+
+    setTimeout(function() {
+      gec('step-feedback-1').style.display = 'none';
+    }, 100);
+
+    setTimeout(function() {
+      removeClass(gec('wid-indy-feedback-success'), 'is-hide');
+    }, 100);
+
+    setTimeout(function() {
+      actionClosePopup();
+      setTimeout(function() {
         addClass(gec('wid-indy-feedback-success'), 'is-hide');
 
+        gec('step-feedback-1').style.display = 'block';
+        removeClass(gec('step-feedback-1'), 'is-hide');
 
-        //gec('wid-indy-input-email').focus();
+      }, 500);
+    }, 2000);
 
-        //TODO
-        var notes = gec('wid-indy-note', true);
-        notes = Array.prototype.slice.call(notes);
+    removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
+    removeClass(gec('wid-indy-email'), 'wid-indy-input--error');
+    removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
+  }
 
-        notes.map(function (n) {
-            addEvent(n, 'click', function (e) {
-                note = Number(n.className.match(/wid-indy-note-([\-\d]+)/)[1]);
-                addClass(gec('wid-indy-note', true), 'wid-indy-btn-group-item--inactive');
-                removeClass(n, 'wid-indy-btn-group-item--inactive');
-            })
-        });
+  var translateTemplate = function(source, lang) {
+    var matches = source.match(/#trads:([^#]*)#/gi);
+    var result = source;
 
-        addEvent(gec('wid-indy-close-feedback'), 'click', actionClosePopup)
-
+    for (var m = 0; m < matches.length; m++) {
+      var tradkey = matches[m].replace(/#/g, '').replace('trads:', ''),
+        trad = trads[lang][tradkey] || trads['en'][tradkey];
+      result = result.replace(new RegExp(matches[m], 'ig'), trad);
     }
+    return result;
 
-    var clearForm = function () {
-        gec('wid-indy-comment').value = '';
-        addClass(gec('wid-indy-note-' + note), 'wid-indy-btn-group-item--inactive');
-        note = undefined;
-
-    };
-
-    function actionClosePopup() {
-        addClass(gec('wid-indy-w-container'), 'is-hide');
-        removeClass(gec('wid-indy-w-container'), 'wid-indy-w-container--open');
-        removeClass(gec('wid-indy-button--feedback'), 'is-hide');
-        clearForm();
+  };
+  var translateTemplates = function(lang) {
+    var result = {},
+      keys = Object.keys(templates);
+    for (var i = 0; i < keys.length; i++) {
+      var lbl = keys[i];
+      result[lbl] = translateTemplate(templates[lbl], lang);
     }
+    return result;
+  };
 
-    function actionSendPopup() {
-
-        data['noteGlobale'] = note;
-        data['description'] = comment;
-        data['email'] = email;
-        data['userID'] = userConfig.userID;
-
-
-        getScreenShot(function (screenshot) {
-            data.capture = screenshot;
-            sendToAPI(data, function (err) {
-                if (!err) {
-                    //showNotification('successFeedback');
-                    actionClosePopup();
-                }
-                else {
-                    console.error(err)
-                }
-
-            });
-
-        });
+  var _configure = function(config) {
+    config = config || {};
+    if (!config.language || !trads[config.language]) {
+      config.language = 'en'
     }
-
-    function getScreenShot(callback) {
-
-        html2canvas(divToCapture).then(function(canvas) {
-          base64 = canvas.toDataURL();
-          callback(base64);
-        });
+    userConfig = userConfig || {};
+    var k = Object.keys(config);
+    for (var i = 0; i < k.length; i++) {
+      userConfig[k[i]] = config[k[i]];
     }
+    translatedTemplates = translateTemplates(config.language);
 
-    function getBrowser() {
-        var ua = navigator.userAgent, tem,
-            M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-        if (/trident/i.test(M[1])) {
-            tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
-            return 'IE ' + (tem[1] || '');
-        }
-        if (M[1] === 'Chrome') {
-            tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
-            if (tem != null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
-        }
-        M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, '-?'];
-        if ((tem = ua.match(/version\/(\d+)/i)) != null) M.splice(1, 1, tem[1]);
-        return M.join(' ');
-    }
+    apiUrl = 'https://widget.wiym.io/feedbacks/' + userConfig.team;
+    translatedTemplates.popup = translatedTemplates.popup.replace('#userConfig.email#', userConfig.email);
 
-    function sendToAPI(data) {
-
-
-        data['timestamp'] = new Date().getTime();
-        data['isArchive'] = false;
-
-        data['url'] = window.location.href;
-
-        data['browser'] = getBrowser();
-
-        var mydata = {
-            noteGlobale: data.noteGlobale,
-            browser: data.browser,
-            email: data.email,
-            capture: data.capture,
-            url: data.url,
-            userID: data.userID,
-            ftimestamp: data.timestamp,
-            tags: userConfig.tags,
-            description: data.description,
-            source: 'widget',
-            customFields: userConfig.customFields
-        };
-
-
-        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-        xmlhttp.open("POST", apiUrl);
-        xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-              var success = '{"result":"success"}';
-                if(xmlhttp.responseText === success) {
-                  sendSuccess();
-                }
-           }
-        };
-        xmlhttp.send(JSON.stringify(mydata));
-
-
-        return true;
-    }
-
-    function sendSuccess() {
-      gec('wid-indy-close-feedback').classList.remove("sending");
-      gec('wid-indy-send-feedback').classList.remove("sending");
-      clearForm();
-      addClass(gec('step-feedback-1'), 'is-hide');
-
-        setTimeout(function () {
-          gec('step-feedback-1').style.display = 'none';
-        }, 100);
-
-        setTimeout(function () {
-          removeClass(gec('wid-indy-feedback-success'), 'is-hide');
-        }, 100);
-
-        setTimeout(function () {
-          actionClosePopup();
-          setTimeout(function () {
-            addClass(gec('wid-indy-feedback-success'), 'is-hide');
-
-            gec('step-feedback-1').style.display = 'block';
-            removeClass(gec('step-feedback-1'), 'is-hide');
-
-          }, 500);
-        }, 2000);
-
-        removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-        removeClass(gec('wid-indy-email'), 'wid-indy-input--error');
-        removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
-    }
-
-    var translateTemplate = function (source, lang) {
-        var matches = source.match(/#trads:([^#]*)#/gi);
-        var result = source;
-
-        for (var m = 0; m < matches.length; m++) {
-            var tradkey = matches[m].replace(/#/g, '').replace('trads:', ''),
-                trad = trads[lang][tradkey] || trads['en'][tradkey];
-            result = result.replace(new RegExp(matches[m], 'ig'), trad);
-        }
-        return result;
-
-    };
-    var translateTemplates = function (lang) {
-        var result = {}, keys = Object.keys(templates);
-        for (var i = 0; i < keys.length; i++) {
-            var lbl = keys[i];
-            result[lbl] = translateTemplate(templates[lbl], lang);
-        }
-        return result;
-    };
-
-    var _configure = function (config) {
-        config = config || {};
-        if (!config.language || !trads[config.language]) {
-            config.language = 'en'
-        }
-        userConfig = userConfig || {};
-        var k = Object.keys(config);
-        for (var i = 0; i < k.length; i++) {
-            userConfig[k[i]] = config[k[i]];
-        }
-        translatedTemplates = translateTemplates(config.language);
-
-        apiUrl = 'https://widget.wiym.io/feedbacks/' + userConfig.team;
-        translatedTemplates.popup = translatedTemplates.popup.replace('#userConfig.email#', userConfig.email);
-
-    };
+  };
 
   function validateEmail(email) {
     var re = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
@@ -421,7 +341,7 @@
   }
 
   function _init(config) {
-      /*
+    /*
        shortcuts : 'F' mess with inputs
        $(document).keyup(function (e) {
        if (e.keyCode == 27) {
@@ -431,31 +351,39 @@
        */
     _configure(config);
 
-    if(typeof userConfig.email === 'undefined') {
+    if (typeof userConfig.email === 'undefined') {
       userConfig.email = '';
     }
 
-    divToAppend = userConfig.divToAppend ? gec(userConfig.divToAppend) : document.body;
-    divToCapture = userConfig.divToCapture ? gec(userConfig.divToCapture) : document.body;
+    divToAppend = userConfig.divToAppend
+      ? gec(userConfig.divToAppend)
+      : document.body;
+    divToCapture = userConfig.divToCapture
+      ? gec(userConfig.divToCapture)
+      : document.body;
 
     if (containers.button) {
       containers.button.innerHTML = translatedTemplates.btnPopup;
-    }
-    else {
+    } else {
       containers.button = addElem('span', {}, translatedTemplates.btnPopup, divToAppend);
     }
     if (containers.popup) {
       containers.popup.innerHTML = translatedTemplates.popup
-    }
-    else {
+    } else {
       containers.popup = addElem('span', {}, translatedTemplates.popup, divToAppend);
     }
 
-    addEvent(gec('wid-indy-close-feedback'), 'click', function () {
+    var theme = userConfig.theme || 'dark';
+
+    if (theme === 'light') {
+      addClass(gec('wid-indy-w-container'), 'wid-indy-w-container--light');
+    }
+
+    addEvent(gec('wid-indy-close-feedback'), 'click', function() {
       addClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
       removeClass(gec('wid-indy-close-feedback'), 'fadeInUp');
 
-      setTimeout(function () {
+      setTimeout(function() {
         removeClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
         removeClass(gec('wid-indy-close-feedback'), 'is-shown');
         removeClass(gec('wid-indy-close-feedback'), 'fadeInUp');
@@ -463,27 +391,26 @@
       }, 7000);
     });
     addActionPopup();
-    addEvent(gec('wid-indy-send-feedback'), 'click', function (event) {
+    addEvent(gec('wid-indy-send-feedback'), 'click', function(event) {
 
       event.stopPropagation();
       event.preventDefault();
 
-
       comment = gec('wid-indy-comment').value;
       email = gec('wid-indy-email').value;
 
-      if(note === '' && comment === '' && email === '') {
+      if (note === '' && comment === '' && email === '') {
         addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
         addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
         addClass(gec('wid-indy-email'), 'wid-indy-input--error');
-      } else if(note === '') {
+      } else if (note === '') {
         addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
-      } else if(comment === '') {
+      } else if (comment === '') {
         addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-      } else if (email === ''){
+      } else if (email === '') {
         addClass(gec('wid-indy-email'), 'wid-indy-input--error');
       } else {
-        if(!validateEmail(email)) {
+        if (!validateEmail(email)) {
           addClass(gec('wid-indy-email'), 'wid-indy-input--error');
           removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
           removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
@@ -495,26 +422,25 @@
       }
     });
   }
-    window['wiymWidget'] = {
-        'conf': function () {
-            return userConfig
-        },
-        'configure': _configure,
-        'init': function(conf){
-          if(document.readyState === "complete") {
-            _init(conf);
-          }
-          else {
-            document.addEventListener("readystatechange", function(event) {
-              _init(conf);
-            });
-          }
-        }
-    };
-    window.jcssReg = function (path, content) {
-        var s = document.createElement('style');
-        s.innerText = content;
-        document.getElementsByTagName('head')[0].appendChild(s);
-//        console.log(arguments)
+  window['wiymWidget'] = {
+    'conf': function() {
+      return userConfig
+    },
+    'configure': _configure,
+    'init': function(conf) {
+      if (document.readyState === "complete") {
+        _init(conf);
+      } else {
+        document.addEventListener("readystatechange", function(event) {
+          _init(conf);
+        });
+      }
     }
+  };
+  window.jcssReg = function(path, content) {
+    var s = document.createElement('style');
+    s.innerText = content;
+    document.getElementsByTagName('head')[0].appendChild(s);
+    //        console.log(arguments)
+  }
 }());
