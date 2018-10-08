@@ -250,7 +250,7 @@ $name-base: '.wid-indy';
 #{$name-base}-w {
   &-powered {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     font-size: $font-sm;
     text-transform: capitalize;
     font-weight: 700;

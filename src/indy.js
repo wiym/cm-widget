@@ -109,8 +109,8 @@
   '</div>' +
   '<div class="wid-indy-w-powered">' +
     '<a href="https://www.crowdmap.io" class="wid-indy-w-powered-link" title="Powered by Crowdmap" target="_blank">' +
-      'Powered by' +
-      '<svg style="width: 12px; height: 12px; margin-left: 4px;" id="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">' +
+
+      '<svg style="width: 16px; height: 16px; margin-right: 4px;" id="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">' +
       '<defs><style>.cls-4{fill:#011627}.cls-3{fill:#26938c}</style></defs>' +
       '<title>Powered by Crowdmap</title>' +
       '<circle cx="80" cy="80" r="80" fill="#31e6ce"/>' +
@@ -118,6 +118,7 @@
       '<path class="cls-3" d="M122.4 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38zM136.97 91.69h-7.77l-14.57-21.38h7.77l14.57 21.38z"/>' +
       '<path class="cls-4" d="M100.06 70.31h7.77v21.37h-7.77zM114.63 70.31h7.77v21.37h-7.77z"/>' +
       '</svg>' +
+      'Powered by Crowdmap.io' +
     '</a>' +
   '</div>' +
 '</div>' +

@@ -554,7 +554,7 @@ category: Utilities
 
 .wid-indy-w-powered {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   font-size: 10.8px;
   text-transform: capitalize;
   font-weight: 700;
