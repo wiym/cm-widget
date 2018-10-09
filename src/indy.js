@@ -95,7 +95,7 @@
         '<input type="checkbox" class="wid-indy-capture" name="capture" value="true" checked id="capture"><label for="capture"> #trads:labelCapture#</label><br>' +
       '</div>' +
     '</div>' +
-    '<div class="wid-indy-form-group">' +
+    '<div class="wid-indy-form-group wid-indy-form-group_email">' +
       '<div class="">' +
         '<label for="email" class="wid-indy-label wid-indy-label--light">#trads:labelEmail#</label>' +
         '<div>' +
@@ -469,6 +469,10 @@
 
     if (theme === 'light') {
       addClass(gec('wid-indy-w-container'), 'wid-indy-w-container--light');
+    }
+
+    if(userConfig.email !== '') {
+      addClass(gec('wid-indy-form-group_email'), 'is-hide');
     }
 
     addEvent(gec('wid-indy-close-feedback'), 'click', function() {
