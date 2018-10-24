@@ -52,7 +52,7 @@
     base64 = '';
 
   var templates = {
-    btnPopup: '<span data-html2canvas-ignore data-action="openFeedback" class="wid-indy-button wid-indy-button--primary wid-indy-button--feedback">#trads:labelBtnPopup#</span>',
+    btnPopup: '<span class="wid-indy-button--feedback wid-indy-button--feedback_container" data-html2canvas-ignore data-action="openFeedback"><span class="wid-indy-button--feedback_content">#trads:labelBtnPopup#</span></span>',
     popup: '<div data-html2canvas-ignore data-popup="feedback" id="wid-indy-w-container" class="wid-indy-w-container">' +
     '<div data-step-feedback="1" class="step-feedback-1">' +
     '<div class="wid-indy-form-group">' +
@@ -326,6 +326,8 @@
     data['url'] = window.location.href;
 
     data['browser'] = getBrowser();
+
+    console.log(data.capture);
 
     var mydata = {
       noteGlobale: data.noteGlobale,
