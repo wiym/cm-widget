@@ -2,12 +2,12 @@
   "version":"3.0.2",
   "name": "wiym-widget",
   "authors": [
-    "Erwan LUMBROSO <wiym@2lj.fr>"
+    "Erwan LUMBROSO <erwan@crowdmap.io>"
   ],
   "description": "",
   "main": "dist/indy-widget.min.js",
   "license": "MIT",
-  "homepage": "https://www.wiym.io",
+  "homepage": "http://www.crowdmap.io",
   "ignore": [
     "**/.*",
     "node_modules",
