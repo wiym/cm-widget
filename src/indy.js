@@ -6,8 +6,8 @@
     translatedTemplates;
   var trads = {
     en: {
-      panelTitle: 'Feedback',
-      labelBtnPopup: 'Product feedback',
+      panelTitle: 'Product feedback',
+      labelBtnPopup: 'Feedback',
       labelHeaderPopup: 'Send a feedback',
       labelDescPopup: 'How would you rate your experience on our tool ?',
       labelNotation: 'How was your experience today?',
@@ -24,8 +24,8 @@
       tradPositive: 'satisfying'
     },
     fr: {
-      panelTitle: 'Feedback',
-      labelBtnPopup: 'Feedback produit',
+      panelTitle: 'Feedback produit',
+      labelBtnPopup: 'Feedback',
       labelHeaderPopup: 'Envoyer un feedback',
       labelDescPopup: 'Comment jugez-vous votre expérience avec notre outil ?',
       labelNotation: 'Comment jugeriez-vous votre expérience ?',
@@ -52,33 +52,34 @@
     base64 = '';
 
   var templates = {
-    btnPopup: '<span class="wid-indy-button--feedback wid-indy-button--feedback_container" data-html2canvas-ignore data-action="openFeedback"><span class="wid-indy-button--feedback_content">#trads:labelBtnPopup#</span></span>',
+    btnPopup: '<div data-html2canvas-ignore data-action="openFeedback" id="feedback-btn" class="wid-indy-button--feedback btn_container" data-y="bottom"><div id="feedback-btn-background" class="btn_background"></div><div class="btn_label" id="feedback-btn-label">#trads:labelBtnPopup#</div></div>',
+    //btnPopup: '<span class="wid-indy-button--feedback wid-indy-button--feedback_container"><span class="wid-indy-button--feedback_content"></span></span>',
     popup: '<div data-html2canvas-ignore data-popup="feedback" id="wid-indy-w-container" class="wid-indy-w-container">' +
-    '<div data-step-feedback="1" class="step-feedback-1">' +
-    '<div class="wid-indy-form-group">' +
+      '<div data-step-feedback="1" class="step-feedback-1">' +
+      '<div class="wid-indy-form-group">' +
       '<div class="wid-indy-label wid-indy-label--light">' +
-        '#trads:labelNotation#' +
+      '#trads:labelNotation#' +
       '</div>' +
       '<div class="wid-indy-w-sentiment">' +
-        '<div class="wid-indy-btn-group">' +
-          '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-1" data-input="note" data-note="1" title="#trads:trad5#">' +
-            '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle class="emo-background" cx="12.375" cy="12.375" r="12.375"/><path fill="#5A5A5A" fill-rule="nonzero" d="M20.444 20.444a11.334 11.334 0 0 1-8.068 3.342 11.334 11.334 0 0 1-8.068-3.342 11.334 11.334 0 0 1-3.341-8.068c0-3.048 1.186-5.912 3.341-8.068A11.334 11.334 0 0 1 12.376.967c3.048 0 5.913 1.186 8.068 3.341a11.334 11.334 0 0 1 3.341 8.068c0 3.048-1.186 5.913-3.341 8.068m.683-16.819A12.294 12.294 0 0 0 12.377 0a12.294 12.294 0 0 0-8.752 3.625A12.294 12.294 0 0 0 0 12.376c0 3.306 1.287 6.414 3.625 8.751a12.294 12.294 0 0 0 8.751 3.625c3.306 0 6.414-1.286 8.751-3.625a12.294 12.294 0 0 0 3.625-8.75c0-3.306-1.286-6.414-3.625-8.752m-2.829 9.57H6.454a.484.484 0 0 0-.484.484 6.413 6.413 0 0 0 6.406 6.405 6.413 6.413 0 0 0 6.406-6.405.484.484 0 0 0-.484-.484m-9.866-1.764c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.854 0-1.55.695-1.55 1.55 0 .854.696 1.55 1.55 1.55m7.926 0c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.855 0-1.55.695-1.55 1.55 0 .854.695 1.55 1.55 1.55"/></g></svg>' +
-            '<span class="wid-indy-btn-group-item-legend">#trads:tradPositive#</span>' +
-          '</a>' +
-          '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-0" data-input="note" data-note="0" title="#trads:trad3#">' +
-            '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle cx="12.375" cy="12.375" r="12.375" class="emo-background"/><path fill="#011627" fill-rule="nonzero" d="M20.648 20.648a11.447 11.447 0 0 1-8.148 3.375 11.447 11.447 0 0 1-8.149-3.375A11.447 11.447 0 0 1 .976 12.5c0-3.078 1.199-5.972 3.375-8.149A11.447 11.447 0 0 1 12.5.977c3.078 0 5.972 1.198 8.148 3.374a11.447 11.447 0 0 1 3.375 8.149c0 3.078-1.198 5.972-3.375 8.148m.69-16.987A12.417 12.417 0 0 0 12.5 0C9.161 0 6.022 1.3 3.661 3.661A12.417 12.417 0 0 0 0 12.5c0 3.339 1.3 6.477 3.661 8.839A12.417 12.417 0 0 0 12.5 25c3.339 0 6.477-1.3 8.839-3.661A12.417 12.417 0 0 0 25 12.5c0-3.339-1.3-6.478-3.661-8.839m-4.06 11.972H7.76a.488.488 0 0 0 0 .977h9.52a.488.488 0 1 0 0-.977m-6.59-5.964a.488.488 0 0 0-.977 0c0 .665-.541 1.206-1.205 1.206A1.207 1.207 0 0 1 7.3 9.67a.488.488 0 0 0-.977 0c0 1.204.979 2.183 2.183 2.183a2.184 2.184 0 0 0 2.182-2.183m7.499-.488a.488.488 0 0 0-.489.488c0 .665-.54 1.206-1.206 1.206a1.207 1.207 0 0 1-1.205-1.206.488.488 0 0 0-.976 0c0 1.204.978 2.183 2.181 2.183a2.184 2.184 0 0 0 2.183-2.183.488.488 0 0 0-.488-.488"/></g></svg>' +
-            '<span class="wid-indy-btn-group-item-legend">#trads:tradNeutral#</span>' +
-          '</a>' +
-          '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note--1" data-input="note" data-note="-1" title="#trads:trad2#">' +
-            '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle cx="12.375" cy="12.375" r="12.375" class="emo-background"/><path fill="#011627" fill-rule="nonzero" d="M12.5 0C5.603 0 0 5.603 0 12.5S5.603 25 12.5 25 25 19.397 25 12.5 19.397 0 12.5 0zm.05 1C18.936 1 24.1 6.164 24.1 12.55c0 6.386-5.164 11.55-11.55 11.55A11.541 11.541 0 0 1 1 12.55C1 6.164 6.164 1 12.55 1zM7.778 7.222a1.667 1.667 0 1 0 0 3.334 1.667 1.667 0 0 0 0-3.334zm9.444 0a1.667 1.667 0 1 0 .001 3.334 1.667 1.667 0 0 0 0-3.334zM12.5 14.167c-2.724 0-5.13 1.419-6.571 3.576a.555.555 0 1 0 .92.616c1.251-1.87 3.314-3.081 5.651-3.081 2.337 0 4.4 1.21 5.651 3.081a.558.558 0 0 0 .794.191.555.555 0 0 0 .126-.807c-1.442-2.157-3.847-3.576-6.57-3.576H12.5z"/></g></svg>' +
-            '<span class="wid-indy-btn-group-item-legend">#trads:tradNegative#</span>' +
-          '</a>' +
-        '</div>' +
+      '<div class="wid-indy-btn-group">' +
+      '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-1" data-input="note" data-note="1" title="#trads:trad5#">' +
+      '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle class="emo-background" cx="12.375" cy="12.375" r="12.375"/><path fill="#5A5A5A" fill-rule="nonzero" d="M20.444 20.444a11.334 11.334 0 0 1-8.068 3.342 11.334 11.334 0 0 1-8.068-3.342 11.334 11.334 0 0 1-3.341-8.068c0-3.048 1.186-5.912 3.341-8.068A11.334 11.334 0 0 1 12.376.967c3.048 0 5.913 1.186 8.068 3.341a11.334 11.334 0 0 1 3.341 8.068c0 3.048-1.186 5.913-3.341 8.068m.683-16.819A12.294 12.294 0 0 0 12.377 0a12.294 12.294 0 0 0-8.752 3.625A12.294 12.294 0 0 0 0 12.376c0 3.306 1.287 6.414 3.625 8.751a12.294 12.294 0 0 0 8.751 3.625c3.306 0 6.414-1.286 8.751-3.625a12.294 12.294 0 0 0 3.625-8.75c0-3.306-1.286-6.414-3.625-8.752m-2.829 9.57H6.454a.484.484 0 0 0-.484.484 6.413 6.413 0 0 0 6.406 6.405 6.413 6.413 0 0 0 6.406-6.405.484.484 0 0 0-.484-.484m-9.866-1.764c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.854 0-1.55.695-1.55 1.55 0 .854.696 1.55 1.55 1.55m7.926 0c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.855 0-1.55.695-1.55 1.55 0 .854.695 1.55 1.55 1.55"/></g></svg>' +
+      '<span class="wid-indy-btn-group-item-legend">#trads:tradPositive#</span>' +
+      '</a>' +
+      '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-0" data-input="note" data-note="0" title="#trads:trad3#">' +
+      '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle cx="12.375" cy="12.375" r="12.375" class="emo-background"/><path fill="#011627" fill-rule="nonzero" d="M20.648 20.648a11.447 11.447 0 0 1-8.148 3.375 11.447 11.447 0 0 1-8.149-3.375A11.447 11.447 0 0 1 .976 12.5c0-3.078 1.199-5.972 3.375-8.149A11.447 11.447 0 0 1 12.5.977c3.078 0 5.972 1.198 8.148 3.374a11.447 11.447 0 0 1 3.375 8.149c0 3.078-1.198 5.972-3.375 8.148m.69-16.987A12.417 12.417 0 0 0 12.5 0C9.161 0 6.022 1.3 3.661 3.661A12.417 12.417 0 0 0 0 12.5c0 3.339 1.3 6.477 3.661 8.839A12.417 12.417 0 0 0 12.5 25c3.339 0 6.477-1.3 8.839-3.661A12.417 12.417 0 0 0 25 12.5c0-3.339-1.3-6.478-3.661-8.839m-4.06 11.972H7.76a.488.488 0 0 0 0 .977h9.52a.488.488 0 1 0 0-.977m-6.59-5.964a.488.488 0 0 0-.977 0c0 .665-.541 1.206-1.205 1.206A1.207 1.207 0 0 1 7.3 9.67a.488.488 0 0 0-.977 0c0 1.204.979 2.183 2.183 2.183a2.184 2.184 0 0 0 2.182-2.183m7.499-.488a.488.488 0 0 0-.489.488c0 .665-.54 1.206-1.206 1.206a1.207 1.207 0 0 1-1.205-1.206.488.488 0 0 0-.976 0c0 1.204.978 2.183 2.181 2.183a2.184 2.184 0 0 0 2.183-2.183.488.488 0 0 0-.488-.488"/></g></svg>' +
+      '<span class="wid-indy-btn-group-item-legend">#trads:tradNeutral#</span>' +
+      '</a>' +
+      '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note--1" data-input="note" data-note="-1" title="#trads:trad2#">' +
+      '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle cx="12.375" cy="12.375" r="12.375" class="emo-background"/><path fill="#011627" fill-rule="nonzero" d="M12.5 0C5.603 0 0 5.603 0 12.5S5.603 25 12.5 25 25 19.397 25 12.5 19.397 0 12.5 0zm.05 1C18.936 1 24.1 6.164 24.1 12.55c0 6.386-5.164 11.55-11.55 11.55A11.541 11.541 0 0 1 1 12.55C1 6.164 6.164 1 12.55 1zM7.778 7.222a1.667 1.667 0 1 0 0 3.334 1.667 1.667 0 0 0 0-3.334zm9.444 0a1.667 1.667 0 1 0 .001 3.334 1.667 1.667 0 0 0 0-3.334zM12.5 14.167c-2.724 0-5.13 1.419-6.571 3.576a.555.555 0 1 0 .92.616c1.251-1.87 3.314-3.081 5.651-3.081 2.337 0 4.4 1.21 5.651 3.081a.558.558 0 0 0 .794.191.555.555 0 0 0 .126-.807c-1.442-2.157-3.847-3.576-6.57-3.576H12.5z"/></g></svg>' +
+      '<span class="wid-indy-btn-group-item-legend">#trads:tradNegative#</span>' +
+      '</a>' +
       '</div>' +
-    '</div>' +
-    '<div class="wid-indy-form-group">' +
+      '</div>' +
+      '</div>' +
+      '<div class="wid-indy-form-group">' +
       '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note-1 wid-indy-label--light is-shown">' +
-        '#trads:labelCommentPositif#' +
+      '#trads:labelCommentPositif#' +
       '</label>' +
       '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note-0 wid-indy-label--light">' +
       '#trads:labelCommentNeutral#' +
@@ -87,28 +88,28 @@
       '#trads:labelCommentNegative#' +
       '</label>' +
       '<div>' +
-        '<textarea name="" id="comment" rows="3" class="wid-indy-input wid-indy-comment"></textarea>' +
+      '<textarea name="" id="comment" rows="3" class="wid-indy-input wid-indy-comment"></textarea>' +
       '</div>' +
-    '</div>' +
-    '<div class="wid-indy-form-group">' +
-      '<div class="">' +
-        '<input type="checkbox" class="wid-indy-capture" name="capture" value="true" checked id="capture"><label for="capture"> #trads:labelCapture#</label><br>' +
       '</div>' +
-    '</div>' +
-    '<div class="wid-indy-form-group wid-indy-form-group_email">' +
+      '<div class="wid-indy-form-group">' +
       '<div class="">' +
-        '<label for="email" class="wid-indy-label wid-indy-label--light">#trads:labelEmail#</label>' +
-        '<div>' +
-        '<input type="email" id="email" class="wid-indy-input wid-indy-email" value="#userConfig.email#">' +
-        '</div>' +
-    '</div>' +
-  '</div>' +
-  '<div class="wid-indy-w-footer">' +
-    '<span class="wid-indy-button wid-indy-button--primary wid-indy-button--small wid-indy-close-feedback">#trads:closeFeedback#</span>' +
-    '<span class="wid-indy-button wid-indy-button--success wid-indy-button--small wid-indy-send-feedback">#trads:labelBtnSend#</span>' +
-  '</div>' +
-  '<div class="wid-indy-w-powered">' +
-    '<a href="https://www.crowdmap.io" class="wid-indy-w-powered-link" title="Powered by Crowdmap" target="_blank">' +
+      '<input type="checkbox" class="wid-indy-capture" name="capture" value="true" checked id="capture"><label for="capture"> #trads:labelCapture#</label><br>' +
+      '</div>' +
+      '</div>' +
+      '<div class="wid-indy-form-group wid-indy-form-group_email">' +
+      '<div class="">' +
+      '<label for="email" class="wid-indy-label wid-indy-label--light">#trads:labelEmail#</label>' +
+      '<div>' +
+      '<input type="email" id="email" class="wid-indy-input wid-indy-email" value="#userConfig.email#">' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '<div class="wid-indy-w-footer">' +
+      '<span class="wid-indy-button wid-indy-button--primary wid-indy-button--small wid-indy-close-feedback">#trads:closeFeedback#</span>' +
+      '<span class="wid-indy-button wid-indy-button--success wid-indy-button--small wid-indy-send-feedback">#trads:labelBtnSend#</span>' +
+      '</div>' +
+      '<div class="wid-indy-w-powered">' +
+      '<a href="https://www.crowdmap.io" class="wid-indy-w-powered-link" title="Powered by Crowdmap" target="_blank">' +
 
       '<svg style="width: 16px; height: 16px; margin-right: 4px;" id="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">' +
       '<defs><style>.cls-4{fill:#011627}.cls-3{fill:#26938c}</style></defs>' +
@@ -119,17 +120,17 @@
       '<path class="cls-4" d="M100.06 70.31h7.77v21.37h-7.77zM114.63 70.31h7.77v21.37h-7.77z"/>' +
       '</svg>' +
       'Powered by Crowdmap.io' +
-    '</a>' +
-  '</div>' +
-'</div>' +
-'<div data-step-feedback="success" class="wid-indy-center wid-indy-feedback-success is-hide">' +
-  '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">' +
-  '<title>' + 'Success' + '</title>' +
-  '<path d="M32 0C14.327 0 0 14.327 0 32c0 17.674 14.327 32 32 32 17.674 0 32-14.326 32-32C64 14.327 49.674 0 32 0zm.427 60.587c-15.528 0-28.16-12.682-28.16-28.192S16.9 4.267 32.427 4.267c15.527 0 28.16 12.618 28.16 28.128s-12.633 28.192-28.16 28.192zm12.79-40.365L26.403 39.434l-8.473-8.598c-.784-.794-2.053-.794-2.836 0-.783.794-.783 2.082 0 2.876l9.92 10.066c.783.794 2.05.794 2.835 0 .09-.09.167-.19.237-.294L48.054 23.1c.78-.795.78-2.083 0-2.878-.784-.794-2.053-.794-2.836 0z" fill-rule="nonzero" fill="#10CFBD"/>' +
-  '</svg>' +
-  '<p>#trads:feedbackSuccess#</p>' +
-  '</div>' +
-'</div>'
+      '</a>' +
+      '</div>' +
+      '</div>' +
+      '<div data-step-feedback="success" class="wid-indy-center wid-indy-feedback-success is-hide">' +
+      '<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">' +
+      '<title>' + 'Success' + '</title>' +
+      '<path d="M32 0C14.327 0 0 14.327 0 32c0 17.674 14.327 32 32 32 17.674 0 32-14.326 32-32C64 14.327 49.674 0 32 0zm.427 60.587c-15.528 0-28.16-12.682-28.16-28.192S16.9 4.267 32.427 4.267c15.527 0 28.16 12.618 28.16 28.128s-12.633 28.192-28.16 28.192zm12.79-40.365L26.403 39.434l-8.473-8.598c-.784-.794-2.053-.794-2.836 0-.783.794-.783 2.082 0 2.876l9.92 10.066c.783.794 2.05.794 2.835 0 .09-.09.167-.19.237-.294L48.054 23.1c.78-.795.78-2.083 0-2.878-.784-.794-2.053-.794-2.836 0z" fill-rule="nonzero" fill="#10CFBD"/>' +
+      '</svg>' +
+      '<p>#trads:feedbackSuccess#</p>' +
+      '</div>' +
+      '</div>'
 
   };
 
@@ -170,9 +171,9 @@
   };
 
   var addClass = function(elements, className) {
-    elements = isArray(elements)
-      ? elements
-      : [elements];
+    elements = isArray(elements) ?
+      elements :
+      [elements];
     for (var i = 0; i < elements.length; i++) {
       addElementClass(elements[i], className);
     }
@@ -180,9 +181,9 @@
 
   var removeAllClass = function(elements, className) {
 
-    elements = isArray(elements)
-      ? elements
-      : [elements];
+    elements = isArray(elements) ?
+      elements :
+      [elements];
     for (var i = 0; i < elements.length; i++) {
       removeClass(elements[i], className);
     }
@@ -256,7 +257,7 @@
     data['userID'] = userConfig.userID;
 
     var canCapture = document.querySelector('.wid-indy-capture').checked;
-    if(canCapture) {
+    if (canCapture) {
       console.log('hello capture')
       getScreenShot(function(screenshot) {
         data.capture = screenshot;
@@ -301,18 +302,18 @@
     if (/trident/i.test(M[1])) {
       tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
       return 'IE ' + (
-      tem[1] || '');
+        tem[1] || '');
     }
     if (M[1] === 'Chrome') {
       tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
       if (tem != null)
         return tem.slice(1).join(' ').replace('OPR', 'Opera');
-      }
-    M = M[2]
-      ? [
+    }
+    M = M[2] ?
+      [
         M[1], M[2]
-      ]
-      : [navigator.appName, navigator.appVersion, '-?'];
+      ] :
+      [navigator.appName, navigator.appVersion, '-?'];
     if ((tem = ua.match(/version\/(\d+)/i)) != null)
       M.splice(1, 1, tem[1]);
     return M.join(' ');
@@ -434,6 +435,38 @@
     return re.test(email.toLowerCase());
   }
 
+
+  function invertColor(hexTripletColor) {
+    var color = hexTripletColor;
+    color = color.substring(1); // remove #
+    color = parseInt(color, 16); // convert to integer
+    color = 0xFFFFFF ^ color; // invert three bytes
+    color = color.toString(16); // convert to hex
+    color = ("000000" + color).slice(-6); // pad with leading zeros
+    color = "#" + color; // prepend #
+    return color;
+  }
+
+  function colorLuminance(hex, lum) {
+
+	// validate hex string
+	hex = String(hex).replace(/[^0-9a-f]/gi, '');
+	if (hex.length < 6) {
+		hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+	}
+	lum = lum || 0;
+
+	// convert to decimal and change luminosity
+	var rgb = "#", c, i;
+	for (i = 0; i < 3; i++) {
+		c = parseInt(hex.substr(i*2,2), 16);
+		c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+		rgb += ("00"+c).substr(c.length);
+	}
+
+	return rgb;
+}
+
   function _init(config) {
     /*
        shortcuts : 'F' mess with inputs
@@ -449,12 +482,12 @@
       userConfig.email = '';
     }
 
-    divToAppend = userConfig.divToAppend
-      ? gec(userConfig.divToAppend)
-      : document.body;
-    divToCapture = userConfig.divToCapture
-      ? gec(userConfig.divToCapture)
-      : document.body;
+    divToAppend = userConfig.divToAppend ?
+      gec(userConfig.divToAppend) :
+      document.body;
+    divToCapture = userConfig.divToCapture ?
+      gec(userConfig.divToCapture) :
+      document.body;
 
     if (containers.button) {
       containers.button.innerHTML = translatedTemplates.btnPopup;
@@ -466,16 +499,91 @@
     } else {
       containers.popup = addElem('span', {}, translatedTemplates.popup, divToAppend);
     }
+    var element = document.getElementById("feedback-btn"),
+      label = document.getElementById("feedback-btn-label"),
+      background = document.getElementById("feedback-btn-background")
+      spacing = "8px",
+      perspective = "100px",
+      positionAside = userConfig.positionAside || 'false',
+      positionX = userConfig.positionX || 'right',
+      backgroundColor = userConfig.btnBackgroundColor || '#011627',
+      backgroundColor = backgroundColor.indexOf("#") >=0 ? backgroundColor : '#011627';
 
+    element.style.setProperty("--width-btn-container", "80px");
+    element.style.setProperty("--height-btn-container", "38px");
+    element.style.setProperty("--padding-btn-label", "10px");
+    element.style.setProperty("--perspective", perspective);
+    element.style.setProperty("--rotateX", "24deg");
+    element.style.setProperty("--rotateY", "0");
+    element.style.setProperty("--right-position", spacing)
+    element.style.setProperty("--bottom-position", "0px")
+
+    background.style.setProperty('--background-color-hover-btn', colorLuminance(backgroundColor,-0.3));
+    background.style.setProperty('--background-color-btn', backgroundColor)
+
+    label.style.setProperty("--rotate-label", "0px")
+    label.style.setProperty("--label-top-position", "0px")
+    label.style.setProperty("--label-color", invertColor(backgroundColor));
+
+    if (positionAside === 'true') {
+      element.style.setProperty("--height-btn-container", "80px");
+      element.style.setProperty("--width-btn-container", "38px");
+      element.style.setProperty("--perspective", perspective)
+      element.style.setProperty("--rotateX", "0deg")
+      background.style.setProperty('--background-color-btn', backgroundColor)
+
+      if (positionX === 'right') {
+        element.style.setProperty("--right-position", "0px")
+        element.style.setProperty("--left-position", "inherit")
+        element.style.setProperty("--bottom-position", spacing)
+        element.style.setProperty("--left-position", "inherit")
+        element.style.setProperty("--rotateY", "-24deg")
+
+        label.style.setProperty("--rotate-label", "-90deg")
+        label.style.setProperty("--label-top-position", "30px")
+      } else if (positionX === 'left') {
+        element.style.setProperty("--left-position", "0px")
+        element.style.setProperty("--right-position", "inherit")
+        element.style.setProperty("--bottom-position", spacing)
+        element.style.setProperty("--rotateY", "24deg")
+
+        label.style.setProperty("--rotate-label", "90deg")
+        label.style.setProperty("--label-top-position", "14px")
+      }
+    } else {
+
+      element.style.setProperty("--perspective", perspective);
+      element.style.setProperty("--rotateX", "24deg")
+      element.style.setProperty("--rotateY", "0deg");
+
+      label.style.setProperty("--rotate-label", "0")
+      label.style.setProperty("--label-top-position", "0")
+
+      if (positionX === 'right') {
+        element.style.setProperty("--right-position", spacing)
+        element.style.setProperty("--left-position", "inherit")
+        element.style.setProperty("--bottom-position", "0px")
+        element.style.setProperty("--left-position", "inherit")
+        element.style.setProperty("--rotateX", "24deg")
+        element.style.setProperty("--rotateY", "0deg")
+      } else if (positionX === 'left') {
+        element.style.setProperty("--left-position", spacing);
+        element.style.setProperty("--right-position", "inherit");
+        element.style.setProperty("--bottom-position", "0px");
+        element.style.setProperty("--left-position", "inherit");
+      }
+    }
     var theme = userConfig.theme || 'dark';
 
     if (theme === 'light') {
       addClass(gec('wid-indy-w-container'), 'wid-indy-w-container--light');
     }
 
-    if(userConfig.email !== '') {
+    if (userConfig.email !== '') {
       addClass(gec('wid-indy-form-group_email'), 'is-hide');
     }
+
+
 
     addEvent(gec('wid-indy-close-feedback'), 'click', function() {
       addClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
