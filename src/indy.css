@@ -641,6 +641,8 @@ category: Utilities
   top: var(--top-position);
   right: var(--right-position);
   bottom: var(--bottom-position); }
+  .btn_container:hover {
+    cursor: pointer; }
 .btn_background {
   border-radius: 2px;
   background-color: var(--background-color-btn);
@@ -661,4 +663,5 @@ category: Utilities
   transform: rotate(var(--rotate-label));
   font-family: "Open Sans";
   font-size: 12px;
-  font-weight: 600; }
+  font-weight: 600;
+  text-transform: uppercase; }

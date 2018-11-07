@@ -435,37 +435,40 @@
     return re.test(email.toLowerCase());
   }
 
-
-  function invertColor(hexTripletColor) {
-    var color = hexTripletColor;
-    color = color.substring(1); // remove #
-    color = parseInt(color, 16); // convert to integer
-    color = 0xFFFFFF ^ color; // invert three bytes
-    color = color.toString(16); // convert to hex
-    color = ("000000" + color).slice(-6); // pad with leading zeros
-    color = "#" + color; // prepend #
-    return color;
+  function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
   }
 
-  function colorLuminance(hex, lum) {
+  function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  }
 
-	// validate hex string
-	hex = String(hex).replace(/[^0-9a-f]/gi, '');
-	if (hex.length < 6) {
-		hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
-	}
-	lum = lum || 0;
+  function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+  }
 
-	// convert to decimal and change luminosity
-	var rgb = "#", c, i;
-	for (i = 0; i < 3; i++) {
-		c = parseInt(hex.substr(i*2,2), 16);
-		c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
-		rgb += ("00"+c).substr(c.length);
-	}
 
-	return rgb;
-}
+  function setLabelColor(hexTripletColor) {
+    var color = hexTripletColor,
+    colorArray = [],
+    brightness;
+
+    colorArray = hexToRgb(color);
+    console.log(colorArray);
+
+    brightness = Math.round(((parseInt(colorArray.r) * 299) +
+                      (parseInt(colorArray.g) * 587) +
+                      (parseInt(colorArray.b) * 114)) / 1000);
+
+    color = (brightness > 125) ? '#011627' : '#ffffff';
+    return color;
+  }
 
   function _init(config) {
     /*
@@ -506,10 +509,10 @@
       perspective = "100px",
       positionAside = userConfig.positionAside || 'false',
       positionX = userConfig.positionX || 'right',
-      backgroundColor = userConfig.btnBackgroundColor || '#011627',
-      backgroundColor = backgroundColor.indexOf("#") >=0 ? backgroundColor : '#011627';
+      backgroundColor = userConfig.btnBackgroundColor || '#31E6CE',
+      backgroundColor = backgroundColor.indexOf("#") >=0 ? backgroundColor : '#31E6CE';
 
-    element.style.setProperty("--width-btn-container", "80px");
+    element.style.setProperty("--width-btn-container", "88px");
     element.style.setProperty("--height-btn-container", "38px");
     element.style.setProperty("--padding-btn-label", "10px");
     element.style.setProperty("--perspective", perspective);
@@ -518,15 +521,14 @@
     element.style.setProperty("--right-position", spacing)
     element.style.setProperty("--bottom-position", "0px")
 
-    background.style.setProperty('--background-color-hover-btn', colorLuminance(backgroundColor,-0.3));
     background.style.setProperty('--background-color-btn', backgroundColor)
 
     label.style.setProperty("--rotate-label", "0px")
     label.style.setProperty("--label-top-position", "0px")
-    label.style.setProperty("--label-color", invertColor(backgroundColor));
+    label.style.setProperty("--label-color", setLabelColor(backgroundColor));
 
     if (positionAside === 'true') {
-      element.style.setProperty("--height-btn-container", "80px");
+      element.style.setProperty("--height-btn-container", "98px");
       element.style.setProperty("--width-btn-container", "38px");
       element.style.setProperty("--perspective", perspective)
       element.style.setProperty("--rotateX", "0deg")
@@ -540,7 +542,7 @@
         element.style.setProperty("--rotateY", "-24deg")
 
         label.style.setProperty("--rotate-label", "-90deg")
-        label.style.setProperty("--label-top-position", "30px")
+        label.style.setProperty("--label-top-position", "40px")
       } else if (positionX === 'left') {
         element.style.setProperty("--left-position", "0px")
         element.style.setProperty("--right-position", "inherit")
@@ -582,8 +584,6 @@
     if (userConfig.email !== '') {
       addClass(gec('wid-indy-form-group_email'), 'is-hide');
     }
-
-
 
     addEvent(gec('wid-indy-close-feedback'), 'click', function() {
       addClass(gec('wid-indy-close-feedback'), 'fadeOutDown');

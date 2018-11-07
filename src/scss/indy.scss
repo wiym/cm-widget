@@ -395,12 +395,6 @@ $base-btn: '.btn';
     &:hover {
       cursor: pointer;
     }
-
-    &:hover {
-      #{$base-btn}_background {
-        background-color: var(--background-color-hover-btn);
-      }
-    }
   }
 
   &_background {
@@ -426,5 +420,6 @@ $base-btn: '.btn';
     font-family: "Open Sans";
     font-size: 12px;
     font-weight: 600;
+    text-transform: uppercase;
   }
 }
