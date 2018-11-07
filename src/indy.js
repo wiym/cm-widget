@@ -507,7 +507,7 @@
       background = document.getElementById("feedback-btn-background")
       spacing = "8px",
       perspective = "100px",
-      positionAside = userConfig.positionAside || 'false',
+      positionAside = userConfig.positionAside || false,
       positionX = userConfig.positionX || 'right',
       backgroundColor = userConfig.btnBackgroundColor || '#31E6CE',
       backgroundColor = backgroundColor.indexOf("#") >=0 ? backgroundColor : '#31E6CE';
@@ -527,7 +527,7 @@
     label.style.setProperty("--label-top-position", "0px")
     label.style.setProperty("--label-color", setLabelColor(backgroundColor));
 
-    if (positionAside === 'true') {
+    if (positionAside) {
       element.style.setProperty("--height-btn-container", "98px");
       element.style.setProperty("--width-btn-container", "38px");
       element.style.setProperty("--perspective", perspective)
