@@ -524,8 +524,8 @@
     label.style.setProperty("--label-color", setLabelColor(backgroundColor));
 
     if (positionAside) {
-      element.style.setProperty("--height-btn-container", "98px");
-      element.style.setProperty("--width-btn-container", "38px");
+      element.style.setProperty("--height-btn-container", "105px");
+      element.style.setProperty("--width-btn-container", "42px");
       element.style.setProperty("--perspective", perspective)
       element.style.setProperty("--rotateX", "0deg")
       background.style.setProperty('--background-color-btn', backgroundColor)
@@ -533,7 +533,7 @@
       if (positionX === 'right') {
         element.style.setProperty("--right-position", "0px")
         element.style.setProperty("--left-position", "inherit")
-        element.style.setProperty("--bottom-position", spacing)
+        element.style.setProperty("--bottom-position", '24px')
         element.style.setProperty("--left-position", "inherit")
         element.style.setProperty("--rotateY", "-24deg")
 
