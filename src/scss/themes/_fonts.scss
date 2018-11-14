@@ -47,9 +47,9 @@ $corpo-fullname-font: 'JosefinSans';
   font-style: normal;
 }
 
-$font-family-base: $main-name-font, arial, helvetica, sans-serif;
-$font-alternative: $alternative-name-font, $main-name-font, arial, helvetica, sans-serif;
-$font-corpo: $corpo-name-font, $main-name-font, arial, helvetica, sans-serif;
+$font-family-base: $main-name-font, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
+$font-alternative: $alternative-name-font, $main-name-font, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
+$font-corpo: $corpo-name-font, $main-name-font, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
 $font-weight-base: 500;
 
 $font-size-base: 12px;

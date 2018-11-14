@@ -258,7 +258,6 @@
 
     var canCapture = document.querySelector('.wid-indy-capture').checked;
     if (canCapture) {
-      console.log('hello capture')
       getScreenShot(function(screenshot) {
         data.capture = screenshot;
         sendToAPI(data, function(err) {
@@ -272,7 +271,6 @@
         });
       });
     } else {
-      console.log('not hello capture');
       data.capture = '';
       sendToAPI(data, function(err) {
         if (!err) {
@@ -327,8 +325,6 @@
     data['url'] = window.location.href;
 
     data['browser'] = getBrowser();
-
-    console.log(data.capture);
 
     var mydata = {
       noteGlobale: data.noteGlobale,
@@ -460,7 +456,6 @@
     brightness;
 
     colorArray = hexToRgb(color);
-    console.log(colorArray);
 
     brightness = Math.round(((parseInt(colorArray.r) * 299) +
                       (parseInt(colorArray.g) * 587) +
@@ -542,7 +537,7 @@
         element.style.setProperty("--rotateY", "-24deg")
 
         label.style.setProperty("--rotate-label", "-90deg")
-        label.style.setProperty("--label-top-position", "40px")
+        label.style.setProperty("--label-top-position", "42px")
       } else if (positionX === 'left') {
         element.style.setProperty("--left-position", "0px")
         element.style.setProperty("--right-position", "inherit")

@@ -379,7 +379,7 @@ category: Utilities
   text-align: center !important; }
 
 .wid-indy-w-container {
-  font-family: "ABeeZee", arial, helvetica, sans-serif;
+  font-family: "ABeeZee", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
   font-size: 12px;
   background: #072236;
   padding: 16px;
@@ -404,7 +404,7 @@ category: Utilities
   .wid-indy-w-container .is-shown {
     display: inline-block; }
   .wid-indy-w-container .wid-indy-input {
-    font-family: "ABeeZee", arial, helvetica, sans-serif;
+    font-family: "ABeeZee", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
     display: block;
     height: 35px;
     font-size: 12px;
@@ -461,7 +461,7 @@ category: Utilities
 
 .wid-indy-button {
   background: none;
-  font-family: "ABeeZee", arial, helvetica, sans-serif;
+  font-family: "ABeeZee", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
   font-size: 10.8px;
   color: #ffffff;
   display: inline-flex;
@@ -533,7 +533,7 @@ category: Utilities
     height: 100%;
     position: relative;
     background: none;
-    font-family: "OpenSans", "ABeeZee", arial, helvetica, sans-serif;
+    font-family: "OpenSans", "ABeeZee", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
     font-size: 12px;
     font-weight: 600;
     color: #ffffff; }
@@ -599,12 +599,12 @@ category: Utilities
   font-size: 10.8px;
   text-transform: capitalize;
   font-weight: 700;
-  font-family: "OpenSans", "ABeeZee", arial, helvetica, sans-serif;
+  font-family: "OpenSans", "ABeeZee", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
   margin-top: 8px; }
   .wid-indy-w-powered-link {
     color: #ffffff;
     text-decoration: none;
-    font-family: "JosefinSans", "ABeeZee", arial, helvetica, sans-serif;
+    font-family: "JosefinSans", "ABeeZee", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
     display: flex;
     align-items: center; }
     .wid-indy-w-container--light .wid-indy-w-powered-link {
@@ -661,7 +661,7 @@ category: Utilities
   text-align: center;
   padding: var(--padding-btn-label) 0;
   transform: rotate(var(--rotate-label));
-  font-family: "Open Sans";
+  font-family: "OpenSans", "ABeeZee", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase; }

@@ -417,7 +417,7 @@ $base-btn: '.btn';
     text-align: center;
     padding: var(--padding-btn-label) 0;
     transform: rotate(var(--rotate-label));
-    font-family: "Open Sans";
+    font-family: $font-alternative;
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
