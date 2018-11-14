@@ -476,6 +476,7 @@
        */
     _configure(config);
 
+
     if (typeof userConfig.email === 'undefined') {
       userConfig.email = '';
     }
