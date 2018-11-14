@@ -7,6 +7,12 @@ $ npm i -g npm
 $ npm i --save cm-widget
 ```
 
+Using bower :
+
+```
+$ bower i --save wiym-widget
+```
+
 ## Init the widget
 
 Initialize the widget on all pages you want it :
