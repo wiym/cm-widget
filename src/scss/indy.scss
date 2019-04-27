@@ -41,6 +41,11 @@ $name-base: '.wid-indy';
     display: inline-block;
   }
 
+  .indy-detail {
+    font-size: .85em;
+    color: #a5a4a1;
+    margin-top: 2px;
+  }
 
   #{$name-base}-input {
     font-family: $font-family-base;

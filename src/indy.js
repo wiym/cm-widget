@@ -21,7 +21,8 @@
       labelCapture: 'Send a screenshot',
       tradNegative: 'unsatisfying',
       tradNeutral: 'neutral',
-      tradPositive: 'satisfying'
+      tradPositive: 'satisfying',
+      emailAnonymous: 'Your email will only be used to contact you about your comment. Leave blank if you wish to remain anonymous.'
     },
     fr: {
       panelTitle: 'Feedback produit',
@@ -39,7 +40,8 @@
       labelCapture: 'Envoyer une capture d\'écran',
       tradNegative: 'insatisfaisante',
       tradNeutral: 'neutre',
-      tradPositive: 'satisfaisante'
+      tradPositive: 'satisfaisante',
+      emailAnonymous: 'Votre email sera utilisée uniquement pour vous contacter à propos de votre commentaire. Laisser vide si vous souhaitez rester anonyme.'
     }
   };
 
@@ -101,6 +103,7 @@
       '<label for="email" class="wid-indy-label wid-indy-label--light">#trads:labelEmail#</label>' +
       '<div>' +
       '<input type="email" id="email" class="wid-indy-input wid-indy-email" value="#userConfig.email#">' +
+      '<span class="indy-detail">#trads:emailAnonymous#</span>'+
       '</div>' +
       '</div>' +
       '</div>' +
@@ -109,7 +112,7 @@
       '<span class="wid-indy-button wid-indy-button--success wid-indy-button--small wid-indy-send-feedback">#trads:labelBtnSend#</span>' +
       '</div>' +
       '<div class="wid-indy-w-powered">' +
-      '<a href="https://www.crowdmap.io" class="wid-indy-w-powered-link" title="Powered by Crowdmap" target="_blank">' +
+      '<a href="https://crowdmap.io" class="wid-indy-w-powered-link" title="Powered by Crowdmap" target="_blank">' +
 
       '<svg style="width: 16px; height: 16px; margin-right: 4px;" id="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">' +
       '<defs><style>.cls-4{fill:#011627}.cls-3{fill:#26938c}</style></defs>' +
@@ -421,7 +424,7 @@
     }
     translatedTemplates = translateTemplates(config.language);
 
-    apiUrl = 'https://widget.wiym.io/feedbacks/' + userConfig.team;
+    apiUrl = 'https://widget.crowdmap.io/feedbacks/' + userConfig.team;
     translatedTemplates.popup = translatedTemplates.popup.replace('#userConfig.email#', userConfig.email);
 
   };
@@ -577,10 +580,6 @@
       addClass(gec('wid-indy-w-container'), 'wid-indy-w-container--light');
     }
 
-    if (userConfig.email !== '') {
-      addClass(gec('wid-indy-form-group_email'), 'is-hide');
-    }
-
     addEvent(gec('wid-indy-close-feedback'), 'click', function() {
       addClass(gec('wid-indy-close-feedback'), 'fadeOutDown');
       removeClass(gec('wid-indy-close-feedback'), 'fadeInUp');
@@ -601,18 +600,19 @@
       comment = gec('wid-indy-comment').value;
       email = gec('wid-indy-email').value;
 
-      if (note === '' && comment === '' && email === '') {
+      if(email === '') {
+        email = 'anonymous customer';
+      }
+      console.log(comment, email, note);
+      if (note === '' && comment === '') {
         addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
         addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
-        addClass(gec('wid-indy-email'), 'wid-indy-input--error');
       } else if (note === '') {
         addClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');
       } else if (comment === '') {
         addClass(gec('wid-indy-comment'), 'wid-indy-input--error');
-      } else if (email === '') {
-        addClass(gec('wid-indy-email'), 'wid-indy-input--error');
       } else {
-        if (!validateEmail(email)) {
+        if (email != 'anonymous customer' && !validateEmail(email)) {
           addClass(gec('wid-indy-email'), 'wid-indy-input--error');
           removeClass(gec('wid-indy-comment'), 'wid-indy-input--error');
           removeClass(gec('wid-indy-btn-group'), 'wid-indy-btn-group--error');

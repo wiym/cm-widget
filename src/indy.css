@@ -403,6 +403,10 @@ category: Utilities
     margin-bottom: 8px; }
   .wid-indy-w-container .is-shown {
     display: inline-block; }
+  .wid-indy-w-container .indy-detail {
+    font-size: .85em;
+    color: #a5a4a1;
+    margin-top: 2px; }
   .wid-indy-w-container .wid-indy-input {
     font-family: "ABeeZee", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica;
     display: block;
