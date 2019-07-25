@@ -1,9 +1,13 @@
+
+
 $name-base: '.wid-indy';
 
 @import 'utils/mixins';
 @import 'themes/fonts';
 @import 'themes/variables';
 @import 'utils/utils';
+
+
 
 .wid-indy-w-container {
   font-family: $font-family-base;
@@ -426,5 +430,59 @@ $base-btn: '.btn';
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
+  }
+}
+
+
+#full-stars-example-two {
+
+  /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+  .rating-group {
+    display: inline-flex;
+  }
+
+  /* make hover effect work properly in IE */
+  .rating__icon {
+    pointer-events: none;
+    width: 24px;
+    height: 24px;
+  }
+
+  /* hide radio inputs */
+  .rating__input {
+   position: absolute !important;
+   left: -9999px !important;
+  }
+
+  /* hide 'none' input from screenreaders */
+  .rating__input--none {
+    display: none;
+  }
+
+  /* set icon padding and size */
+  .rating__label {
+    cursor: pointer;
+    padding: 0 0.1em;
+    font-size: 2rem;
+  }
+
+  /* set default star color */
+  .rating__icon--star {
+    fill: orange;
+  }
+
+  /* if any input is checked, make its following siblings grey */
+  .rating__input:checked ~ .rating__label .rating__icon--star {
+    fill: #ddd;
+  }
+
+  /* make all stars orange on rating group hover */
+  .rating-group:hover .rating__label .rating__icon--star {
+    fill: orange;
+  }
+
+  /* make hovered input's following siblings grey on hover */
+  .rating__input:hover ~ .rating__label .rating__icon--star {
+    fill: #ddd;
   }
 }
