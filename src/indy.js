@@ -56,13 +56,17 @@
   var templates = {
     btnPopup: '<div data-html2canvas-ignore data-action="openFeedback" id="feedback-btn" class="wid-indy-button--feedback btn_container" data-y="bottom"><div id="feedback-btn-background" class="btn_background"></div><div class="btn_label" id="feedback-btn-label">#trads:labelBtnPopup#</div></div>',
     //btnPopup: '<span class="wid-indy-button--feedback wid-indy-button--feedback_container"><span class="wid-indy-button--feedback_content"></span></span>',
-    popup: '<div data-html2canvas-ignore data-popup="feedback" id="wid-indy-w-container" class="wid-indy-w-container">' +
+    popup: '<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">'+
+  '<symbol id="star" viewBox="214.7 0 182.6 792">'+
+  '</symbol>' +
+'</svg>'+
+      '<div data-html2canvas-ignore data-popup="feedback" id="wid-indy-w-container" class="wid-indy-w-container">' +
       '<div data-step-feedback="1" class="step-feedback-1">' +
       '<div class="wid-indy-form-group">' +
       '<div class="wid-indy-label wid-indy-label--light">' +
       '#trads:labelNotation#' +
       '</div>' +
-      '<div class="wid-indy-w-sentiment">' +
+      '<div class="wid-indy-w-sentiment is-hide">' +
       '<div class="wid-indy-btn-group">' +
       '<a class="wid-indy-btn-group-item wid-indy-btn-group-item--inactive wid-indy-note wid-indy-note-1" data-input="note" data-note="1" title="#trads:trad5#">' +
       '<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"><g fill="none" fill-rule="evenodd"><circle class="emo-background" cx="12.375" cy="12.375" r="12.375"/><path fill="#5A5A5A" fill-rule="nonzero" d="M20.444 20.444a11.334 11.334 0 0 1-8.068 3.342 11.334 11.334 0 0 1-8.068-3.342 11.334 11.334 0 0 1-3.341-8.068c0-3.048 1.186-5.912 3.341-8.068A11.334 11.334 0 0 1 12.376.967c3.048 0 5.913 1.186 8.068 3.341a11.334 11.334 0 0 1 3.341 8.068c0 3.048-1.186 5.913-3.341 8.068m.683-16.819A12.294 12.294 0 0 0 12.377 0a12.294 12.294 0 0 0-8.752 3.625A12.294 12.294 0 0 0 0 12.376c0 3.306 1.287 6.414 3.625 8.751a12.294 12.294 0 0 0 8.751 3.625c3.306 0 6.414-1.286 8.751-3.625a12.294 12.294 0 0 0 3.625-8.75c0-3.306-1.286-6.414-3.625-8.752m-2.829 9.57H6.454a.484.484 0 0 0-.484.484 6.413 6.413 0 0 0 6.406 6.405 6.413 6.413 0 0 0 6.406-6.405.484.484 0 0 0-.484-.484m-9.866-1.764c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.854 0-1.55.695-1.55 1.55 0 .854.696 1.55 1.55 1.55m7.926 0c.855 0 1.55-.696 1.55-1.55 0-.855-.695-1.55-1.55-1.55-.855 0-1.55.695-1.55 1.55 0 .854.695 1.55 1.55 1.55"/></g></svg>' +
@@ -78,7 +82,59 @@
       '</a>' +
       '</div>' +
       '</div>' +
+      '<div id="full-stars-example-two">'+
+          '<div class="rating-group">'+
+              '<input disabled checked class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">'+
+              '<label aria-label="1 star" class="rating__label" data-note="-2" for="rating3--2">'+
+              '<svg viewBox="0 0 16 16" class="rating__icon rating__icon--star"  width="16" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
+                '<defs>'+
+                  '<path d="M8 0c.448 0 .856.244 1.045.626l1.811 3.633 4.163.598c.428.062.783.344.921.73a1.04 1.04 0 0 1-.268 1.105L12.62 9.64l.708 4.086c.072.412-.113.824-.474 1.065a1.217 1.217 0 0 1-1.225.063L8 12.963l-3.63 1.89a1.214 1.214 0 0 1-1.223-.063 1.063 1.063 0 0 1-.474-1.065l.707-4.086L.33 6.692a1.04 1.04 0 0 1-.27-1.104c.139-.386.494-.669.922-.73l4.164-.6L6.955.627C7.144.244 7.551 0 8 0z" id="a"/>'+
+                '</defs>'+
+                '<use xlink:href="#a" fill-rule="evenodd"/>'+
+              '</svg>'+
+              '</label>'+
+              '<input class="rating__input  rating__input--none" name="rating3" id="rating3--2" value="-2" type="radio">'+
+              '<label aria-label="2 stars" data-note="-1" class="rating__label" for="rating3--1">'+
+              '<svg viewBox="0 0 16 16" class="rating__icon rating__icon--star" width="16" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
+                '<defs>'+
+                  '<path d="M8 0c.448 0 .856.244 1.045.626l1.811 3.633 4.163.598c.428.062.783.344.921.73a1.04 1.04 0 0 1-.268 1.105L12.62 9.64l.708 4.086c.072.412-.113.824-.474 1.065a1.217 1.217 0 0 1-1.225.063L8 12.963l-3.63 1.89a1.214 1.214 0 0 1-1.223-.063 1.063 1.063 0 0 1-.474-1.065l.707-4.086L.33 6.692a1.04 1.04 0 0 1-.27-1.104c.139-.386.494-.669.922-.73l4.164-.6L6.955.627C7.144.244 7.551 0 8 0z" id="a"/>'+
+                '</defs>'+
+                '<use xlink:href="#a" fill-rule="evenodd"/>'+
+              '</svg>'+
+              '</label>'+
+              '<input class="rating__input  rating__input--none" name="rating3" id="rating3--1" value="-1" type="radio">'+
+              '<label aria-label="3 stars" data-note="0" class="rating__label" for="rating3-0">'+
+              '<svg viewBox="0 0 16 16" class="rating__icon rating__icon--star" width="16" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
+                '<defs>'+
+                  '<path d="M8 0c.448 0 .856.244 1.045.626l1.811 3.633 4.163.598c.428.062.783.344.921.73a1.04 1.04 0 0 1-.268 1.105L12.62 9.64l.708 4.086c.072.412-.113.824-.474 1.065a1.217 1.217 0 0 1-1.225.063L8 12.963l-3.63 1.89a1.214 1.214 0 0 1-1.223-.063 1.063 1.063 0 0 1-.474-1.065l.707-4.086L.33 6.692a1.04 1.04 0 0 1-.27-1.104c.139-.386.494-.669.922-.73l4.164-.6L6.955.627C7.144.244 7.551 0 8 0z" id="a"/>'+
+                '</defs>'+
+                '<use xlink:href="#a" fill-rule="evenodd"/>'+
+              '</svg>'+
+              '</label>'+
+              '<input class="rating__input  rating__input--none" name="rating3" id="rating3-0" value="0" type="radio">'+
+              '<label aria-label="4 stars" data-note="1" class="rating__label" for="rating3-1">'+
+              '<svg viewBox="0 0 16 16" class="rating__icon rating__icon--star" width="16" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
+                '<defs>'+
+                  '<path d="M8 0c.448 0 .856.244 1.045.626l1.811 3.633 4.163.598c.428.062.783.344.921.73a1.04 1.04 0 0 1-.268 1.105L12.62 9.64l.708 4.086c.072.412-.113.824-.474 1.065a1.217 1.217 0 0 1-1.225.063L8 12.963l-3.63 1.89a1.214 1.214 0 0 1-1.223-.063 1.063 1.063 0 0 1-.474-1.065l.707-4.086L.33 6.692a1.04 1.04 0 0 1-.27-1.104c.139-.386.494-.669.922-.73l4.164-.6L6.955.627C7.144.244 7.551 0 8 0z" id="a"/>'+
+                '</defs>'+
+                '<use xlink:href="#a" fill-rule="evenodd"/>'+
+              '</svg>'+
+              '</label>'+
+              '<input class="rating__input  rating__input--none" name="rating3" id="rating3-1" value="1" type="radio">'+
+              '<label aria-label="5 stars" data-note="2" class="rating__label" for="rating3-2">'+
+              '<svg viewBox="0 0 16 16" class=" rating__icon rating__icon--star" width="16" height="15" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">'+
+                '<defs>'+
+                  '<path d="M8 0c.448 0 .856.244 1.045.626l1.811 3.633 4.163.598c.428.062.783.344.921.73a1.04 1.04 0 0 1-.268 1.105L12.62 9.64l.708 4.086c.072.412-.113.824-.474 1.065a1.217 1.217 0 0 1-1.225.063L8 12.963l-3.63 1.89a1.214 1.214 0 0 1-1.223-.063 1.063 1.063 0 0 1-.474-1.065l.707-4.086L.33 6.692a1.04 1.04 0 0 1-.27-1.104c.139-.386.494-.669.922-.73l4.164-.6L6.955.627C7.144.244 7.551 0 8 0z" id="a"/>'+
+                '</defs>'+
+                '<use xlink:href="#a" fill-rule="evenodd"/>'+
+              '</svg>'+
+              '</label>'+
+              '<input class="rating__input rating__input--none" name="rating3" id="rating3-2" value="2" type="radio">'+
+              '</div>'+
+            '</div>'+
       '</div>' +
+
+
       '<div class="wid-indy-form-group">' +
       '<label for="comment" class="wid-indy-label wid-indy-label-note wid-indy-label-note-1 wid-indy-label--light is-shown">' +
       '#trads:labelCommentPositif#' +
@@ -221,16 +277,29 @@
     //gec('wid-indy-input-email').focus();
 
     //TODO
-    var notes = gec('wid-indy-note', true);
+    var notes = gec('rating__label', true);
     notes = Array.prototype.slice.call(notes);
 
     notes.map(function(n) {
+
       addEvent(n, 'click', function(e) {
-        note = Number(n.className.match(/wid-indy-note-([\-\d]+)/)[1]);
-        removeAllClass(gec('wid-indy-label-note', true), 'is-shown');
-        addClass(gec('wid-indy-label-note-' + note), 'is-shown');
+        //note = Number(n.className.match(/wid-indy-note-([\-\d]+)/)[1]);
+        note = n.getAttribute('data-note');
+
+        if(note < 0) {
+          removeAllClass(gec('wid-indy-label-note', true), 'is-shown');
+          addClass(gec('wid-indy-label-note--1'), 'is-shown');
+        } else if(note == 0) {
+          removeAllClass(gec('wid-indy-label-note', true), 'is-shown');
+          addClass(gec('wid-indy-label-note-0'), 'is-shown');
+        } else if(note > 0) {
+          removeAllClass(gec('wid-indy-label-note', true), 'is-shown');
+          addClass(gec('wid-indy-label-note-1'), 'is-shown');
+        }
+        //removeAllClass(gec('wid-indy-label-note', true), 'is-shown');
+        /*addClass(gec('wid-indy-label-note-' + note), 'is-shown');
         addClass(gec('wid-indy-note', true), 'wid-indy-btn-group-item--inactive');
-        removeClass(n, 'wid-indy-btn-group-item--inactive');
+        removeClass(n, 'wid-indy-btn-group-item--inactive');*/
       })
     });
 
@@ -242,7 +311,7 @@
     gec('wid-indy-comment').value = '';
     addClass(gec('wid-indy-note-' + note), 'wid-indy-btn-group-item--inactive');
     note = undefined;
-
+    document.getElementById("rating3-none").checked = true;
   };
 
   function actionClosePopup() {
